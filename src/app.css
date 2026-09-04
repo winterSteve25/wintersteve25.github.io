@@ -1,0 +1,136 @@
+/*
+ * Design tokens.
+ *
+ * The whole palette is derived from one number: --accent-hue. Each page sets
+ * it (see PageShell.svelte) and every surface, line, and highlight retunes to
+ * match, so the three pages read as one site without sharing a colour.
+ */
+
+/*
+ * `.theme` repeats the selector rather than nesting because custom properties
+ * are substituted where they are *declared*, not where they are used: a child
+ * that only overrides --accent-hue would inherit an already-resolved --bg. Both
+ * the hue and the palette have to land on the same element, so any element with
+ * `class="theme" style="--accent-hue: 195"` retunes the whole palette.
+ */
+:root,
+.theme {
+	--accent-hue: 305;
+
+	--bg: oklch(0.145 0.014 var(--accent-hue));
+	--bg-raised: oklch(0.195 0.019 var(--accent-hue));
+	--bg-sunken: oklch(0.115 0.012 var(--accent-hue));
+	--line: oklch(0.3 0.025 var(--accent-hue));
+	--line-soft: oklch(0.24 0.018 var(--accent-hue));
+
+	--text: oklch(0.96 0.008 var(--accent-hue));
+	--text-dim: oklch(0.72 0.018 var(--accent-hue));
+	--text-faint: oklch(0.55 0.02 var(--accent-hue));
+
+	--accent: oklch(0.76 0.16 var(--accent-hue));
+	--accent-bright: oklch(0.86 0.13 var(--accent-hue));
+
+	--font-sans:
+		ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Inter, Roboto, Helvetica, Arial,
+		sans-serif;
+	--font-mono:
+		ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+	--step-0: clamp(0.95rem, 0.92rem + 0.15vw, 1.05rem);
+	--step-1: clamp(1.15rem, 1.05rem + 0.4vw, 1.4rem);
+	--step-2: clamp(1.5rem, 1.3rem + 0.9vw, 2.1rem);
+	--step-3: clamp(2.1rem, 1.6rem + 2.4vw, 4rem);
+	--step-4: clamp(2.6rem, 1.7rem + 4.4vw, 6rem);
+
+	--gutter: clamp(1.25rem, 4vw, 3rem);
+	--measure: 62rem;
+
+	--radius: 3px;
+
+	color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--text);
+	font-family: var(--font-sans);
+	font-size: var(--step-0);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+	line-height: 1.05;
+	letter-spacing: -0.02em;
+	margin: 0;
+	font-weight: 650;
+	text-wrap: balance;
+}
+
+p {
+	margin: 0;
+	text-wrap: pretty;
+}
+
+a {
+	color: var(--accent-bright);
+	text-decoration-color: color-mix(in oklch, var(--accent) 45%, transparent);
+	text-underline-offset: 0.2em;
+}
+
+a:hover {
+	text-decoration-color: var(--accent);
+}
+
+canvas {
+	display: block;
+}
+
+/* Metadata, labels, and anything that should read as instrumentation. */
+.mono {
+	font-family: var(--font-mono);
+	font-size: 0.78rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--text-faint);
+}
+
+.shell {
+	width: 100%;
+	max-width: var(--measure);
+	margin-inline: auto;
+	padding-inline: var(--gutter);
+}
+
+.rule {
+	border: 0;
+	border-top: 1px solid var(--line-soft);
+	margin: 0;
+}
+
+:where(button, a, input, summary):focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+	}
+}

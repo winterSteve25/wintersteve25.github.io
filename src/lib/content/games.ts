@@ -1,0 +1,196 @@
+import type { GameProject, PageMeta, ShippedEntry } from './types';
+
+/**
+ * Everything on `/game-dev`. This page's content lives here and nowhere else.
+ *
+ * Astrodescent and Party Lab also have entries in `swe.ts`, written for a
+ * different reader: there they are a renderer and a sandboxed scripting host,
+ * here they are a game and a thing you play with friends. Do not try to share
+ * one object across the two pages — the interesting parts are different.
+ *
+ * Every entry carries a `contribution` breakdown. Keep it specific and keep it
+ * honest — the `collaborators` list is what makes the specific claim credible.
+ */
+export const page: PageMeta = {
+	id: 'game-dev',
+	nav: 'Games',
+	title: 'Game Developer',
+	headline: 'Games you can play in the next ten seconds',
+	intro:
+		'Small games, shipped — jam entries, browser builds, and one going to Steam. I am the programmer on a team: rendering, VFX, physics, and the systems the designers drive. Each project below says exactly which parts are mine.',
+	hue: 45
+	// resume: 'resume-game-dev.pdf',
+	// ogImage: 'og-game-dev.png'
+};
+
+export const projects: GameProject[] = [
+	{
+		slug: 'astrodescent',
+		title: 'Astrodescent',
+		tagline: 'Mine an alien planet, get out before the oxygen does',
+		year: 'Aug 2026 — present',
+		role: 'Programming',
+		engine: 'None — C# on Raylib',
+		tags: ['mining', 'pixel art', 'Steam'],
+		hero: null,
+
+		pitch:
+			'Land on an alien planet, dig for resources, and get back up before your oxygen runs out. Sell what you hauled, buy the upgrade that lets you go deeper, and go again.',
+		// TODO: the itch build is the earlier Unity prototype. Confirm you still
+		// want it linked next to the Steam page, or drop `itchPageUrl`.
+		itchPageUrl: 'https://wintersteve25.itch.io/astrodescent',
+		// TODO: to embed the playable here, open the game's edit page on itch,
+		// enable embedding, and paste the `https://itch.io/embed-upload/...` URL.
+		itchEmbedUrl: undefined,
+		storeUrl: 'https://store.steampowered.com/app/3973750/Astrodescent',
+
+		contribution: [
+			{
+				area: 'Engine',
+				points: [
+					'Built engine-up on Raylib with no game engine underneath — everything below is written for this game rather than configured.'
+				]
+			},
+			{
+				area: 'Rendering',
+				points: [
+					'Custom deferred renderer with dynamic 2D lighting.',
+					'Post-processing chain in GLSL.',
+					'Texture atlasing, and a pixel-font UI system to draw the interface in.'
+				]
+			},
+			{
+				area: 'Physics',
+				points: [
+					'Gameplay physics from scratch: swept AABB tile collision.',
+					'DDA grid raycasting, so mining and tool targeting hit exactly the tile you are pointing at.'
+				]
+			},
+			{
+				area: 'Content & world',
+				points: [
+					'Data-driven content registry for tiles, items, biomes, and planets, so new content is data rather than code.',
+					'Procedural planet generation with Perlin noise and Poisson-disc feature placement, so features spread out instead of clumping.'
+				]
+			}
+		],
+		// TODO: confirm the name and link — itch credits `felixrl` as the other
+		// author on the prototype. Ask before shipping a public credit line.
+		collaborators: [
+			{
+				who: 'felixrl',
+				what: 'All art and visual direction — sprites, tilesets, and the pixel-art look.',
+				url: 'https://felixrl.itch.io'
+			}
+		]
+	},
+
+	{
+		slug: 'sand-of-souls',
+		title: 'Sand of Souls',
+		tagline: 'A topdown survivor shooter where your health and your ammo are the same hourglass',
+		year: 'Jul 2026',
+		role: 'VFX and gameplay programming',
+		engine: 'Godot',
+		teamSize: '19',
+		duration: '4 days',
+		tags: ['GMTK 2026', 'game jam', 'survivor shooter'],
+		hero: null,
+
+		pitch:
+			'Spending ammo spends your health, because the same draining hourglass is both. Built in four days with a team of nineteen for GMTK Game Jam 2026, against 10,600+ other entries.',
+		itchPageUrl: 'https://patrickzhou45.itch.io/sand-of-souls',
+		itchEmbedUrl: undefined, // TODO: ask the page owner for the embed URL
+
+		contribution: [
+			{
+				area: 'VFX (GLSL)',
+				points: [
+					'Enemy disintegration on death.',
+					'Screen-space vignette and desaturation as the hourglass drains.',
+					'Bloom, muzzle flashes, and projectile trails.'
+				]
+			},
+			{
+				area: 'Gameplay',
+				points: [
+					'Enemy archetypes, and the wave-based difficulty scaler that introduces them.'
+				]
+			},
+			{
+				area: 'UI',
+				points: ['The full menu and HUD flow, including its animations.']
+			}
+		],
+		collaborators: [
+			{
+				who: 'The other 18 people on the team',
+				what: 'Design, art, audio, and the rest of the gameplay code — this was a jam team, and the parts above are the ones I own.'
+			}
+		]
+	},
+
+	{
+		slug: 'party-lab',
+		title: 'Party Lab',
+		tagline: 'A hub for multiplayer party games, where a new game is a Lua script',
+		year: 'Jul 2024 — Dec 2024',
+		role: 'Solo',
+		engine: 'None — C++ on Raylib',
+		duration: '6 months',
+		tags: ['multiplayer', 'modding', 'Steam'],
+		hero: null,
+
+		pitch:
+			'Get everyone into one lobby and play short games without leaving it. Each game is a Lua module the hub loads at runtime, so anyone can write a new one without touching the engine or shipping a build.',
+		repoUrl: 'https://github.com/winterSteve25/PartyLab',
+
+		contribution: [
+			{
+				area: 'Framework',
+				points: [
+					'The whole thing, solo, in C++ on Raylib.',
+					'A declarative UI API that games lay themselves out through, rather than positioning anything by hand.'
+				]
+			},
+			{
+				area: 'Scripting',
+				points: [
+					'Lua modules run in a sol2 sandbox, so modded modes load at runtime and cannot reach the host.'
+				]
+			},
+			{
+				area: 'Networking',
+				points: [
+					"Multiplayer on Valve's GameNetworkingSockets.",
+					'Steam friend invites and leaderboards, so a lobby starts from the friends list.'
+				]
+			}
+		]
+	}
+];
+
+/**
+ * Smaller shipped things. Listed rather than written up — the point is that
+ * they exist, they were finished, and they are playable right now.
+ */
+export const alsoShipped: ShippedEntry[] = [
+	{
+		title: 'LoopBound',
+		blurb:
+			'Your bullets loop around the edge of a shrinking arena and come back at you. Kill enemies to widen it.',
+		url: 'https://wintersteve25.itch.io/loopbound'
+	},
+	{
+		title: 'Bingo Spree',
+		blurb: 'Help Jimmy go shopping on a Black Friday.',
+		url: 'https://tgedev.itch.io/bingo-spree',
+		context: 'Brackeys Game Jam 2024.2'
+	},
+	{
+		title: 'Biometrics',
+		blurb: 'A sci-fi dungeon crawler set inside a simulation that insists none of it is real.',
+		url: 'https://wintersteve25.itch.io/biometrics',
+		context: 'Brackeys Game Jam 2022.1'
+	}
+];
