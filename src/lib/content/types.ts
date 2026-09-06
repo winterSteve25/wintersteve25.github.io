@@ -4,7 +4,7 @@ export interface PageMeta {
 	id: PageId;
 	nav: string;
 	title: string;
-	headline: string;
+	headline?: string;
 	intro: string;
 	hue: number;
 	resume?: string;

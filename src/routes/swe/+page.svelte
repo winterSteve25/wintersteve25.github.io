@@ -5,7 +5,14 @@
 
 </script>
 
-<PageShell {page}>
+{#snippet intro()}
+	CS @ UBC. Currently working on <a href="https://trymyelin.app/" rel="noreferrer"
+		>Myelin Notes</a
+	>, a cross-platform note-taking and knowledge management app. Working in TypeScript, Rust,
+	and WebAssembly.
+{/snippet}
+
+<PageShell {page} {intro}>
 	<section class="band">
 		<h2 class="mono band-title">Experience</h2>
 		{#each experience as job (job.company)}

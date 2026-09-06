@@ -4,9 +4,8 @@ export const page: PageMeta = {
 	id: 'swe',
 	nav: 'Software',
 	title: 'Software Engineer',
-	headline: 'Systems, tools, and things that have to hold up',
 	intro:
-		'CS at UBC, currently shipping Rust and WASM at Diffchecker. Most of what I build is close to the metal by choice — a document renderer, a note-taking app that runs its own embedding and speech models on-device, a 2D engine written without an engine.',
+		'CS @ UBC. Currently working on Myelin Notes, a cross-platform note-taking and knowledge management app. Working in TypeScript, Rust, and WebAssembly.',
 	hue: 195,
 	resume: 'resume-swe.pdf'
 	// TODO: add an OG image to `static/`, then set `ogImage`.

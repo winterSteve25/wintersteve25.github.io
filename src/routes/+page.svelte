@@ -20,8 +20,15 @@
 	<header class="shell hero">
 		<div class="words">
 			<h1>{profile.name}</h1>
-			<p class="headline">{profile.landingHeadline}</p>
-			<p class="blurb">{profile.blurb}</p>
+			<p class="headline">Software engineer and<br />game&nbsp;developer</p>
+			<p class="blurb">
+				CS @ UBC<br />
+				Currently working on <a href="https://trymyelin.app/" rel="noreferrer">Myelin Notes</a>
+				and
+				<a href="https://store.steampowered.com/app/3973750/Astrodescent" rel="noreferrer"
+					>Astrodescent</a
+				>
+			</p>
 		</div>
 		<div class="canvas">
 			<ShaderCanvas
@@ -39,7 +46,7 @@
 				<li class="theme" style="--accent-hue: {p.hue}">
 					<a href={pageHref(p.id)}>
 						<span class="title">{p.title}</span>
-						<span class="blurb">{p.headline}</span>
+						{#if p.headline}<span class="blurb">{p.headline}</span>{/if}
 						<span class="cta mono">Open &rarr;</span>
 					</a>
 				</li>

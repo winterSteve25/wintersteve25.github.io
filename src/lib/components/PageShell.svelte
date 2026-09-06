@@ -9,13 +9,14 @@
 	interface Props {
 		page: PageMeta;
 		children: Snippet;
+		intro?: Snippet;
 	}
-	let { page, children }: Props = $props();
+	let { page, children, intro }: Props = $props();
 </script>
 
 <Seo
 	title="{profile.name} — {page.title}"
-	description={page.headline}
+	description={page.headline ?? page.intro}
 	ogImage={page.ogImage}
 />
 
@@ -27,8 +28,10 @@
 	<header class="shell masthead">
 		<p class="mono role">{page.title}</p>
 		<h1>{profile.name}</h1>
-		<p class="headline">{page.headline}</p>
-		<p class="intro">{page.intro}</p>
+		{#if page.headline}<p class="headline">{page.headline}</p>{/if}
+		<p class="intro">
+			{#if intro}{@render intro()}{:else}{page.intro}{/if}
+		</p>
 
 		<div class="actions">
 			<a href="mailto:{profile.email}">{profile.email}</a>
