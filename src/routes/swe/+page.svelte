@@ -6,7 +6,7 @@
 </script>
 
 {#snippet intro()}
-	CS @ UBC. Currently working on <a href="https://trymyelin.app/" rel="noreferrer"
+	CS @ UBC. Currently working on <a href="https://trymyelin.app/" target="_blank" rel="noreferrer"
 		>Myelin Notes</a
 	>, a cross-platform note-taking and knowledge management app. Working in TypeScript, Rust,
 	and WebAssembly.
@@ -21,7 +21,7 @@
 					<h3>
 						{job.role} <span class="at">at</span>
 						{#if job.url}
-							<a href={job.url} rel="noreferrer">{job.company}</a>
+							<a href={job.url} target="_blank" rel="noreferrer">{job.company}</a>
 						{:else}
 							{job.company}
 						{/if}
@@ -54,10 +54,10 @@
 						{#if project.siteUrl || project.repoUrl}
 							<p class="links">
 								{#if project.siteUrl}
-									<a href={project.siteUrl} rel="noreferrer">Visit &rarr;</a>
+									<a href={project.siteUrl} target="_blank" rel="noreferrer">Visit &rarr;</a>
 								{/if}
 								{#if project.repoUrl}
-									<a href={project.repoUrl} rel="noreferrer">Source on GitHub &rarr;</a>
+									<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub &rarr;</a>
 								{/if}
 							</p>
 						{/if}

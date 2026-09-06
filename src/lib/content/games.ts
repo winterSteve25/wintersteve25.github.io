@@ -4,9 +4,8 @@ export const page: PageMeta = {
 	id: 'game-dev',
 	nav: 'Games',
 	title: 'Game Developer',
-	headline: 'Games you can play in the next ten seconds',
 	intro:
-		'Small games, shipped — jam entries, browser builds, and one going to Steam. I am the programmer on a team: rendering, VFX, physics, and the systems the designers drive. Each project below says exactly which parts are mine.',
+		'CS @ UBC. Currently working on Astrodescent, a 2D incremental mining game launching on Steam this year. I like building gameplay systems, VFX, computer graphics related features, and the custom tools that make development smoother.',
 	hue: 45,
 	resume: 'resume-game-dev.pdf'
 };
@@ -24,10 +23,17 @@ export const projects: GameProject[] = [
 
 		pitch:
 			'Land on an alien planet, dig for resources, and get back up before your oxygen runs out. Sell what you hauled, buy the upgrade that lets you go deeper, and go again.',
-		// TODO: confirm the earlier Unity prototype should stay linked next to the Steam page.
 		itchPageUrl: 'https://wintersteve25.itch.io/astrodescent',
-		// TODO: enable embedding on itch and add the `https://itch.io/embed-upload/...` URL.
-		itchEmbedUrl: undefined,
+		itchEmbedUrl: 'https://itch.io/embed-upload/14823388?color=AD9B89',
+		// The Unity export hardcodes a 960x600 canvas with a 38px footer. The outer
+		// itch frame adds a 1px top edge, 1px side edges, and its own 20px footer.
+		itchEmbedWidth: 962,
+		itchEmbedHeight: 659,
+		itchEmbedColor: '#AD9B89',
+		hideItchFullscreen: true,
+		controls: 'WASD to move · mouse to look and interact · E for inventory',
+		playableBuildNote:
+			'The original game jam prototype below was built in Unity, with art and visual direction by felixrl. The current Steam release is a substantially expanded C# and Raylib rewrite developed with a new collaborator.',
 		storeUrl: 'https://store.steampowered.com/app/3973750/Astrodescent',
 
 		contribution: [
@@ -60,11 +66,10 @@ export const projects: GameProject[] = [
 				]
 			}
 		],
-		// TODO: confirm the `felixrl` name and link before shipping the public credit.
 		collaborators: [
 			{
 				who: 'felixrl',
-				what: 'All art and visual direction — sprites, tilesets, and the pixel-art look.',
+				what: 'Art and visual direction for the original Unity game jam prototype.',
 				url: 'https://felixrl.itch.io'
 			}
 		]
@@ -85,7 +90,9 @@ export const projects: GameProject[] = [
 		pitch:
 			'Spending ammo spends your health, because the same draining hourglass is both. Built in four days with a team of nineteen for GMTK Game Jam 2026, against 10,600+ other entries.',
 		itchPageUrl: 'https://patrickzhou45.itch.io/sand-of-souls',
-		itchEmbedUrl: undefined, // TODO: ask the page owner for the embed URL
+		itchEmbedUrl: 'https://itch.io/embed-upload/18705654?color=333333',
+		itchEmbedWidth: 1280,
+		itchEmbedHeight: 740,
 
 		contribution: [
 			{

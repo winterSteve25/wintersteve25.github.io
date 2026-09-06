@@ -104,6 +104,27 @@ export const projects: SystemProject[] = [
 	},
 
 	{
+		slug: 'tau',
+		title: 'Tau',
+		tagline: 'Flutter-like UI composition for Minecraft Forge',
+		year: 'Apr 2023 — Dec 2024',
+		role: 'Solo',
+		tags: ['Java', 'Minecraft Forge', 'UI library', 'open source'],
+		hero: null,
+
+		summary:
+			'An open-source UI library for Minecraft Forge that replaces the usual GUI workflow with composable, Flutter-inspired components. Tau supports responsive layouts, screens and HUDs, theming, and custom widgets.',
+		stack: ['Java', 'Minecraft Forge', 'Gradle'],
+		siteUrl: 'https://mc-tau-ui.github.io/',
+		repoUrl: 'https://github.com/mc-tau-ui/Tau',
+		contributions: [
+			'Designed a declarative component API for building readable, maintainable Minecraft interfaces.',
+			'Built separate renderers for screens and HUD overlays on top of Minecraft UI primitives.',
+			'Created an extensible widget, layout, and theming architecture, along with documentation and starter templates.'
+		]
+	},
+
+	{
 		slug: 'astrodescent',
 		title: 'Astrodescent',
 		tagline: 'A 2D game engine, written because the game needed one',

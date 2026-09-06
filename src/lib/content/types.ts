@@ -67,7 +67,12 @@ export interface GameProject extends ProjectBase {
 	pitch: string;
 	engine: string;
 	itchEmbedUrl?: string;
+	itchEmbedWidth?: number;
+	itchEmbedHeight?: number;
+	itchEmbedColor?: string;
+	hideItchFullscreen?: boolean;
 	itchPageUrl?: string;
+	playableBuildNote?: string;
 	storeUrl?: string;
 	repoUrl?: string;
 	controls?: string;

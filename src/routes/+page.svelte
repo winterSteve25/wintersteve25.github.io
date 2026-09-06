@@ -23,9 +23,9 @@
 			<p class="headline">Software engineer and<br />game&nbsp;developer</p>
 			<p class="blurb">
 				CS @ UBC<br />
-				Currently working on <a href="https://trymyelin.app/" rel="noreferrer">Myelin Notes</a>
+				Currently working on <a href="https://trymyelin.app/" target="_blank" rel="noreferrer">Myelin Notes</a>
 				and
-				<a href="https://store.steampowered.com/app/3973750/Astrodescent" rel="noreferrer"
+				<a href="https://store.steampowered.com/app/3973750/Astrodescent" target="_blank" rel="noreferrer"
 					>Astrodescent</a
 				>
 			</p>
@@ -44,7 +44,7 @@
 		<ul>
 			{#each pages as p (p.id)}
 				<li class="theme" style="--accent-hue: {p.hue}">
-					<a href={pageHref(p.id)}>
+					<a href={pageHref(p.id)} target="_blank" rel="noreferrer">
 						<span class="title">{p.title}</span>
 						{#if p.headline}<span class="blurb">{p.headline}</span>{/if}
 						<span class="cta mono">Open &rarr;</span>
@@ -58,9 +58,9 @@
 		<div class="foot">
 			<p class="mono">{profile.location}</p>
 			<ul>
-				<li><a href="mailto:{profile.email}">{profile.email}</a></li>
+				<li><a href="mailto:{profile.email}" target="_blank" rel="noreferrer">{profile.email}</a></li>
 				{#each profile.links as link (link.label)}
-					<li><a href={link.href} rel="noreferrer">{link.label}</a></li>
+					<li><a href={link.href} target="_blank" rel="noreferrer">{link.label}</a></li>
 				{/each}
 			</ul>
 		</div>

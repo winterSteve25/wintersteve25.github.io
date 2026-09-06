@@ -34,12 +34,12 @@
 		</p>
 
 		<div class="actions">
-			<a href="mailto:{profile.email}">{profile.email}</a>
+			<a href="mailto:{profile.email}" target="_blank" rel="noreferrer">{profile.email}</a>
 			{#if page.resume}
-				<a href={staticHref(page.resume)}>Resume (PDF)</a>
+				<a href={staticHref(page.resume)} target="_blank" rel="noreferrer">Resume (PDF)</a>
 			{/if}
 			{#each profile.links as link (link.label)}
-				<a href={link.href} rel="noreferrer">{link.label}</a>
+				<a href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
 			{/each}
 		</div>
 	</header>
@@ -52,7 +52,7 @@
 		<hr class="rule" />
 		<div class="foot">
 			<p class="mono">{profile.name} · {profile.location}</p>
-			<p><a href="mailto:{profile.email}">{profile.email}</a></p>
+			<p><a href="mailto:{profile.email}" target="_blank" rel="noreferrer">{profile.email}</a></p>
 		</div>
 	</footer>
 </div>

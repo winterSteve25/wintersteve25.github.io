@@ -20,9 +20,16 @@
 
 			<Playable
 				embedUrl={project.itchEmbedUrl}
+				embedWidth={project.itchEmbedWidth}
+				embedHeight={project.itchEmbedHeight}
+				embedColor={project.itchEmbedColor}
+				hideItchFullscreen={project.hideItchFullscreen}
 				controls={project.controls}
 				title={project.title}
 			/>
+			{#if project.playableBuildNote}
+				<p class="playable-note">{project.playableBuildNote}</p>
+			{/if}
 
 			<p class="pitch">{project.pitch}</p>
 
@@ -31,13 +38,13 @@
 			{#if project.storeUrl || project.itchPageUrl || project.repoUrl}
 				<p class="links">
 					{#if project.storeUrl}
-						<a href={project.storeUrl} rel="noreferrer">Steam page &rarr;</a>
+						<a href={project.storeUrl} target="_blank" rel="noreferrer">Steam page &rarr;</a>
 					{/if}
 					{#if project.itchPageUrl}
-						<a href={project.itchPageUrl} rel="noreferrer">Play on itch.io &rarr;</a>
+						<a href={project.itchPageUrl} target="_blank" rel="noreferrer">Play on itch.io &rarr;</a>
 					{/if}
 					{#if project.repoUrl}
-						<a href={project.repoUrl} rel="noreferrer">Source on GitHub &rarr;</a>
+						<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub &rarr;</a>
 					{/if}
 				</p>
 			{/if}
@@ -68,7 +75,7 @@
 							<li>
 								<span class="who">
 									{#if person.url}
-										<a href={person.url} rel="noreferrer">{person.who}</a>
+										<a href={person.url} target="_blank" rel="noreferrer">{person.who}</a>
 									{:else}
 										{person.who}
 									{/if}
@@ -96,7 +103,7 @@
 			<ul>
 				{#each alsoShipped as entry (entry.url)}
 					<li>
-						<a href={entry.url} rel="noreferrer">{entry.title}</a>
+						<a href={entry.url} target="_blank" rel="noreferrer">{entry.title}</a>
 						{#if entry.context}<span class="mono context">{entry.context}</span>{/if}
 						<p>{entry.blurb}</p>
 					</li>
@@ -129,6 +136,12 @@
 		color: var(--text-dim);
 		font-size: var(--step-1);
 		max-width: 46ch;
+	}
+
+	.playable-note {
+		color: var(--text-dim);
+		font-size: var(--step--1);
+		margin: -0.5rem 0 0;
 	}
 
 	.pitch {
