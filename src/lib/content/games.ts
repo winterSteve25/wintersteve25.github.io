@@ -78,7 +78,7 @@ export const projects: GameProject[] = [
 	{
 		slug: 'party-lab',
 		title: 'Party Lab',
-		tagline: 'A hub for multiplayer party games, where a new game is a Lua script',
+		tagline: 'A hub for lua-based multiplayer party games like Jackbox',
 		year: 'Jul 2024 — Dec 2024',
 		role: 'Solo',
 		engine: 'None — C++ on Raylib',

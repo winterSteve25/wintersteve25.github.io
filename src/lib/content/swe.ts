@@ -151,7 +151,6 @@ export const projects: SystemProject[] = [
 		tagline: 'A Lua-scriptable engine and hub for multiplayer party games',
 		year: 'Jul 2024 — Dec 2024',
 		role: 'Solo',
-		duration: '6 months',
 		tags: ['C++', 'Lua', 'networking', 'sandboxing'],
 		hero: null,
 

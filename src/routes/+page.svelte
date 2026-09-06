@@ -1,13 +1,9 @@
 <script lang="ts">
 	import Seo from '$lib/components/Seo.svelte';
-	import ShaderCanvas from '$lib/components/ShaderCanvas.svelte';
 	import SiteNav from '$lib/components/SiteNav.svelte';
 	import { pages } from '$lib/content/pages';
 	import { profile } from '$lib/content/profile';
 	import { pageHref } from '$lib/routes';
-	import dissolveFrag from '$lib/shaders/dissolve.frag.glsl?raw';
-
-	const heroUniforms = { u_layer: 0, u_threshold: 0.5, u_edge: 0.07, u_distort: 0.14 };
 </script>
 
 <Seo title={profile.name} description={profile.landingHeadline} />
@@ -30,12 +26,13 @@
 				>
 			</p>
 		</div>
-		<div class="canvas">
-			<ShaderCanvas
-				frag={dissolveFrag}
-				uniforms={heroUniforms}
-				dprCap={1.5}
-				label="Live shader — dissolve study"
+		<div class="portrait">
+			<img
+				src="/profile.jpg"
+				alt="Caden Zhang sitting on stone steps outdoors"
+				width="1200"
+				height="1600"
+				fetchpriority="high"
 			/>
 		</div>
 	</header>
@@ -112,12 +109,30 @@
 		margin-top: 0.35rem;
 	}
 
-	.canvas {
-		aspect-ratio: 4 / 3;
+	.portrait {
+		aspect-ratio: 1;
 		border: 1px solid var(--line-soft);
 		border-radius: var(--radius);
 		background: var(--bg-sunken);
 		overflow: hidden;
+	}
+
+	.portrait img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 48%;
+	}
+
+	@media (max-width: 44rem) {
+		.portrait {
+			aspect-ratio: 4 / 5;
+		}
+
+		.portrait img {
+			object-position: 50% 50%;
+		}
 	}
 
 	.directory ul {

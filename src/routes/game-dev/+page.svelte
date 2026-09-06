@@ -10,11 +10,34 @@
 			.join(' · ');
 </script>
 
-<PageShell {page}>
+{#snippet intro()}
+	CS @ UBC. Currently working on <a href="https://store.steampowered.com/app/3973750/Astrodescent" target="_blank" rel="noreferrer">Astrodescent</a>, 
+	a 2D incremental mining game launching on Steam this year. 
+	I like building gameplay systems, VFX, computer graphics related features, 
+	and the custom tools that make development smoother.
+{/snippet}
+
+
+<PageShell {page} {intro}>
 	{#each projects as project (project.slug)}
 		<article class="game">
 			<header>
-				<h2>{project.title}</h2>
+				<div class="title">
+					<h2>{project.title}</h2>
+					{#if project.storeUrl || project.itchPageUrl || project.repoUrl}
+						<p class="links">
+							{#if project.storeUrl}
+								<a href={project.storeUrl} target="_blank" rel="noreferrer">Steam page &rarr;</a>
+							{/if}
+							{#if project.itchPageUrl}
+								<a href={project.itchPageUrl} target="_blank" rel="noreferrer">Play on itch.io &rarr;</a>
+							{/if}
+							{#if project.repoUrl}
+								<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub &rarr;</a>
+							{/if}
+						</p>
+					{/if}
+				</div>
 				<p class="tagline">{project.tagline}</p>
 			</header>
 
@@ -36,20 +59,6 @@
 			<p class="pitch">{project.pitch}</p>
 
 			<p class="mono facts">{facts(project)}</p>
-
-			{#if project.storeUrl || project.itchPageUrl || project.repoUrl}
-				<p class="links">
-					{#if project.storeUrl}
-						<a href={project.storeUrl} target="_blank" rel="noreferrer">Steam page &rarr;</a>
-					{/if}
-					{#if project.itchPageUrl}
-						<a href={project.itchPageUrl} target="_blank" rel="noreferrer">Play on itch.io &rarr;</a>
-					{/if}
-					{#if project.repoUrl}
-						<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub &rarr;</a>
-					{/if}
-				</p>
-			{/if}
 
 			<section class="breakdown">
 				<h3 class="mono">What I did</h3>
@@ -116,6 +125,13 @@
 </PageShell>
 
 <style>
+	.title {
+		display: flex;
+		flex-direction: row;
+		align-items: end;
+		gap: 1rem;
+	}
+
 	.game {
 		display: flex;
 		flex-direction: column;
@@ -158,8 +174,12 @@
 	.links {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1.25rem;
+		gap: 0.5rem;
 		font-size: 0.92rem;
+	}
+
+	.breakdown {
+		margin-top: 2rem;
 	}
 
 	.breakdown h3,
@@ -208,6 +228,10 @@
 
 	.area li::marker {
 		color: var(--accent);
+	}
+
+	.people {
+		margin-top: 2rem;
 	}
 
 	.people ul {
