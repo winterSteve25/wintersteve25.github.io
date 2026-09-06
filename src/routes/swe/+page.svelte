@@ -1,7 +1,7 @@
 <script lang="ts">
 	import PageShell from '$lib/components/PageShell.svelte';
-	import SystemsDiagram from '$lib/components/SystemsDiagram.svelte';
 	import { education, experience, page, projects, skills } from '$lib/content/swe';
+	import { staticHref } from '$lib/routes';
 
 </script>
 
@@ -49,7 +49,19 @@
 		{#each projects as project (project.slug)}
 			<article class="project">
 				<header>
-					<h3>{project.title}</h3>
+					<div class="project-heading">
+						<h3>{project.title}</h3>
+						{#if project.siteUrl || project.repoUrl}
+							<p class="links">
+								{#if project.siteUrl}
+									<a href={project.siteUrl} rel="noreferrer">Visit &rarr;</a>
+								{/if}
+								{#if project.repoUrl}
+									<a href={project.repoUrl} rel="noreferrer">Source on GitHub &rarr;</a>
+								{/if}
+							</p>
+						{/if}
+					</div>
 					<p class="tagline">{project.tagline}</p>
 
 					<dl class="meta">
@@ -70,35 +82,45 @@
 					{/each}
 				</ul>
 
-				<p class="summary">{project.summary}</p>
+				<div class="project-body" class:with-screenshot={project.screenshots?.length}>
+					<div class="project-copy">
+						<p class="summary">{project.summary}</p>
 
-				{#if project.systems.length}
-					<SystemsDiagram nodes={project.systems} />
-				{/if}
-
-				{#if project.excerpt}
-					<figure class="excerpt">
-						<figcaption>{project.excerpt.caption}</figcaption>
-						<pre><code>{project.excerpt.code}</code></pre>
-					</figure>
-				{/if}
-
-				<ul class="bullets">
-					{#each project.contributions as item (item)}
-						<li>{item}</li>
-					{/each}
-				</ul>
-
-				{#if project.siteUrl || project.repoUrl}
-					<p class="links">
-						{#if project.siteUrl}
-							<a href={project.siteUrl} rel="noreferrer">Visit &rarr;</a>
+						{#if project.excerpt}
+							<figure class="excerpt">
+								<figcaption>{project.excerpt.caption}</figcaption>
+								<pre><code>{project.excerpt.code}</code></pre>
+							</figure>
 						{/if}
-						{#if project.repoUrl}
-							<a href={project.repoUrl} rel="noreferrer">Source on GitHub &rarr;</a>
-						{/if}
-					</p>
-				{/if}
+
+						<ul class="bullets">
+							{#each project.contributions as item (item)}
+								<li>{item}</li>
+							{/each}
+						</ul>
+					</div>
+
+					{#if project.screenshots?.length}
+						<div class="screenshot-gallery">
+							{#each project.screenshots as screenshot (screenshot.src)}
+								<figure class="screenshot">
+									<a
+										href={staticHref(screenshot.src)}
+										target="_blank"
+										rel="noreferrer"
+										aria-label="Open {screenshot.caption ?? 'screenshot'} full size"
+									>
+										<img src={staticHref(screenshot.src)} alt={screenshot.alt} />
+									</a>
+									{#if screenshot.caption}
+										<figcaption>{screenshot.caption}</figcaption>
+									{/if}
+								</figure>
+							{/each}
+						</div>
+					{/if}
+				</div>
+
 			</article>
 		{/each}
 	</section>
@@ -173,6 +195,13 @@
 		font-size: var(--step-2);
 	}
 
+	.project-heading {
+		display: flex;
+		align-items: baseline;
+		flex-wrap: wrap;
+		gap: 0.25rem 0.75rem;
+	}
+
 	.at {
 		color: var(--text-faint);
 		font-weight: 400;
@@ -185,7 +214,7 @@
 	.tagline {
 		color: var(--text-dim);
 		font-size: var(--step-1);
-		max-width: 48ch;
+		max-width: none;
 	}
 
 	.meta {
@@ -207,7 +236,54 @@
 	}
 
 	.summary {
-		max-width: 62ch;
+		max-width: none;
+	}
+
+	.project-body {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.project-body.with-screenshot {
+		grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.9fr);
+		align-items: start;
+	}
+
+	.screenshot-gallery {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.screenshot {
+		margin: 0;
+		border: 1px solid var(--line-soft);
+		border-radius: var(--radius);
+		background: var(--bg-sunken);
+		overflow: hidden;
+	}
+
+	.screenshot img {
+		display: block;
+		width: 100%;
+		height: auto;
+		transition: opacity 140ms;
+	}
+
+	.screenshot a:hover img {
+		opacity: 0.82;
+	}
+
+	.screenshot figcaption {
+		padding: 0.8rem 1.15rem;
+		border-top: 1px solid var(--line-soft);
+		color: var(--text-dim);
+		font-size: 0.9rem;
+	}
+
+	@media (max-width: 48rem) {
+		.project-body.with-screenshot {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	.stack {
@@ -232,7 +308,7 @@
 		display: grid;
 		gap: 0.45rem;
 		color: var(--text-dim);
-		max-width: 68ch;
+		max-width: none;
 	}
 
 	.bullets li::marker {

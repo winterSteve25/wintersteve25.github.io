@@ -64,28 +64,41 @@ export const projects: SystemProject[] = [
 	{
 		slug: 'myelin-notes',
 		title: 'Myelin Notes',
-		tagline: 'Goodnotes and Obsidian in one app, with the models running on your machine',
+		tagline: 'Handwriting, typing, and PDFs. One note, live synced across your devices.',
 		year: 'Dec 2024 — present',
 		role: 'Solo',
 		tags: ['Tauri', 'Rust', 'on-device ML', 'shipped'],
 		hero: null,
 
 		summary:
-			'A cross-platform note-taking and knowledge-management app, shipped through 13 public releases on automated GitHub Actions pipelines. Everything that would normally be an API call — embeddings, speech-to-text — runs locally instead, which is the constraint the whole backend is designed around.',
-		stack: ['React', 'TypeScript', 'Tauri', 'Rust', 'Candle', 'whisper.cpp'],
-		systems: [
-			{ id: 'vault', label: 'Note vault', to: ['watch'] },
-			{ id: 'watch', label: 'Change watcher (debounced)', to: ['queue'] },
-			{ id: 'queue', label: 'Index queue (bounded, staleness-hashed)', to: ['embed'] },
-			{ id: 'embed', label: 'all-MiniLM-L6-v2 via Candle', to: ['index'] },
-			{ id: 'index', label: 'Vector index', to: ['search'] },
-			{ id: 'search', label: 'Semantic search', to: [] }
+			'A cross-platform note-taking and knowledge-management app built around an infinite canvas: write by hand, type alongside ink, embed PDFs and images, and organize work into notebooks, pages, folders, and tags. It includes backlinks and a graph view, handwriting-aware search, live peer sync across devices, GitHub and Google Drive repository sync, and live audio transcription. Shipped through 13 public releases on automated GitHub Actions pipelines.',
+		stack: ['React', 'TypeScript', 'Tauri', 'Rust'],
+		screenshots: [
+			{
+				src: 'myelin-library.png',
+				alt: 'Myelin Notes library showing folders, tags, and recently opened canvases.',
+				caption: 'Library'
+			},
+			{
+				src: 'myelin-graph.png',
+				alt: 'Myelin Notes graph view showing connections between notes.',
+				caption: 'Note graph'
+			},
+			{
+				src: 'myelin-pdf.png',
+				alt: 'Myelin Notes canvas with an annotated PDF.',
+				caption: 'PDF workspace'
+			}
 		],
-		// TODO: add a short annotated excerpt of the staleness hash check or VAD gate.
+		// TODO: add a short annotated excerpt of the staleness hash check.
 		siteUrl: 'https://trymyelin.app/',
 		contributions: [
+			'Built the infinite canvas editor for handwriting, typed text, embedded PDFs and images, Markdown page frames, and LaTeX content.',
+			'Built import and export pipelines for Goodnotes, Obsidian, OneNote, Markdown, PDFs, and workspace JSON.',
+			'Implemented live peer sync across devices with iroh, plus repository sync through GitHub and Google Drive OAuth clients.',
+			'Built backlinks, a note graph view, hierarchical tags, and search across notes and recognized handwriting.',
 			'Implemented on-device semantic search by running the all-MiniLM-L6-v2 embedding model locally with Candle, backed by a background indexing engine with debouncing, bounded concurrency, and staleness hashing.',
-			'Built live audio transcription of streamed microphone input with whisper.cpp, using a quantized model, voice-activity detection, and optional Vulkan GPU acceleration with a CPU fallback.',
+			'Built live audio transcription of streamed microphone input with whisper.cpp, using a quantized model and optional Vulkan GPU acceleration with a CPU fallback.',
 			'Shipped 13 public releases through automated GitHub Actions build and release pipelines.'
 		]
 	},
@@ -102,14 +115,6 @@ export const projects: SystemProject[] = [
 		summary:
 			'A 2D space mining game shipping on Steam, built engine-up on Raylib with no game engine underneath it. That decision is the interesting part: everything a commercial engine would have handed over — the renderer, the lighting, the collision, the content pipeline — is written here.',
 		stack: ['C#', 'Raylib', 'GLSL', 'Steamworks'],
-		systems: [
-			{ id: 'registry', label: 'Content registry', to: ['worldgen'] },
-			{ id: 'worldgen', label: 'Procedural planet gen', to: ['grid'] },
-			{ id: 'grid', label: 'Tile grid', to: ['physics', 'gbuffer'] },
-			{ id: 'physics', label: 'Swept AABB + DDA raycast', to: [] },
-			{ id: 'gbuffer', label: 'Deferred renderer', to: ['post'] },
-			{ id: 'post', label: 'Post-processing chain', to: [] }
-		],
 		siteUrl: 'https://store.steampowered.com/app/3973750/Astrodescent',
 		contributions: [
 			'Wrote a custom deferred renderer with a post-processing chain, dynamic 2D lighting, texture atlasing, and a pixel-font UI system.',
@@ -132,14 +137,6 @@ export const projects: SystemProject[] = [
 		summary:
 			'A framework and hub for multiplayer party games: games are Lua modules loaded into a sandbox at runtime, so a new mode is a script rather than a build. The C++ side owns rendering, networking, and the declarative UI API those scripts draw through.',
 		stack: ['C++', 'Raylib', 'Lua', 'sol2', 'GameNetworkingSockets', 'Steamworks'],
-		systems: [
-			{ id: 'hub', label: 'Hub runtime (C++)', to: ['sandbox', 'net'] },
-			{ id: 'sandbox', label: 'Lua sandbox (sol2)', to: ['ui'] },
-			{ id: 'ui', label: 'Declarative UI API', to: ['render'] },
-			{ id: 'render', label: 'Raylib renderer', to: [] },
-			{ id: 'net', label: 'GameNetworkingSockets', to: ['steam'] },
-			{ id: 'steam', label: 'Steam invites & leaderboards', to: [] }
-		],
 		repoUrl: 'https://github.com/winterSteve25/PartyLab',
 		contributions: [
 			'Built the framework and its declarative UI API in C++ on Raylib.',

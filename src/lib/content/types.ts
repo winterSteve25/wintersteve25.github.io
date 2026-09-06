@@ -30,16 +30,10 @@ export interface ProjectBase {
 	hero: MediaRef | null;
 }
 
-export interface SystemNode {
-	id: string;
-	label: string;
-	to: string[];
-}
-
 export interface SystemProject extends ProjectBase {
 	summary: string;
 	stack: string[];
-	systems: SystemNode[];
+	screenshots?: { src: string; alt: string; caption?: string }[];
 	excerpt?: { language: string; caption: string; code: string };
 	repoUrl?: string;
 	siteUrl?: string;
