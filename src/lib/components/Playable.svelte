@@ -6,7 +6,6 @@
 	}
 	let { embedUrl, controls, title }: Props = $props();
 
-	// Iframes are expensive; don't load the build until someone asks for it.
 	let loaded = $state(false);
 </script>
 
@@ -28,13 +27,6 @@
 		{/if}
 	</div>
 {:else}
-	<!--
-		Playables live on itch.io, not here. GitHub Pages can't send the
-		COOP/COEP headers that Unity and Godot web builds need for
-		SharedArrayBuffer, and it won't send Content-Encoding for Unity's
-		Brotli output. itch handles both, and it's where games people expect
-		to click anyway.
-	-->
 	<p class="pending mono">
 		No web build yet — publish to itch.io, enable embedding, then set
 		<code>itchEmbedUrl</code>.

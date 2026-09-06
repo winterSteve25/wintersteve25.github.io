@@ -6,12 +6,6 @@
 	import type { PageMeta } from '$lib/content/types';
 	import type { Snippet } from 'svelte';
 
-	/**
-	 * Chrome only: nav, masthead, footer, and the page's accent hue. What goes
-	 * in `children` is each page's own business — the pages do not share a body
-	 * layout, and adding a branch here to make them share one would walk this
-	 * back to where it started.
-	 */
 	interface Props {
 		page: PageMeta;
 		children: Snippet;
@@ -25,7 +19,6 @@
 	ogImage={page.ogImage}
 />
 
-<!-- One hue drives the entire palette for this page. See app.css. -->
 <div class="page theme" style="--accent-hue: {page.hue}">
 	<div class="shell">
 		<SiteNav current={page.id} />

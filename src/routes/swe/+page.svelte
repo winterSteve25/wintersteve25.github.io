@@ -3,11 +3,6 @@
 	import SystemsDiagram from '$lib/components/SystemsDiagram.svelte';
 	import { education, experience, page, projects, skills } from '$lib/content/swe';
 
-	/**
-	 * This page's layout. Jobs first, because they are the thing a hiring
-	 * reader scans for; then projects, where the actual engineering is; then
-	 * skills and education, which are lookup tables rather than reading.
-	 */
 </script>
 
 <PageShell {page}>

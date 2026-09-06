@@ -1,10 +1,5 @@
 import type { Education, Experience, PageMeta, SkillGroup, SystemProject } from './types';
 
-/**
- * Everything on `/swe`. This page's content lives here and nowhere else.
- * Projects that also appear on `/game-dev` are written again in `games.ts`,
- * for that reader — see the note there.
- */
 export const page: PageMeta = {
 	id: 'swe',
 	nav: 'Software',
@@ -13,9 +8,7 @@ export const page: PageMeta = {
 	intro:
 		'CS at UBC, currently shipping Rust and WASM at Diffchecker. Most of what I build is close to the metal by choice — a document renderer, a note-taking app that runs its own embedding and speech models on-device, a 2D engine written without an engine.',
 	hue: 195
-	// TODO: drop the file in `static/` and uncomment.
-	// resume: 'resume-swe.pdf',
-	// ogImage: 'og-swe.png'
+	// TODO: add the resume and OG image files to `static/`, then set `resume` and `ogImage`.
 };
 
 export const experience: Experience[] = [
@@ -88,8 +81,7 @@ export const projects: SystemProject[] = [
 			{ id: 'index', label: 'Vector index', to: ['search'] },
 			{ id: 'search', label: 'Semantic search', to: [] }
 		],
-		// TODO: paste a real excerpt worth reading — the staleness hash check or
-		// the VAD gate. Short and annotated beats long.
+		// TODO: add a short annotated excerpt of the staleness hash check or VAD gate.
 		siteUrl: 'https://trymyelin.app/',
 		contributions: [
 			'Implemented on-device semantic search by running the all-MiniLM-L6-v2 embedding model locally with Candle, backed by a background indexing engine with debouncing, bounded concurrency, and staleness hashing.',
@@ -107,8 +99,6 @@ export const projects: SystemProject[] = [
 		tags: ['C#', 'Raylib', 'GLSL', 'rendering'],
 		hero: null,
 
-		// The games page has its own Astrodescent entry. This one is about the
-		// engine underneath it; that one is about the game on top.
 		summary:
 			'A 2D space mining game shipping on Steam, built engine-up on Raylib with no game engine underneath it. That decision is the interesting part: everything a commercial engine would have handed over — the renderer, the lighting, the collision, the content pipeline — is written here.',
 		stack: ['C#', 'Raylib', 'GLSL', 'Steamworks'],

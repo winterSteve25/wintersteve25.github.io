@@ -5,16 +5,11 @@
 	import type { PageId } from '$lib/content/types';
 
 	interface Props {
-		/** Undefined on the home page. */
 		current?: PageId;
 	}
 	let { current }: Props = $props();
 </script>
 
-<!--
-	An ordinary site nav: every page can reach every other one. Each link
-	carries its own page's accent hue, so the nav previews where it goes.
--->
 <nav class="site" aria-label="Primary">
 	<a class="wordmark" href={homeHref()}>{profile.name}</a>
 	<ul>

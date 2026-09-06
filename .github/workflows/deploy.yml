@@ -1,6 +1,5 @@
 name: Deploy to GitHub Pages
 
-# Set Settings -> Pages -> Source to "GitHub Actions" for this to take effect.
 on:
   push:
     branches: [main]
@@ -30,11 +29,7 @@ jobs:
 
       - name: Build
         env:
-          # Leave empty for a custom domain or a repo named <user>.github.io.
-          # For any other repo name, the site is served from a subpath — swap the
-          # lines below so every asset and link gets prefixed correctly.
           BASE_PATH: ''
-          # BASE_PATH: /${{ github.event.repository.name }}
         run: npm run build
 
       - uses: actions/upload-pages-artifact@v3

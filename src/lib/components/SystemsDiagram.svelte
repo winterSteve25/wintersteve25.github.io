@@ -9,10 +9,6 @@
 	const labelFor = (id: string) => nodes.find((n) => n.id === id)?.label ?? id;
 </script>
 
-<!--
-	A flow list rather than a laid-out graph: readable, responsive, and no
-	layout engine. Upgrade to inline SVG once the real systems are written up.
--->
 <figure class="systems">
 	<figcaption class="mono">Data flow</figcaption>
 	<ul>

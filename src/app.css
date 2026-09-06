@@ -1,18 +1,3 @@
-/*
- * Design tokens.
- *
- * The whole palette is derived from one number: --accent-hue. Each page sets
- * it (see PageShell.svelte) and every surface, line, and highlight retunes to
- * match, so the three pages read as one site without sharing a colour.
- */
-
-/*
- * `.theme` repeats the selector rather than nesting because custom properties
- * are substituted where they are *declared*, not where they are used: a child
- * that only overrides --accent-hue would inherit an already-resolved --bg. Both
- * the hue and the palette have to land on the same element, so any element with
- * `class="theme" style="--accent-hue: 195"` retunes the whole palette.
- */
 :root,
 .theme {
 	--accent-hue: 305;
@@ -99,7 +84,6 @@ canvas {
 	display: block;
 }
 
-/* Metadata, labels, and anything that should read as instrumentation. */
 .mono {
 	font-family: var(--font-mono);
 	font-size: 0.78rem;

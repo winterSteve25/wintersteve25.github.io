@@ -4,17 +4,6 @@
 	import { alsoShipped, page, projects } from '$lib/content/games';
 	import type { GameProject } from '$lib/content/types';
 
-	/**
-	 * This page's layout. The build comes first — before the credits, before
-	 * the breakdown. If someone can be playing in ten seconds, nothing should
-	 * be standing between them and the button.
-	 *
-	 * Then the contribution breakdown, because most of these are team projects
-	 * and "what did you actually do" is the question the page exists to answer.
-	 */
-
-	// Joined here rather than with inline {#if}s: Svelte trims the whitespace
-	// around a block, which eats the separators.
 	const facts = (p: GameProject) =>
 		[p.role, p.engine, p.year, p.teamSize ? `team of ${p.teamSize}` : null, p.duration]
 			.filter(Boolean)
@@ -170,7 +159,6 @@
 		gap: 1rem;
 	}
 
-	/* Area label beside its points once there's room; stacked on a phone. */
 	.area {
 		display: grid;
 		grid-template-columns: minmax(7rem, 9rem) minmax(0, 1fr);

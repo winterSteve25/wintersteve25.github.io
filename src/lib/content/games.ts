@@ -1,16 +1,5 @@
 import type { GameProject, PageMeta, ShippedEntry } from './types';
 
-/**
- * Everything on `/game-dev`. This page's content lives here and nowhere else.
- *
- * Astrodescent and Party Lab also have entries in `swe.ts`, written for a
- * different reader: there they are a renderer and a sandboxed scripting host,
- * here they are a game and a thing you play with friends. Do not try to share
- * one object across the two pages — the interesting parts are different.
- *
- * Every entry carries a `contribution` breakdown. Keep it specific and keep it
- * honest — the `collaborators` list is what makes the specific claim credible.
- */
 export const page: PageMeta = {
 	id: 'game-dev',
 	nav: 'Games',
@@ -19,8 +8,6 @@ export const page: PageMeta = {
 	intro:
 		'Small games, shipped — jam entries, browser builds, and one going to Steam. I am the programmer on a team: rendering, VFX, physics, and the systems the designers drive. Each project below says exactly which parts are mine.',
 	hue: 45
-	// resume: 'resume-game-dev.pdf',
-	// ogImage: 'og-game-dev.png'
 };
 
 export const projects: GameProject[] = [
@@ -36,11 +23,9 @@ export const projects: GameProject[] = [
 
 		pitch:
 			'Land on an alien planet, dig for resources, and get back up before your oxygen runs out. Sell what you hauled, buy the upgrade that lets you go deeper, and go again.',
-		// TODO: the itch build is the earlier Unity prototype. Confirm you still
-		// want it linked next to the Steam page, or drop `itchPageUrl`.
+		// TODO: confirm the earlier Unity prototype should stay linked next to the Steam page.
 		itchPageUrl: 'https://wintersteve25.itch.io/astrodescent',
-		// TODO: to embed the playable here, open the game's edit page on itch,
-		// enable embedding, and paste the `https://itch.io/embed-upload/...` URL.
+		// TODO: enable embedding on itch and add the `https://itch.io/embed-upload/...` URL.
 		itchEmbedUrl: undefined,
 		storeUrl: 'https://store.steampowered.com/app/3973750/Astrodescent',
 
@@ -74,8 +59,7 @@ export const projects: GameProject[] = [
 				]
 			}
 		],
-		// TODO: confirm the name and link — itch credits `felixrl` as the other
-		// author on the prototype. Ask before shipping a public credit line.
+		// TODO: confirm the `felixrl` name and link before shipping the public credit.
 		collaborators: [
 			{
 				who: 'felixrl',
@@ -170,10 +154,6 @@ export const projects: GameProject[] = [
 	}
 ];
 
-/**
- * Smaller shipped things. Listed rather than written up — the point is that
- * they exist, they were finished, and they are playable right now.
- */
 export const alsoShipped: ShippedEntry[] = [
 	{
 		title: 'LoopBound',

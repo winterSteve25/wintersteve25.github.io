@@ -5,7 +5,6 @@
 	interface Props {
 		title: string;
 		description: string;
-		/** Filename in `static/`. OG images must be absolute URLs to preview. */
 		ogImage?: string;
 	}
 	let { title, description, ogImage }: Props = $props();

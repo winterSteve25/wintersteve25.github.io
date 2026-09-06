@@ -1,25 +1,11 @@
-/**
- * A small WebGL2 runner for fullscreen fragment shaders.
- *
- * No three.js — these are single-pass fragment shaders on a generated triangle,
- * so a library would be pure download weight. Handles the things that actually
- * matter on a portfolio: DPR caps, pausing when offscreen, reduced-motion, and
- * surfacing compile errors instead of silently rendering black.
- */
-
 export interface ShaderRunnerOptions {
 	vert: string;
 	frag: string;
-	/**
-	 * Device-pixel-ratio ceiling. 3x on a phone quadruples fragment cost for no
-	 * visible gain on a procedural effect.
-	 */
 	dprCap?: number;
 }
 
 interface UniformInfo {
 	location: WebGLUniformLocation;
-	/** GL enum from getActiveUniform — used to pick the right setter. */
 	type: number;
 }
 
@@ -39,7 +25,6 @@ function compile(gl: WebGL2RenderingContext, type: number, source: string): WebG
 }
 
 export class ShaderRunner {
-	/** Non-null when setup failed; render is a no-op and the UI can show this. */
 	error: string | null = null;
 
 	#canvas: HTMLCanvasElement;
@@ -51,7 +36,6 @@ export class ShaderRunner {
 
 	#raf = 0;
 	#running = false;
-	/** Accumulated animation seconds, so pause/resume doesn't jump. */
 	#elapsed = 0;
 	#lastFrame = 0;
 
@@ -70,8 +54,6 @@ export class ShaderRunner {
 		canvas.addEventListener('webglcontextlost', this.#onContextLost);
 
 		const gl = canvas.getContext('webgl2', {
-			// The shader writes straight (non-premultiplied) alpha so the effect
-			// can composite over the page background.
 			alpha: true,
 			premultipliedAlpha: false,
 			antialias: false,
@@ -109,7 +91,6 @@ export class ShaderRunner {
 		gl.attachShader(program, vert);
 		gl.attachShader(program, frag);
 		gl.linkProgram(program);
-		// Shaders are reference-counted by the program; safe to release now.
 		gl.deleteShader(vert);
 		gl.deleteShader(frag);
 
@@ -121,11 +102,6 @@ export class ShaderRunner {
 		return program;
 	}
 
-	/**
-	 * Read the uniform list off the linked program rather than hardcoding it, so
-	 * a shader can declare whatever it likes and setUniform still picks the
-	 * correct setter.
-	 */
 	#collectUniforms(gl: WebGL2RenderingContext, program: WebGLProgram) {
 		const count = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS) as number;
 		for (let i = 0; i < count; i++) {
@@ -137,7 +113,6 @@ export class ShaderRunner {
 		}
 	}
 
-	/** Scalar uniforms only — vec2s are driven internally (u_resolution). */
 	setUniform(name: string, value: number) {
 		this.#values.set(name, value);
 		if (!this.#running) this.renderOnce();
@@ -187,7 +162,6 @@ export class ShaderRunner {
 		gl.drawArrays(gl.TRIANGLES, 0, 3);
 	}
 
-	/** One frame, no loop. Used for static/reduced-motion rendering. */
 	renderOnce() {
 		this.#draw();
 	}
@@ -199,7 +173,6 @@ export class ShaderRunner {
 
 		const tick = (now: number) => {
 			if (!this.#running) return;
-			// Clamp so a backgrounded tab doesn't jump the effect forward.
 			this.#elapsed += Math.min((now - this.#lastFrame) / 1000, 1 / 20);
 			this.#lastFrame = now;
 			this.#draw();
@@ -220,15 +193,12 @@ export class ShaderRunner {
 		this.#canvas.removeEventListener('webglcontextlost', this.#onContextLost);
 		const gl = this.#gl;
 		if (gl && this.#program) gl.deleteProgram(this.#program);
-		// Free the GPU context eagerly rather than waiting on GC — a gallery of
-		// canvases will otherwise hit the browser's context limit.
 		gl?.getExtension('WEBGL_lose_context')?.loseContext();
 		this.#gl = null;
 		this.#program = null;
 	}
 }
 
-/** Respects the OS "reduce motion" setting. */
 export function prefersReducedMotion(): boolean {
 	return (
 		typeof window !== 'undefined' &&

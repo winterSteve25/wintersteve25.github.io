@@ -7,11 +7,6 @@
 	import { pageHref } from '$lib/routes';
 	import dissolveFrag from '$lib/shaders/dissolve.frag.glsl?raw';
 
-	/**
-	 * The front door. It is not a parent of the other two pages and does not
-	 * summarise them — it introduces you and points at them. Send this link
-	 * when you don't know who is reading; send a page link when you do.
-	 */
 	const heroUniforms = { u_layer: 0, u_threshold: 0.5, u_edge: 0.07, u_distort: 0.14 };
 </script>
 

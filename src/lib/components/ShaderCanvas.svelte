@@ -6,10 +6,8 @@
 	interface Props {
 		frag: string;
 		vert?: string;
-		/** Scalar uniforms. Pass a `$state` object so slider moves propagate. */
 		uniforms?: Record<string, number>;
 		dprCap?: number;
-		/** Describes the effect for screen readers. */
 		label: string;
 		class?: string;
 	}
@@ -39,7 +37,6 @@
 		}
 		runner = instance;
 
-		// Don't burn GPU on effects nobody is looking at.
 		const observer = new IntersectionObserver(
 			([entry]) => {
 				visible = entry.isIntersecting;
@@ -68,13 +65,11 @@
 			runner.start();
 		} else {
 			runner.stop();
-			// Reduced-motion still gets the image, just frozen.
 			if (visible) runner.renderOnce();
 		}
 	});
 </script>
 
-<!-- role="img" belongs on the wrapper; a <canvas> can't take it. -->
 <div class="wrap {className}" role="img" aria-label={label}>
 	<canvas bind:this={canvas} aria-hidden="true"></canvas>
 
