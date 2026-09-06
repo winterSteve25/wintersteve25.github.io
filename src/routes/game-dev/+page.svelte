@@ -3,6 +3,7 @@
 	import Playable from '$lib/components/Playable.svelte';
 	import { alsoShipped, page, projects } from '$lib/content/games';
 	import type { GameProject } from '$lib/content/types';
+	import { staticHref } from '$lib/routes';
 
 	const facts = (p: GameProject) =>
 		[p.role, p.engine, p.year, p.teamSize ? `team of ${p.teamSize}` : null, p.duration]
@@ -58,13 +59,14 @@
 
 			{#if project.itchEmbedUrl}
 				<div class="playable">
-					<Playable
-						embedUrl={project.itchEmbedUrl}
-						embedWidth={project.itchEmbedWidth}
-						embedHeight={project.itchEmbedHeight}
-						embedColor={project.itchEmbedColor}
-						hideItchFullscreen={project.hideItchFullscreen}
-						controls={project.controls}
+						<Playable
+							embedUrl={project.itchEmbedUrl}
+							embedWidth={project.itchEmbedWidth}
+							embedHeight={project.itchEmbedHeight}
+							embedColor={project.itchEmbedColor}
+							hideItchFullscreen={project.hideItchFullscreen}
+							previewImage={project.previewImage ? staticHref(project.previewImage) : undefined}
+							controls={project.controls}
 						title={project.title}
 					/>
 					{#if project.playableBuildNote}

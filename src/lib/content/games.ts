@@ -31,6 +31,7 @@ export const projects: GameProject[] = [
 		itchEmbedHeight: 659,
 		itchEmbedColor: '#AD9B89',
 		hideItchFullscreen: true,
+		previewImage: 'games/astrodescent-preview.png',
 		controls: 'WASD to move · mouse to look and interact · E for inventory',
 		playableBuildNote:
 			'The original game jam prototype below was built in Unity, with art and visual direction by felixrl. The current Steam release is a substantially expanded C# and Raylib rewrite developed with a new collaborator.',
@@ -132,6 +133,7 @@ export const projects: GameProject[] = [
 		itchEmbedUrl: 'https://itch.io/embed-upload/18705654?color=333333',
 		itchEmbedWidth: 1280,
 		itchEmbedHeight: 740,
+		previewImage: 'games/sand-of-souls-preview.jpg',
 
 		contribution: [
 			{
@@ -180,6 +182,7 @@ export const projects: GameProject[] = [
 		itchEmbedHeight: 659,
 		itchEmbedColor: '#3e0d5c',
 		hideItchFullscreen: true,
+		previewImage: 'games/loopbound-preview.jpg',
 
 		contribution: [
 			{
@@ -231,6 +234,7 @@ export const projects: GameProject[] = [
 		itchEmbedHeight: 659,
 		itchEmbedColor: '#5ac54f',
 		hideItchFullscreen: true,
+		previewImage: 'games/bingo-spree-preview.png',
 		controls: 'WASD to move · click items to collect them',
 
 		contribution: [

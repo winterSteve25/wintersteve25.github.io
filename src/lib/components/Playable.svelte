@@ -5,6 +5,7 @@
 		embedHeight?: number;
 		embedColor?: string;
 		hideItchFullscreen?: boolean;
+		previewImage?: string;
 		controls?: string;
 		title: string;
 	}
@@ -14,6 +15,7 @@
 		embedHeight,
 		embedColor,
 		hideItchFullscreen = false,
+		previewImage,
 		controls,
 		title
 	}: Props = $props();
@@ -73,6 +75,9 @@
 			{/if}
 		{:else}
 			<button type="button" class="play" onclick={() => (loaded = true)}>
+				{#if previewImage}
+					<img class="preview" src={previewImage} alt="" aria-hidden="true" draggable="false" />
+				{/if}
 				<span class="glyph" aria-hidden="true">&#9654;</span>
 				<span>Play {title} in browser</span>
 				{#if controls}<span class="mono">{controls}</span>{/if}
@@ -110,17 +115,48 @@
 	}
 
 	.play {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
 		width: 100%;
 		height: 100%;
 		display: grid;
 		place-content: center;
 		justify-items: center;
 		gap: 0.5rem;
-		background: none;
+		background: var(--bg-sunken);
 		border: 0;
 		color: var(--text);
 		font: inherit;
 		cursor: pointer;
+		text-shadow: 0 1px 4px rgb(0 0 0 / 0.9);
+	}
+
+	.play::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		background: rgb(0 0 0 / 0.64);
+		transition: background 120ms;
+	}
+
+	.play:hover::before {
+		background: rgb(0 0 0 / 0.54);
+	}
+
+	.play > span {
+		position: relative;
+		z-index: 2;
+	}
+
+	.preview {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
 	.play:hover .glyph {
@@ -135,7 +171,8 @@
 		height: 3.5rem;
 		border: 1px solid var(--line);
 		border-radius: 999px;
-		color: var(--text-dim);
+		background: rgb(0 0 0 / 0.45);
+		color: var(--text);
 		transition:
 			color 120ms,
 			border-color 120ms;
