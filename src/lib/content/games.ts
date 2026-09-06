@@ -116,6 +116,44 @@ export const projects: GameProject[] = [
 	},
 
 	{
+		slug: 'gunplay',
+		title: 'Gunplay',
+		tagline: 'A physically based, hyper-realistic first-person shooter',
+		year: 'Jul 2025 — Jan 2026',
+		role: 'Programming',
+		engine: 'Unity',
+		tags: ['FPS', 'physics', 'team project'],
+		hero: null,
+
+		pitch:
+			'A physically based, hyper-realistic FPS developed with a team led by Bael, with an emphasis on realistic character reactions and physical interactions.',
+		videoEmbedUrl:
+			'https://www.youtube.com/embed/zeGEXJWIkyQ?si=Dpkbxt67g8v-xUKA',
+
+		contribution: [
+			{
+				area: 'Physics',
+				points: [
+					'Implemented and tuned ragdoll physics for realistic character reactions and physical interactions.'
+				]
+			},
+			{
+				area: 'UAV system',
+				points: [
+					'Implemented the complete UAV system, including aircraft movement and player input handling.'
+				]
+			}
+		],
+		collaborators: [
+			{
+				who: 'Bael',
+				what: 'Led the development team behind Gunplay.',
+				url: 'https://bael.ca/'
+			}
+		]
+	},
+
+	{
 		slug: 'sand-of-souls',
 		title: 'Sand of Souls',
 		tagline: 'A topdown survivor shooter where your health and your ammo are the same hourglass',

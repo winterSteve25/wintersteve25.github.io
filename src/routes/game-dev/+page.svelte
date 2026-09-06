@@ -59,19 +59,35 @@
 
 			{#if project.itchEmbedUrl}
 				<div class="playable">
-						<Playable
-							embedUrl={project.itchEmbedUrl}
-							embedWidth={project.itchEmbedWidth}
-							embedHeight={project.itchEmbedHeight}
-							embedColor={project.itchEmbedColor}
-							hideItchFullscreen={project.hideItchFullscreen}
-							previewImage={project.previewImage ? staticHref(project.previewImage) : undefined}
-							controls={project.controls}
+					<Playable
+						embedUrl={project.itchEmbedUrl}
+						embedWidth={project.itchEmbedWidth}
+						embedHeight={project.itchEmbedHeight}
+						embedColor={project.itchEmbedColor}
+						hideItchFullscreen={project.hideItchFullscreen}
+						previewImage={project.previewImage ? staticHref(project.previewImage) : undefined}
+						controls={project.controls}
 						title={project.title}
 					/>
 					{#if project.playableBuildNote}
 						<p class="playable-note">{project.playableBuildNote}</p>
 					{/if}
+				</div>
+			{/if}
+
+			{#if project.videoEmbedUrl}
+				<div class="video-demo">
+					<iframe
+						width="560"
+						height="315"
+						src={project.videoEmbedUrl}
+						title="{project.title} gameplay demo"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						referrerpolicy="strict-origin-when-cross-origin"
+						allowfullscreen
+						loading="lazy"
+					></iframe>
 				</div>
 			{/if}
 
@@ -183,6 +199,22 @@
 	.playable-note {
 		color: var(--text-dim);
 		font-size: var(--step--1);
+	}
+
+	.video-demo {
+		aspect-ratio: 16 / 9;
+		margin-top: clamp(2.25rem, 5vw, 3.5rem);
+		border: 1px solid var(--line-soft);
+		border-radius: var(--radius);
+		background: var(--bg-sunken);
+		overflow: hidden;
+	}
+
+	.video-demo iframe {
+		display: block;
+		width: 100%;
+		height: 100%;
+		border: 0;
 	}
 
 	.pitch {

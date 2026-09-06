@@ -66,6 +66,7 @@ export interface SkillGroup {
 export interface GameProject extends ProjectBase {
 	pitch: string;
 	engine: string;
+	videoEmbedUrl?: string;
 	itchEmbedUrl?: string;
 	itchEmbedWidth?: number;
 	itchEmbedHeight?: number;
