@@ -244,6 +244,11 @@
 		gap: 1.25rem;
 	}
 
+	.project-copy {
+		display: grid;
+		gap: 1.5rem;
+	}
+
 	.project-body.with-screenshot {
 		grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.9fr);
 		align-items: start;

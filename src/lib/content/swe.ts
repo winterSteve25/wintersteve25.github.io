@@ -113,7 +113,7 @@ export const projects: SystemProject[] = [
 		hero: null,
 
 		summary:
-			'A 2D space mining game shipping on Steam, built engine-up on Raylib with no game engine underneath it. That decision is the interesting part: everything a commercial engine would have handed over — the renderer, the lighting, the collision, the content pipeline — is written here.',
+			'A 2D space mining game built from scratch on Raylib. Mine an alien planet, manage your oxygen, haul resources back to the surface, and spend your earnings on upgrades that let you go deeper. It includes custom rendering, dynamic lighting, tile physics, procedural planet generation, and a data-driven content pipeline, and is shipping on Steam.',
 		stack: ['C#', 'Raylib', 'GLSL', 'Steamworks'],
 		siteUrl: 'https://store.steampowered.com/app/3973750/Astrodescent',
 		contributions: [
