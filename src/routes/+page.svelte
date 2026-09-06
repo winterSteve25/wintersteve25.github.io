@@ -3,7 +3,7 @@
 	import SiteNav from '$lib/components/SiteNav.svelte';
 	import { pages } from '$lib/content/pages';
 	import { profile } from '$lib/content/profile';
-	import { pageHref } from '$lib/routes';
+	import { pageHref, staticHref } from '$lib/routes';
 </script>
 
 <Seo title={profile.name} description={profile.landingHeadline} />
@@ -28,7 +28,7 @@
 		</div>
 		<div class="portrait">
 			<img
-				src="/profile.jpg"
+				src={staticHref('profile.jpg')}
 				alt="Caden Zhang sitting on stone steps outdoors"
 				width="1200"
 				height="1600"
