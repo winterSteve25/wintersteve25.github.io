@@ -41,26 +41,39 @@
 				<p class="tagline">{project.tagline}</p>
 			</header>
 
+			<div class="overview">
+				<p class="pitch">{project.pitch}</p>
+
+				<div class="metadata">
+					<p class="mono facts">{facts(project)}</p>
+					{#if project.tags.length}
+						<ul class="tags" aria-label="Project tags">
+							{#each project.tags as tag (tag)}
+								<li class="mono">{tag}</li>
+							{/each}
+						</ul>
+					{/if}
+				</div>
+			</div>
+
 			{#if project.itchEmbedUrl}
-				<Playable
-					embedUrl={project.itchEmbedUrl}
-					embedWidth={project.itchEmbedWidth}
-					embedHeight={project.itchEmbedHeight}
-					embedColor={project.itchEmbedColor}
-					hideItchFullscreen={project.hideItchFullscreen}
-					controls={project.controls}
-					title={project.title}
-				/>
+				<div class="playable">
+					<Playable
+						embedUrl={project.itchEmbedUrl}
+						embedWidth={project.itchEmbedWidth}
+						embedHeight={project.itchEmbedHeight}
+						embedColor={project.itchEmbedColor}
+						hideItchFullscreen={project.hideItchFullscreen}
+						controls={project.controls}
+						title={project.title}
+					/>
+					{#if project.playableBuildNote}
+						<p class="playable-note">{project.playableBuildNote}</p>
+					{/if}
+				</div>
 			{/if}
-			{#if project.playableBuildNote}
-				<p class="playable-note">{project.playableBuildNote}</p>
-			{/if}
 
-			<p class="pitch">{project.pitch}</p>
-
-			<p class="mono facts">{facts(project)}</p>
-
-			<section class="breakdown">
+			<section class="project-section breakdown">
 				<h3 class="mono">What I did</h3>
 				<dl>
 					{#each project.contribution as group (group.area)}
@@ -79,7 +92,7 @@
 			</section>
 
 			{#if project.collaborators?.length}
-				<section class="people">
+				<section class="project-section people">
 					<h3 class="mono">Also on it</h3>
 					<ul>
 						{#each project.collaborators as person (person.who)}
@@ -96,14 +109,6 @@
 						{/each}
 					</ul>
 				</section>
-			{/if}
-
-			{#if project.tags.length}
-				<ul class="tags">
-					{#each project.tags as tag (tag)}
-						<li class="mono">{tag}</li>
-					{/each}
-				</ul>
 			{/if}
 		</article>
 	{/each}
@@ -127,16 +132,13 @@
 <style>
 	.title {
 		display: flex;
-		flex-direction: row;
-		align-items: end;
-		gap: 1rem;
+		align-items: baseline;
+		flex-wrap: wrap;
+		gap: 0.4rem 1rem;
 	}
 
 	.game {
-		display: flex;
-		flex-direction: column;
-		gap: 1.25rem;
-		padding-block: clamp(2.5rem, 6vw, 4.5rem);
+		padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2.5rem, 4vw, 3rem);
 		border-top: 1px solid var(--line-soft);
 	}
 
@@ -156,10 +158,29 @@
 		max-width: 46ch;
 	}
 
+	.overview {
+		display: grid;
+		gap: 1.25rem;
+		margin-top: clamp(1.5rem, 3vw, 2rem);
+	}
+
+	.metadata {
+		display: grid;
+		gap: 0.75rem;
+		justify-items: start;
+		padding-top: 1rem;
+		border-top: 1px solid var(--line-soft);
+	}
+
+	.playable {
+		display: grid;
+		gap: 0.75rem;
+		margin-top: clamp(2.25rem, 5vw, 3.5rem);
+	}
+
 	.playable-note {
 		color: var(--text-dim);
 		font-size: var(--step--1);
-		margin: -0.5rem 0 0;
 	}
 
 	.pitch {
@@ -169,6 +190,7 @@
 
 	.facts {
 		color: var(--text-faint);
+		line-height: 1.6;
 	}
 
 	.links {
@@ -178,27 +200,39 @@
 		font-size: 0.92rem;
 	}
 
+	.project-section {
+		margin-top: clamp(2.5rem, 5vw, 3.5rem);
+		padding-top: clamp(1.25rem, 3vw, 1.75rem);
+		border-top: 1px solid var(--line-soft);
+	}
+
 	.breakdown {
-		margin-top: 2rem;
+		padding-top: 0;
+		border-top: 0;
+	}
+
+	.people {
+		margin-top: clamp(2rem, 4vw, 2.75rem);
+		padding-top: 0;
+		border-top: 0;
 	}
 
 	.breakdown h3,
 	.people h3 {
 		color: var(--accent);
-		margin-bottom: 0.9rem;
+		margin-bottom: 1.25rem;
 	}
 
 	.breakdown dl {
 		margin: 0;
 		display: grid;
-		gap: 1rem;
 	}
 
 	.area {
 		display: grid;
 		grid-template-columns: minmax(7rem, 9rem) minmax(0, 1fr);
 		gap: 0.35rem 1.25rem;
-		padding-top: 0.9rem;
+		padding-block: 0.95rem;
 		border-top: 1px solid var(--line-soft);
 	}
 
@@ -230,22 +264,23 @@
 		color: var(--accent);
 	}
 
-	.people {
-		margin-top: 2rem;
-	}
-
 	.people ul {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 		display: grid;
-		gap: 0.6rem;
 	}
 
 	.people li {
 		display: grid;
 		grid-template-columns: minmax(7rem, 9rem) minmax(0, 1fr);
 		gap: 0.25rem 1.25rem;
+	}
+
+	.people li + li {
+		margin-top: 0.85rem;
+		padding-top: 0.85rem;
+		border-top: 1px solid var(--line-soft);
 	}
 
 	@media (max-width: 34rem) {
@@ -275,8 +310,10 @@
 
 	.tags li {
 		border: 1px solid var(--line-soft);
-		border-radius: 999px;
-		padding: 0.1rem 0.6rem;
+		border-radius: var(--radius);
+		padding: 0.15rem 0.55rem;
+		color: var(--text-dim);
+		background: var(--bg-sunken);
 	}
 
 	.also {
