@@ -23,6 +23,8 @@
 	let embedScale = $state(1);
 	let embedLeft = $state(0);
 	let embedTop = $state(0);
+	const itchFullscreenMaskWidth = 24;
+	const itchFooterHeight = 20;
 
 	$effect(() => {
 		const element = stageElement;
@@ -65,7 +67,7 @@
 			{#if hideItchFullscreen}
 				<span
 					class="embed-fullscreen-mask"
-					style={`right: ${embedLeft}px; bottom: ${embedTop}px; width: ${20 * embedScale}px; height: ${20 * embedScale}px; background: ${embedColor ?? 'var(--bg-sunken)'}`}
+					style={`right: ${embedLeft}px; bottom: ${embedTop}px; width: ${itchFullscreenMaskWidth * embedScale}px; height: ${itchFooterHeight * embedScale}px; background: ${embedColor ?? 'var(--bg-sunken)'}`}
 					aria-hidden="true"
 				></span>
 			{/if}
