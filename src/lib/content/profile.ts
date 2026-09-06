@@ -13,5 +13,5 @@ export const profile = {
 		{ label: 'LinkedIn', href: 'https://linkedin.com/in/cadenz' }
 	],
 
-	origin: 'https://example.com' // TODO
+	origin: 'https://wintersteve25.github.io'
 };

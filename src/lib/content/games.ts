@@ -7,7 +7,8 @@ export const page: PageMeta = {
 	headline: 'Games you can play in the next ten seconds',
 	intro:
 		'Small games, shipped — jam entries, browser builds, and one going to Steam. I am the programmer on a team: rendering, VFX, physics, and the systems the designers drive. Each project below says exactly which parts are mine.',
-	hue: 45
+	hue: 45,
+	resume: 'resume-game-dev.pdf'
 };
 
 export const projects: GameProject[] = [
