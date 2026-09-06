@@ -18,15 +18,17 @@
 				<p class="tagline">{project.tagline}</p>
 			</header>
 
-			<Playable
-				embedUrl={project.itchEmbedUrl}
-				embedWidth={project.itchEmbedWidth}
-				embedHeight={project.itchEmbedHeight}
-				embedColor={project.itchEmbedColor}
-				hideItchFullscreen={project.hideItchFullscreen}
-				controls={project.controls}
-				title={project.title}
-			/>
+			{#if project.itchEmbedUrl}
+				<Playable
+					embedUrl={project.itchEmbedUrl}
+					embedWidth={project.itchEmbedWidth}
+					embedHeight={project.itchEmbedHeight}
+					embedColor={project.itchEmbedColor}
+					hideItchFullscreen={project.hideItchFullscreen}
+					controls={project.controls}
+					title={project.title}
+				/>
+			{/if}
 			{#if project.playableBuildNote}
 				<p class="playable-note">{project.playableBuildNote}</p>
 			{/if}

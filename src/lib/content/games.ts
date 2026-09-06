@@ -76,6 +76,45 @@ export const projects: GameProject[] = [
 	},
 
 	{
+		slug: 'party-lab',
+		title: 'Party Lab',
+		tagline: 'A hub for multiplayer party games, where a new game is a Lua script',
+		year: 'Jul 2024 — Dec 2024',
+		role: 'Solo',
+		engine: 'None — C++ on Raylib',
+		duration: '6 months',
+		tags: ['multiplayer', 'modding', 'Steam'],
+		hero: null,
+
+		pitch:
+			'Get everyone into one lobby and play short games without leaving it. Each game is a Lua module the hub loads at runtime, so anyone can write a new one without touching the engine or shipping a build.',
+		repoUrl: 'https://github.com/winterSteve25/PartyLab',
+
+		contribution: [
+			{
+				area: 'Framework',
+				points: [
+					'The whole thing, solo, in C++ on Raylib.',
+					'A declarative UI API that games lay themselves out through, rather than positioning anything by hand.'
+				]
+			},
+			{
+				area: 'Scripting',
+				points: [
+					'Lua modules run in a sol2 sandbox, so modded modes load at runtime and cannot reach the host.'
+				]
+			},
+			{
+				area: 'Networking',
+				points: [
+					"Multiplayer on Valve's GameNetworkingSockets.",
+					'Steam friend invites and leaderboards, so a lobby starts from the friends list.'
+				]
+			}
+		]
+	},
+
+	{
 		slug: 'sand-of-souls',
 		title: 'Sand of Souls',
 		tagline: 'A topdown survivor shooter where your health and your ammo are the same hourglass',
@@ -123,58 +162,103 @@ export const projects: GameProject[] = [
 	},
 
 	{
-		slug: 'party-lab',
-		title: 'Party Lab',
-		tagline: 'A hub for multiplayer party games, where a new game is a Lua script',
-		year: 'Jul 2024 — Dec 2024',
+		slug: 'loopbound',
+		title: 'LoopBound',
+		tagline: 'Miss a shot and it loops around the arena to come back at you',
+		year: 'Aug 2025',
 		role: 'Solo',
-		engine: 'None — C++ on Raylib',
-		duration: '6 months',
-		tags: ['multiplayer', 'modding', 'Steam'],
+		engine: 'Unity',
+		duration: '4 days',
+		tags: ['GMTK 2025', 'game jam', 'survivor shooter'],
 		hero: null,
 
 		pitch:
-			'Get everyone into one lobby and play short games without leaving it. Each game is a Lua module the hub loads at runtime, so anyone can write a new one without touching the engine or shipping a build.',
-		repoUrl: 'https://github.com/winterSteve25/PartyLab',
+			'Fight inside shrinking circular zones where every missed bullet wraps around the edge and becomes a threat. Kill enemies to push the zones back, earn upgrades, and reshape the battlefield before your own shots catch up with you.',
+		itchPageUrl: 'https://wintersteve25.itch.io/loopbound',
+		itchEmbedUrl: 'https://itch.io/embed-upload/14548362?color=3e0d5c',
+		itchEmbedWidth: 962,
+		itchEmbedHeight: 659,
+		itchEmbedColor: '#3e0d5c',
+		hideItchFullscreen: true,
 
 		contribution: [
 			{
-				area: 'Framework',
+				area: 'Core mechanic',
 				points: [
-					'The whole thing, solo, in C++ on Raylib.',
-					'A declarative UI API that games lay themselves out through, rather than positioning anything by hand.'
+					'Built projectiles that wrap around the edge of circular zones and can return to damage the player.',
+					'Connected enemy kills to the shrinking-zone system, letting the player push back and reshape the playable space.'
 				]
 			},
 			{
-				area: 'Scripting',
+				area: 'Gameplay',
 				points: [
-					'Lua modules run in a sol2 sandbox, so modded modes load at runtime and cannot reach the host.'
+					'Built the top-down movement, shooting, enemies, upgrades, and survivor-style progression loop.'
 				]
 			},
 			{
-				area: 'Networking',
+				area: 'Presentation',
 				points: [
-					"Multiplayer on Valve's GameNetworkingSockets.",
-					'Steam friend invites and leaderboards, so a lobby starts from the friends list.'
+					'Created the game art, UI, animation, and combat feedback, with externally credited music, sound effects, icons, and a modified nebula shader.'
 				]
+			}
+		],
+		collaborators: [
+			{
+				who: 'Noah',
+				what: 'Music.',
+				url: 'https://github.com/bellflwr'
+			}
+		]
+	},
+
+	{
+		slug: 'bingo-spree',
+		title: 'Bingo Spree',
+		tagline: 'Finish your shopping list before Black Friday floods the store',
+		year: 'Sep 2024',
+		role: 'Programming',
+		engine: 'Unity',
+		teamSize: '2',
+		duration: '7 days',
+		tags: ['Brackeys 2024.2', 'game jam', 'arcade'],
+		hero: null,
+
+		pitch:
+			'Race through a supermarket, grab items from your bingo card, and reach the checkout before the Black Friday rush begins. Taking everything is fast, but careful shopping earns the better score.',
+		itchPageUrl: 'https://tgedev.itch.io/bingo-spree',
+		itchEmbedUrl: 'https://itch.io/embed-upload/11482170?color=5ac54f',
+		itchEmbedWidth: 962,
+		itchEmbedHeight: 659,
+		itchEmbedColor: '#5ac54f',
+		hideItchFullscreen: true,
+		controls: 'WASD to move · click items to collect them',
+
+		contribution: [
+			{
+				area: 'Gameplay',
+				points: [
+					'Programmed the player movement, shopping-cart handling, and item collection interactions.',
+					'Built the bingo-card objectives, checkout deadline, bonuses, penalties, and final scoring flow.'
+				]
+			},
+			{
+				area: 'Game feel',
+				points: [
+					'Implemented the cart drift, speed effects, feedback, and UI that keep the shopping run readable at full pace.'
+				]
+			}
+		],
+		collaborators: [
+			{
+				who: 'TGEDev',
+				what: 'Art and visual direction.',
+				url: 'https://tgedev.itch.io'
 			}
 		]
 	}
 ];
 
 export const alsoShipped: ShippedEntry[] = [
-	{
-		title: 'LoopBound',
-		blurb:
-			'Your bullets loop around the edge of a shrinking arena and come back at you. Kill enemies to widen it.',
-		url: 'https://wintersteve25.itch.io/loopbound'
-	},
-	{
-		title: 'Bingo Spree',
-		blurb: 'Help Jimmy go shopping on a Black Friday.',
-		url: 'https://tgedev.itch.io/bingo-spree',
-		context: 'Brackeys Game Jam 2024.2'
-	},
 	{
 		title: 'Biometrics',
 		blurb: 'A sci-fi dungeon crawler set inside a simulation that insists none of it is real.',
