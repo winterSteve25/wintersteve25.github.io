@@ -116,6 +116,42 @@ export const projects: GameProject[] = [
 	},
 
 	{
+		slug: 'tau',
+		title: 'Tau',
+		tagline: 'Flutter-like UI composition for Minecraft Forge',
+		year: 'Apr 2023 — Dec 2024',
+		role: 'Solo',
+		engine: 'Minecraft Forge — Java',
+		tags: ['UI library', 'modding', 'open source'],
+		hero: null,
+
+		pitch:
+			'An open-source UI library for Minecraft Forge that replaces the usual GUI workflow with composable, Flutter-inspired components. Tau supports responsive layouts, screens and HUDs, theming, and custom widgets.',
+		repoUrl: 'https://github.com/mc-tau-ui/Tau',
+
+		contribution: [
+			{
+				area: 'UI API',
+				points: [
+					'Designed a declarative component API for building readable, maintainable Minecraft interfaces.'
+				]
+			},
+			{
+				area: 'Rendering',
+				points: [
+					'Built separate renderers for screens and HUD overlays on top of Minecraft UI primitives.'
+				]
+			},
+			{
+				area: 'Developer tools',
+				points: [
+					'Created an extensible widget, layout, and theming architecture, along with documentation and starter templates.'
+				]
+			}
+		]
+	},
+
+	{
 		slug: 'gunplay',
 		title: 'Gunplay',
 		tagline: 'A physically based, hyper-realistic first-person shooter',
