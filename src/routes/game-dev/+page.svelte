@@ -14,7 +14,7 @@
 {#snippet intro()}
 	CS @ UBC. Currently working on <a href="https://store.steampowered.com/app/3973750/Astrodescent" target="_blank" rel="noreferrer">Astrodescent</a>, 
 	a 2D incremental mining game launching on Steam this year. 
-	I like building gameplay systems, VFX, computer graphics related features, 
+	I like building gameplay systems, VFX, graphics programming, 
 	and the custom tools that make development smoother.
 {/snippet}
 

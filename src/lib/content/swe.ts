@@ -20,7 +20,7 @@ export const experience: Experience[] = [
 		highlights: [
 			'Built a web-based DOCX renderer in Rust, speeding up document comparison by 60%.',
 			'Optimized LibreOffice compiled to WASM for the web, cutting bundle size by 25%.',
-			'Built the localization system for the Diffchecker desktop app, enabling multi-language support.'
+			'Built the localization system that lets the Diffchecker desktop app ship in multiple languages.'
 		],
 		url: 'https://www.diffchecker.com'
 	},
@@ -30,9 +30,9 @@ export const experience: Experience[] = [
 		period: 'Jul 2023 — Aug 2023',
 		stack: ['Linux', 'Grafana', 'Prometheus', 'Robot Framework', 'Power BI'],
 		highlights: [
-			'Improved stability and performance of the Netguard Endpoint Detection and Response product, identifying and resolving 3 recurring performance bottlenecks across Linux VMs using Grafana and Prometheus.',
-			'Automated Jira ticket tracking with Power BI dashboards, improving team workflow visibility.',
-			'Raised test coverage by 10% with red-team assessments built on Caldera and Robot Framework, across multiple platforms.'
+			'Found and fixed 3 recurring performance bottlenecks in the Netguard Endpoint Detection and Response product on Linux VMs, using Grafana and Prometheus.',
+			'Automated Jira ticket tracking with Power BI dashboards so the team could see where work stood.',
+			'Raised test coverage by 10% across several platforms with red-team assessments built on Caldera and Robot Framework.'
 		]
 	}
 ];
@@ -90,7 +90,6 @@ export const projects: SystemProject[] = [
 				caption: 'PDF workspace'
 			}
 		],
-		// TODO: add a short annotated excerpt of the staleness hash check.
 		siteUrl: 'https://trymyelin.app/',
 		contributions: [
 			'Built the infinite canvas editor for handwriting, typed text, embedded PDFs and images, Markdown page frames, and LaTeX content.',
@@ -118,9 +117,9 @@ export const projects: SystemProject[] = [
 		siteUrl: 'https://mc-tau-ui.github.io/',
 		repoUrl: 'https://github.com/mc-tau-ui/Tau',
 		contributions: [
-			'Designed a declarative component API for building readable, maintainable Minecraft interfaces.',
+			'Designed a declarative component API, so a Minecraft screen is described in code that reads like its layout.',
 			'Built separate renderers for screens and HUD overlays on top of Minecraft UI primitives.',
-			'Created an extensible widget, layout, and theming architecture, along with documentation and starter templates.'
+			'Wrote the widget, layout, and theming system that other mods extend, plus the documentation and starter templates.'
 		]
 	},
 
@@ -130,12 +129,12 @@ export const projects: SystemProject[] = [
 		tagline: 'A 2D game engine, written because the game needed one',
 		year: 'Aug 2026 — present',
 		role: 'Engine and gameplay programmer',
-		tags: ['C#', 'Raylib', 'GLSL', 'rendering'],
+		tags: ['C#', 'OpenGL', 'GLSL', 'rendering'],
 		hero: null,
 
 		summary:
-			'A 2D space mining game built from scratch on Raylib. Mine an alien planet, manage your oxygen, haul resources back to the surface, and spend your earnings on upgrades that let you go deeper. It includes custom rendering, dynamic lighting, tile physics, procedural planet generation, and a data-driven content pipeline, and is shipping on Steam.',
-		stack: ['C#', 'Raylib', 'GLSL', 'Steamworks'],
+			'A 2D space mining game built from scratch on OpenGL. Mine an alien planet, manage your oxygen, haul resources back to the surface, and spend your earnings on upgrades that let you go deeper. It includes custom rendering, dynamic lighting, tile physics, procedural planet generation, and a data-driven content pipeline, and is shipping on Steam.',
+		stack: ['C#', 'OpenGL', 'GLSL', 'Steamworks'],
 		siteUrl: 'https://store.steampowered.com/app/3973750/Astrodescent',
 		contributions: [
 			'Wrote a custom deferred renderer with a post-processing chain, dynamic 2D lighting, texture atlasing, and a pixel-font UI system.',

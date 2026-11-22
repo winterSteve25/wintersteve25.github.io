@@ -5,7 +5,7 @@ export const page: PageMeta = {
 	nav: 'Games',
 	title: 'Game Developer',
 	intro:
-		'CS @ UBC. Currently working on Astrodescent, a 2D incremental mining game launching on Steam this year. I like building gameplay systems, VFX, computer graphics related features, and the custom tools that make development smoother.',
+		'CS @ UBC. Currently working on Astrodescent, a 2D incremental mining game launching on Steam this year. I like building gameplay systems, VFX, graphics programming, and the custom tools that make development smoother.',
 	hue: 45,
 	resume: 'resume-game-dev.pdf'
 };
@@ -17,7 +17,7 @@ export const projects: GameProject[] = [
 		tagline: 'Mine an alien planet, get out before the oxygen does',
 		year: 'Aug 2026 — present',
 		role: 'Programming',
-		engine: 'None — C# on Raylib',
+		engine: 'None — C# on OpenGL',
 		tags: ['mining', 'pixel art', 'Steam'],
 		hero: null,
 
@@ -34,14 +34,14 @@ export const projects: GameProject[] = [
 		previewImage: 'games/astrodescent-preview.png',
 		controls: 'WASD to move · mouse to look and interact · E for inventory',
 		playableBuildNote:
-			'The original game jam prototype below was built in Unity, with art and visual direction by felixrl. The current Steam release is a substantially expanded C# and Raylib rewrite developed with a new collaborator.',
+			'The original game jam prototype below was built in Unity, with art and visual direction by felixrl. The current Steam release is a substantially expanded C# and OpenGL rewrite developed with a new collaborator.',
 		storeUrl: 'https://store.steampowered.com/app/3973750/Astrodescent',
 
 		contribution: [
 			{
 				area: 'Engine',
 				points: [
-					'Built engine-up on Raylib with no game engine underneath — everything below is written for this game rather than configured.'
+					'No game engine. It runs directly on OpenGL, and everything below was written for this game.'
 				]
 			},
 			{
@@ -79,7 +79,7 @@ export const projects: GameProject[] = [
 	{
 		slug: 'party-lab',
 		title: 'Party Lab',
-		tagline: 'A hub for lua-based multiplayer party games like Jackbox',
+		tagline: 'A hub for Lua-based multiplayer party games like Jackbox',
 		year: 'Jul 2024 — Dec 2024',
 		role: 'Solo',
 		engine: 'None — C++ on Raylib',
@@ -133,7 +133,7 @@ export const projects: GameProject[] = [
 			{
 				area: 'UI API',
 				points: [
-					'Designed a declarative component API for building readable, maintainable Minecraft interfaces.'
+					'Designed a declarative component API, so a Minecraft screen is described in code that reads like its layout.'
 				]
 			},
 			{
@@ -145,7 +145,7 @@ export const projects: GameProject[] = [
 			{
 				area: 'Developer tools',
 				points: [
-					'Created an extensible widget, layout, and theming architecture, along with documentation and starter templates.'
+					'Wrote the widget, layout, and theming system that other mods extend, plus the documentation and starter templates.'
 				]
 			}
 		]
@@ -162,7 +162,7 @@ export const projects: GameProject[] = [
 		hero: null,
 
 		pitch:
-			'A physically based, hyper-realistic FPS developed with a team led by Bael, with an emphasis on realistic character reactions and physical interactions.',
+			'An FPS made with a team led by Bael. The focus is on realistic character reactions and physical interactions.',
 		videoEmbedUrl:
 			'https://www.youtube.com/embed/zeGEXJWIkyQ?si=Dpkbxt67g8v-xUKA',
 
@@ -170,13 +170,13 @@ export const projects: GameProject[] = [
 			{
 				area: 'Physics',
 				points: [
-					'Implemented and tuned ragdoll physics for realistic character reactions and physical interactions.'
+					'Implemented and tuned the ragdoll physics.'
 				]
 			},
 			{
 				area: 'UAV system',
 				points: [
-					'Implemented the complete UAV system, including aircraft movement and player input handling.'
+					'Built the UAV system: aircraft movement and player input.'
 				]
 			}
 		],
@@ -232,7 +232,7 @@ export const projects: GameProject[] = [
 		collaborators: [
 			{
 				who: 'The other 18 people on the team',
-				what: 'Design, art, audio, and the rest of the gameplay code — this was a jam team, and the parts above are the ones I own.'
+				what: 'Design, art, audio, and the rest of the gameplay code. It was a jam team; the parts above are mine.'
 			}
 		]
 	},
@@ -263,7 +263,7 @@ export const projects: GameProject[] = [
 				area: 'Core mechanic',
 				points: [
 					'Built projectiles that wrap around the edge of circular zones and can return to damage the player.',
-					'Connected enemy kills to the shrinking-zone system, letting the player push back and reshape the playable space.'
+					'Tied enemy kills to the shrinking zones, so killing enemies pushes the zones back out.'
 				]
 			},
 			{
@@ -275,7 +275,7 @@ export const projects: GameProject[] = [
 			{
 				area: 'Presentation',
 				points: [
-					'Created the game art, UI, animation, and combat feedback, with externally credited music, sound effects, icons, and a modified nebula shader.'
+					'Made the art, UI, animation, and combat feedback. Music, sound effects, icons, and a modified nebula shader came from other people and are credited.'
 				]
 			}
 		],
