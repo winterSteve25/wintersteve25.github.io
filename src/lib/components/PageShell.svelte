@@ -58,5 +58,5 @@
 		{@render children()}
 	</main>
 
-	<SiteFooter />
+	<SiteFooter resumes={page.resume ? [{ label: 'Resume (PDF)', file: page.resume }] : []} />
 </div>

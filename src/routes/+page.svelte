@@ -5,6 +5,8 @@
 	import SiteNav from '$lib/components/SiteNav.svelte';
 	import Star from '$lib/components/Star.svelte';
 	import { profile } from '$lib/content/profile';
+	import { page as gamesPage } from '$lib/content/games';
+	import { page as swePage } from '$lib/content/swe';
 	import { pageHref } from '$lib/routes';
 
 	const doors = [
@@ -27,6 +29,11 @@
 			cta: 'Open Game Dev'
 		}
 	];
+
+	const resumes = [
+		{ label: 'Software Resume', file: swePage.resume },
+		{ label: 'Game Dev Resume', file: gamesPage.resume }
+	].filter((r): r is { label: string; file: string } => !!r.file);
 </script>
 
 <Seo title={profile.name} description={profile.landingHeadline} />
@@ -63,7 +70,7 @@
 		{/each}
 	</main>
 
-	<SiteFooter />
+	<SiteFooter {resumes} />
 </div>
 
 <style>

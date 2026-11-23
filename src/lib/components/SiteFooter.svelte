@@ -1,6 +1,13 @@
 <script lang="ts">
 	import Star from './Star.svelte';
 	import { profile } from '$lib/content/profile';
+	import { staticHref } from '$lib/routes';
+
+	interface Props {
+		/** Resume PDFs (filenames in `static/`) shown before the profile links. */
+		resumes?: { label: string; file: string }[];
+	}
+	let { resumes = [] }: Props = $props();
 
 	const tilts = ['-2deg', '1.5deg', '-1deg'];
 </script>
@@ -13,6 +20,13 @@
 			<p><a class="mail" href="mailto:{profile.email}">{profile.email}</a></p>
 		</div>
 		<ul>
+			{#each resumes as resume (resume.file)}
+				<li>
+					<a class="btn resume" href={staticHref(resume.file)} target="_blank" rel="noreferrer"
+						>{resume.label}</a
+					>
+				</li>
+			{/each}
 			{#each profile.links as link, i (link.label)}
 				<li>
 					<a class="btn" href={link.href} target="_blank" rel="noreferrer" style="--r: {tilts[i % 3]}"
@@ -58,6 +72,10 @@
 		color: var(--paper);
 		font-weight: 700;
 		text-decoration-color: var(--pop);
+	}
+
+	.resume {
+		background: var(--ground);
 	}
 
 	ul {
