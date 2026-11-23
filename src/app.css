@@ -217,14 +217,49 @@ ul.pts li::before {
 	font-weight: 700;
 }
 
+/*
+ * Outlinks: the pink underline floods up into a full highlight on hover,
+ * the box kicks into a slight comic skew and the arrow pops out toward
+ * its destination.
+ */
 .links a {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.3em;
+	/* Padding gives the highlight room; the negative margin keeps text aligned. */
+	padding: 1px 5px 2px;
+	margin-inline: -5px;
 	text-decoration: none;
-	border-bottom: 3px solid var(--pop);
+	background: linear-gradient(var(--pop), var(--pop)) left bottom / 100% 3px no-repeat;
+	transition:
+		background-size 0.24s cubic-bezier(0.2, 0.8, 0.2, 1),
+		color 0.16s ease,
+		box-shadow 0.2s ease,
+		transform 0.2s cubic-bezier(0.2, 2, 0.4, 1);
 }
 
-.links a:hover {
-	background: var(--pop);
+.links a .arr {
+	display: inline-block;
+	transition: transform 0.22s cubic-bezier(0.2, 2, 0.4, 1);
+}
+
+.links a:hover,
+.links a:focus-visible {
+	background-size: 100% 100%;
 	color: var(--paper);
+	box-shadow: 3px 3px 0 var(--ink);
+	transform: translate(-1px, -1px) skewX(-6deg);
+}
+
+.links a:hover .arr,
+.links a:focus-visible .arr {
+	transform: translate(3px, -3px);
+}
+
+.links a:active {
+	box-shadow: 0 0 0 var(--ink);
+	transform: translate(1px, 1px) skewX(-6deg);
+	transition-duration: 0.06s;
 }
 
 /* Chunky button */

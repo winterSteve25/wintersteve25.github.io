@@ -149,13 +149,13 @@
 						{#if project.storeUrl || project.itchPageUrl || project.repoUrl}
 							<p class="links">
 								{#if project.storeUrl}
-									<a href={project.storeUrl} target="_blank" rel="noreferrer">Steam page ↗</a>
+									<a href={project.storeUrl} target="_blank" rel="noreferrer">Steam page <span class="arr" aria-hidden="true">↗</span></a>
 								{/if}
 								{#if project.itchPageUrl}
-									<a href={project.itchPageUrl} target="_blank" rel="noreferrer">Play on itch.io ↗</a>
+									<a href={project.itchPageUrl} target="_blank" rel="noreferrer">Play on itch.io <span class="arr" aria-hidden="true">↗</span></a>
 								{/if}
 								{#if project.repoUrl}
-									<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub ↗</a>
+									<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub <span class="arr" aria-hidden="true">↗</span></a>
 								{/if}
 							</p>
 						{/if}

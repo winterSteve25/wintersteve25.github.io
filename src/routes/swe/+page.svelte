@@ -118,10 +118,10 @@
 					{#if project.siteUrl || project.repoUrl}
 						<p class="links">
 							{#if project.siteUrl}
-								<a href={project.siteUrl} target="_blank" rel="noreferrer">Visit ↗</a>
+								<a href={project.siteUrl} target="_blank" rel="noreferrer">Visit <span class="arr" aria-hidden="true">↗</span></a>
 							{/if}
 							{#if project.repoUrl}
-								<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub ↗</a>
+								<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub <span class="arr" aria-hidden="true">↗</span></a>
 							{/if}
 						</p>
 					{/if}
