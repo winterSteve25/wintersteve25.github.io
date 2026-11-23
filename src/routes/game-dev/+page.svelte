@@ -1,392 +1,403 @@
 <script lang="ts">
 	import PageShell from '$lib/components/PageShell.svelte';
 	import Playable from '$lib/components/Playable.svelte';
+	import Star from '$lib/components/Star.svelte';
 	import { alsoShipped, page, projects } from '$lib/content/games';
 	import type { GameProject } from '$lib/content/types';
 	import { staticHref } from '$lib/routes';
 
+	const band = [
+		'OPENGL',
+		'GLSL',
+		'C#',
+		'GODOT',
+		'UNITY',
+		'RAYLIB',
+		'LUA',
+		'GMTK 2026',
+		'GMTK 2025',
+		'BRACKEYS'
+	];
+
 	const facts = (p: GameProject) =>
-		[p.role, p.engine, p.year, p.teamSize ? `team of ${p.teamSize}` : null, p.duration]
-			.filter(Boolean)
-			.join(' · ');
+		[
+			['Year', p.year],
+			['Role', p.role],
+			['Engine', p.engine],
+			['Team', p.teamSize],
+			['Length', p.duration]
+		].filter((f): f is [string, string] => Boolean(f[1]));
 </script>
 
 {#snippet intro()}
-	CS @ UBC. Currently working on <a href="https://store.steampowered.com/app/3973750/Astrodescent" target="_blank" rel="noreferrer">Astrodescent</a>, 
-	a 2D incremental mining game launching on Steam this year. 
-	I like building gameplay systems, VFX, graphics programming, 
-	and the custom tools that make development smoother.
+	CS @ UBC. Currently working on <a
+		href="https://store.steampowered.com/app/3973750/Astrodescent"
+		target="_blank"
+		rel="noreferrer">Astrodescent</a
+	>, a 2D incremental mining game launching on Steam this year. I like building gameplay systems,
+	VFX, graphics programming, and the custom tools that make development smoother.
 {/snippet}
 
+{#snippet heroExtra()}
+	<Star id="games-hero" place="right: 2%; bottom: -6px" tilt={8} />
+{/snippet}
 
-<PageShell {page} {intro}>
-	{#each projects as project (project.slug)}
-		<article class="game">
-			<header>
-				<div class="title">
-					<h2>{project.title}</h2>
-					{#if project.storeUrl || project.itchPageUrl || project.repoUrl}
-						<p class="links">
-							{#if project.storeUrl}
-								<a href={project.storeUrl} target="_blank" rel="noreferrer">Steam page &rarr;</a>
+<PageShell {page} {intro} {heroExtra} {band} stripLabel="GAME DEV">
+	<section class="wrap block" aria-labelledby="games">
+		<div class="sh">
+			<h2 id="games">Games</h2>
+			<p>What each game is, and the parts I built.</p>
+		</div>
+
+		<div class="list">
+			{#each projects as project, i (project.slug)}
+				<article class="game" class:flip={i % 2 === 1}>
+					<div class="frame" class:live={project.itchEmbedUrl || project.videoEmbedUrl}>
+						<div class="media">
+							{#if project.itchEmbedUrl}
+								<Playable
+									embedUrl={project.itchEmbedUrl}
+									embedWidth={project.itchEmbedWidth}
+									embedHeight={project.itchEmbedHeight}
+									embedColor={project.itchEmbedColor}
+									hideItchFullscreen={project.hideItchFullscreen}
+									previewImage={project.previewImage ? staticHref(project.previewImage) : undefined}
+									controls={project.controls}
+									title={project.title}
+								/>
+							{:else if project.videoEmbedUrl}
+								<div class="video">
+									<iframe
+										src={project.videoEmbedUrl}
+										title="{project.title} gameplay demo"
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+										referrerpolicy="strict-origin-when-cross-origin"
+										allowfullscreen
+										loading="lazy"
+									></iframe>
+								</div>
+							{:else if project.previewImage}
+								<img src={staticHref(project.previewImage)} alt="{project.title} screenshot" loading="lazy" />
+							{:else}
+								<div class="placeholder" aria-hidden="true">{project.title}</div>
 							{/if}
-							{#if project.itchPageUrl}
-								<a href={project.itchPageUrl} target="_blank" rel="noreferrer">Play on itch.io &rarr;</a>
-							{/if}
-							{#if project.repoUrl}
-								<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub &rarr;</a>
-							{/if}
-						</p>
-					{/if}
-				</div>
-				<p class="tagline">{project.tagline}</p>
-			</header>
-
-			<div class="overview">
-				<p class="pitch">{project.pitch}</p>
-
-				<div class="metadata">
-					<p class="mono facts">{facts(project)}</p>
-					{#if project.tags.length}
-						<ul class="tags" aria-label="Project tags">
-							{#each project.tags as tag (tag)}
-								<li class="mono">{tag}</li>
-							{/each}
-						</ul>
-					{/if}
-				</div>
-			</div>
-
-			{#if project.itchEmbedUrl}
-				<div class="playable">
-					<Playable
-						embedUrl={project.itchEmbedUrl}
-						embedWidth={project.itchEmbedWidth}
-						embedHeight={project.itchEmbedHeight}
-						embedColor={project.itchEmbedColor}
-						hideItchFullscreen={project.hideItchFullscreen}
-						previewImage={project.previewImage ? staticHref(project.previewImage) : undefined}
-						controls={project.controls}
-						title={project.title}
-					/>
-					{#if project.playableBuildNote}
-						<p class="playable-note">{project.playableBuildNote}</p>
-					{/if}
-				</div>
-			{/if}
-
-			{#if project.videoEmbedUrl}
-				<div class="video-demo">
-					<iframe
-						width="560"
-						height="315"
-						src={project.videoEmbedUrl}
-						title="{project.title} gameplay demo"
-						frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-						referrerpolicy="strict-origin-when-cross-origin"
-						allowfullscreen
-						loading="lazy"
-					></iframe>
-				</div>
-			{/if}
-
-			<section class="project-section breakdown">
-				<h3 class="mono">What I did</h3>
-				<dl>
-					{#each project.contribution as group (group.area)}
-						<div class="area">
-							<dt>{group.area}</dt>
-							<dd>
-								<ul>
-									{#each group.points as point (point)}
-										<li>{point}</li>
-									{/each}
-								</ul>
-							</dd>
 						</div>
-					{/each}
-				</dl>
-			</section>
+						{#if project.stamp}<span class="stamp">{project.stamp}</span>{/if}
+						{#if i === 4}
+							<Star id="games-frame" place="left: -8px; bottom: -14px" tilt={-16} />
+						{/if}
+					</div>
 
-			{#if project.collaborators?.length}
-				<section class="project-section people">
-					<h3 class="mono">Also on it</h3>
-					<ul>
-						{#each project.collaborators as person (person.who)}
-							<li>
-								<span class="who">
-									{#if person.url}
-										<a href={person.url} target="_blank" rel="noreferrer">{person.who}</a>
-									{:else}
-										{person.who}
-									{/if}
-								</span>
-								<span class="what">{person.what}</span>
-							</li>
-						{/each}
-					</ul>
-				</section>
-			{/if}
-		</article>
-	{/each}
+					<div class="card">
+						<h3>{project.title}</h3>
+						<p class="tagline">{project.tagline}</p>
+
+						<dl class="facts">
+							{#each facts(project) as [label, value] (label)}
+								<div><dt>{label}</dt><dd>{value}</dd></div>
+							{/each}
+						</dl>
+
+						<p class="pitch">{project.pitch}</p>
+
+						{#if project.playableBuildNote}
+							<p class="note">{project.playableBuildNote}</p>
+						{/if}
+
+						<h4 class="label">What I did</h4>
+						<dl class="areas">
+							{#each project.contribution as group (group.area)}
+								<div>
+									<dt>{group.area}</dt>
+									<dd>
+										<ul class="pts">
+											{#each group.points as point (point)}
+												<li>{point}</li>
+											{/each}
+										</ul>
+									</dd>
+								</div>
+							{/each}
+						</dl>
+
+						{#if project.collaborators?.length}
+							<h4 class="label">Also on it</h4>
+							<ul class="people">
+								{#each project.collaborators as person (person.who)}
+									<li>
+										<b>
+											{#if person.url}
+												<a href={person.url} target="_blank" rel="noreferrer">{person.who}</a>
+											{:else}
+												{person.who}
+											{/if}
+										</b>
+										<span>{person.what}</span>
+									</li>
+								{/each}
+							</ul>
+						{/if}
+
+						{#if project.tags.length}
+							<ul class="chips" aria-label="Project tags">
+								{#each project.tags as tag (tag)}
+									<li>{tag}</li>
+								{/each}
+							</ul>
+						{/if}
+
+						{#if project.storeUrl || project.itchPageUrl || project.repoUrl}
+							<p class="links">
+								{#if project.storeUrl}
+									<a href={project.storeUrl} target="_blank" rel="noreferrer">Steam page ↗</a>
+								{/if}
+								{#if project.itchPageUrl}
+									<a href={project.itchPageUrl} target="_blank" rel="noreferrer">Play on itch.io ↗</a>
+								{/if}
+								{#if project.repoUrl}
+									<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub ↗</a>
+								{/if}
+							</p>
+						{/if}
+
+						{#if i === 2}
+							<Star id="games-card" place="right: 12px; top: 12px" tilt={14} />
+						{/if}
+					</div>
+				</article>
+			{/each}
+		</div>
+	</section>
 
 	{#if alsoShipped.length}
-		<section class="also">
-			<h2 class="mono">Also shipped</h2>
-			<ul>
-				{#each alsoShipped as entry (entry.url)}
-					<li>
-						<a href={entry.url} target="_blank" rel="noreferrer">{entry.title}</a>
-						{#if entry.context}<span class="mono context">{entry.context}</span>{/if}
+		<section class="wrap block" aria-labelledby="also">
+			<div class="sh"><h2 id="also">Also shipped</h2></div>
+			<div class="also">
+				{#each alsoShipped as entry, i (entry.url)}
+					<a class="card {i % 2 ? 'tilt-l' : 'tilt-r'}" href={entry.url} target="_blank" rel="noreferrer">
+						{#if entry.context}<span class="meta">{entry.context}</span>{/if}
+						<h3>{entry.title}</h3>
 						<p>{entry.blurb}</p>
-					</li>
+					</a>
 				{/each}
-			</ul>
+			</div>
 		</section>
 	{/if}
 </PageShell>
 
 <style>
-	.title {
-		display: flex;
-		align-items: baseline;
-		flex-wrap: wrap;
-		gap: 0.4rem 1rem;
+	.list {
+		display: grid;
+		gap: 64px;
 	}
 
 	.game {
-		padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2.5rem, 4vw, 3rem);
-		border-top: 1px solid var(--line-soft);
-	}
-
-	header {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
 	}
 
-	h2 {
-		font-size: var(--step-2);
+	/* Media frame: tilted, straightens on hover. Playable and video frames stay
+	   straight so the game and its controls line up with the pointer. */
+	.frame {
+		position: relative;
+		width: min(88%, 900px);
+		transform: rotate(-1.4deg);
+		transition: transform 0.25s cubic-bezier(0.2, 1.6, 0.4, 1);
 	}
 
-	.tagline {
-		color: var(--text-dim);
-		font-size: var(--step-1);
-		max-width: 46ch;
+	.game.flip .frame {
+		align-self: flex-end;
+		transform: rotate(1.4deg);
 	}
 
-	.overview {
-		display: grid;
-		gap: 1.25rem;
-		margin-top: clamp(1.5rem, 3vw, 2rem);
+	.game:hover .frame,
+	.frame.live {
+		transform: none !important;
 	}
 
-	.metadata {
-		display: grid;
-		gap: 0.75rem;
-		justify-items: start;
-		padding-top: 1rem;
-		border-top: 1px solid var(--line-soft);
-	}
-
-	.playable {
-		display: grid;
-		gap: 0.75rem;
-		margin-top: clamp(2.25rem, 5vw, 3.5rem);
-	}
-
-	.playable-note {
-		color: var(--text-dim);
-		font-size: var(--step--1);
-	}
-
-	.video-demo {
-		aspect-ratio: 16 / 9;
-		margin-top: clamp(2.25rem, 5vw, 3.5rem);
-		border: 1px solid var(--line-soft);
-		border-radius: var(--radius);
-		background: var(--bg-sunken);
+	.media {
 		overflow: hidden;
+		background: var(--ink);
+		border: 4px solid var(--ink);
+		box-shadow: 10px 10px 0 var(--ink);
 	}
 
-	.video-demo iframe {
+	.media > img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+	}
+
+	.video {
+		aspect-ratio: 16 / 9;
+	}
+
+	.video iframe {
 		display: block;
 		width: 100%;
 		height: 100%;
 		border: 0;
 	}
 
-	.pitch {
-		max-width: 60ch;
-		font-size: var(--step-1);
+	.placeholder {
+		display: grid;
+		place-items: center;
+		aspect-ratio: 21 / 8;
+		padding: 12px;
+		text-align: center;
+		text-transform: uppercase;
+		color: var(--ground);
+		font: 400 clamp(28px, 4vw, 52px) / 1 var(--display);
+		background: repeating-linear-gradient(-45deg, var(--ink) 0 14px, #2a252a 14px 28px);
+	}
+
+	.stamp {
+		position: absolute;
+		top: -14px;
+		right: -10px;
+		padding: 7px 10px;
+		font: 400 15px/1 var(--display);
+		text-transform: uppercase;
+		color: var(--paper);
+		background: var(--pop);
+		border: 3px solid var(--ink);
+		transform: rotate(8deg);
+	}
+
+	.card {
+		width: min(90%, 940px);
+		margin-top: 22px;
+		align-self: flex-end;
+		box-shadow: 6px 6px 0 var(--ink);
+	}
+
+	.game.flip .card {
+		align-self: flex-start;
+	}
+
+	/* Cards tuck under still images; playable builds keep their footer clear. */
+	.frame:not(.live) + .card {
+		margin-top: -26px;
 	}
 
 	.facts {
-		color: var(--text-faint);
-		line-height: 1.6;
-	}
-
-	.links {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem;
-		font-size: 0.92rem;
+		gap: 6px 0;
+		margin: 8px 0 12px;
+		font: 700 13px/1 var(--body);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 	}
 
-	.project-section {
-		margin-top: clamp(2.5rem, 5vw, 3.5rem);
-		padding-top: clamp(1.25rem, 3vw, 1.75rem);
-		border-top: 1px solid var(--line-soft);
+	.facts div {
+		display: flex;
+		gap: 6px;
+		padding: 6px 10px;
+		margin-right: -2px;
+		border: 2px solid var(--ink);
+		background: var(--paper);
 	}
 
-	.breakdown {
-		padding-top: 0;
-		border-top: 0;
+	.facts dt {
+		color: var(--muted);
+		font-weight: 500;
+	}
+
+	.facts dd {
+		margin: 0;
+	}
+
+	.pitch {
+		max-width: 70ch;
+		font-size: 18px;
+	}
+
+	.note {
+		max-width: 70ch;
+		margin-top: 12px;
+		padding-left: 12px;
+		font-size: 15px;
+		color: var(--muted);
+		border-left: 4px solid var(--ink);
+	}
+
+	.label {
+		margin-top: 20px;
+		font: 400 20px/1 var(--display);
+		letter-spacing: -0.01em;
+	}
+
+	.areas {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 14px 24px;
+		margin: 10px 0 0;
+	}
+
+	.areas dt {
+		display: inline-block;
+		padding: 5px 8px;
+		font: 700 13px/1 var(--body);
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--pop);
+		background: var(--ink);
+		transform: skewX(-10deg);
+	}
+
+	.areas dd {
+		margin: 0;
+	}
+
+	.areas .pts {
+		margin-top: 6px;
+		font-size: 16px;
 	}
 
 	.people {
-		margin-top: clamp(2rem, 4vw, 2.75rem);
-		padding-top: 0;
-		border-top: 0;
-	}
-
-	.breakdown h3,
-	.people h3 {
-		color: var(--accent);
-		margin-bottom: 1.25rem;
-	}
-
-	.breakdown dl {
-		margin: 0;
 		display: grid;
-	}
-
-	.area {
-		display: grid;
-		grid-template-columns: minmax(7rem, 9rem) minmax(0, 1fr);
-		gap: 0.35rem 1.25rem;
-		padding-block: 0.95rem;
-		border-top: 1px solid var(--line-soft);
-	}
-
-	@media (max-width: 34rem) {
-		.area {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.area dt {
-		font-weight: 650;
-		font-size: 0.95rem;
-	}
-
-	.area dd {
-		margin: 0;
-	}
-
-	.area ul {
-		margin: 0;
-		padding-left: 1.2rem;
-		display: grid;
-		gap: 0.4rem;
-		color: var(--text-dim);
-		max-width: 62ch;
-	}
-
-	.area li::marker {
-		color: var(--accent);
-	}
-
-	.people ul {
+		gap: 6px;
 		list-style: none;
-		margin: 0;
+		margin: 8px 0 0;
 		padding: 0;
-		display: grid;
+		font-size: 16px;
 	}
 
-	.people li {
-		display: grid;
-		grid-template-columns: minmax(7rem, 9rem) minmax(0, 1fr);
-		gap: 0.25rem 1.25rem;
-	}
-
-	.people li + li {
-		margin-top: 0.85rem;
-		padding-top: 0.85rem;
-		border-top: 1px solid var(--line-soft);
-	}
-
-	@media (max-width: 34rem) {
-		.people li {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.who {
-		font-weight: 650;
-		font-size: 0.95rem;
-	}
-
-	.what {
-		color: var(--text-dim);
-		max-width: 62ch;
-	}
-
-	.tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.4rem;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-
-	.tags li {
-		border: 1px solid var(--line-soft);
-		border-radius: var(--radius);
-		padding: 0.15rem 0.55rem;
-		color: var(--text-dim);
-		background: var(--bg-sunken);
+	.people b::after {
+		content: ': ';
 	}
 
 	.also {
-		padding-block: clamp(2.5rem, 6vw, 4rem);
-		border-top: 1px solid var(--line-soft);
-	}
-
-	.also h2 {
-		color: var(--accent);
-		font-size: 0.78rem;
-		margin-bottom: 1.25rem;
-	}
-
-	.also ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-		gap: 1.5rem;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+		gap: 26px;
 	}
 
-	.also li {
-		display: flex;
-		flex-direction: column;
-		gap: 0.3rem;
-		align-items: flex-start;
-	}
-
-	.also a {
-		font-weight: 650;
-	}
-
-	.context {
-		color: var(--text-faint);
+	.also .card {
+		display: block;
+		width: auto;
+		margin: 0;
+		text-decoration: none;
 	}
 
 	.also p {
-		color: var(--text-dim);
-		font-size: 0.92rem;
+		margin-top: 6px;
+	}
+
+	.also .card:hover {
+		box-shadow: 10px 10px 0 var(--pop);
+	}
+
+	@media (max-width: 860px) {
+		.frame,
+		.card {
+			width: 100%;
+		}
+
+		.areas {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

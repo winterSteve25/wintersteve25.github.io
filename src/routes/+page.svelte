@@ -1,212 +1,194 @@
 <script lang="ts">
+	import Hero from '$lib/components/Hero.svelte';
 	import Seo from '$lib/components/Seo.svelte';
+	import SiteFooter from '$lib/components/SiteFooter.svelte';
 	import SiteNav from '$lib/components/SiteNav.svelte';
-	import { pages } from '$lib/content/pages';
+	import Star from '$lib/components/Star.svelte';
 	import { profile } from '$lib/content/profile';
-	import { pageHref, staticHref } from '$lib/routes';
+	import { pageHref } from '$lib/routes';
+
+	const doors = [
+		{
+			id: 'swe' as const,
+			side: 'software',
+			title: 'Software Engineer',
+			ticket: 'Software',
+			blurb:
+				'Rust, WebAssembly and TypeScript. A DOCX renderer at Diffchecker, a Nokia internship, and Myelin Notes: a cross-platform notes app with 13 public releases.',
+			cta: 'Open Software'
+		},
+		{
+			id: 'game-dev' as const,
+			side: 'games',
+			title: 'Game Developer',
+			ticket: 'Game Dev',
+			blurb:
+				'Astrodescent on a custom C# and OpenGL engine, plus jam games in Godot and Unity: GLSL effects, gameplay systems and game feel.',
+			cta: 'Open Game Dev'
+		}
+	];
 </script>
 
 <Seo title={profile.name} description={profile.landingHeadline} />
 
-<div class="page">
-	<div class="shell">
-		<SiteNav />
-	</div>
+<div class="site" data-side="home">
+	<SiteNav />
 
-	<header class="shell hero">
-		<div class="words">
-			<h1>{profile.name}</h1>
-			<p class="headline">Software engineer and<br />game&nbsp;developer</p>
-			<p class="blurb">
-				CS @ UBC<br />
-				Currently working on <a href="https://trymyelin.app/" target="_blank" rel="noreferrer">Myelin Notes</a>
-				and
-				<a href="https://store.steampowered.com/app/3973750/Astrodescent" target="_blank" rel="noreferrer"
-					>Astrodescent</a
-				>
-			</p>
+	<Hero eyebrow="{profile.location} · CS @ UBC" lines={['CADEN', 'ZHANG']} stripLabel="CADEN ZHANG">
+		<p class="lede">
+			<strong>Software engineer and game developer.</strong> I build gameplay systems, rendering and
+			VFX, desktop apps in Rust, and the tools that make development smoother.
+		</p>
+		<div class="now">
+			<a href="https://trymyelin.app/" target="_blank" rel="noreferrer">
+				<small>Currently building</small><b>Myelin Notes</b>
+			</a>
+			<a href="https://store.steampowered.com/app/3973750/Astrodescent" target="_blank" rel="noreferrer">
+				<small>Currently shipping on Steam</small><b>Astrodescent</b>
+			</a>
 		</div>
-		<div class="portrait">
-			<img
-				src={staticHref('profile.jpg')}
-				alt="Caden Zhang sitting on stone steps outdoors"
-				width="1200"
-				height="1600"
-				fetchpriority="high"
-			/>
-		</div>
-	</header>
+		{#snippet extra()}
+			<Star id="home-hero" place="right: 4%; top: 6px" tilt={-14} />
+		{/snippet}
+	</Hero>
 
-	<nav class="shell directory" aria-label="Pages">
-		<ul>
-			{#each pages as p (p.id)}
-				<li class="theme" style="--accent-hue: {p.hue}">
-					<a href={pageHref(p.id)} target="_blank" rel="noreferrer">
-						<span class="title">{p.title}</span>
-						{#if p.headline}<span class="blurb">{p.headline}</span>{/if}
-						<span class="cta mono">Open &rarr;</span>
-					</a>
-				</li>
-			{/each}
-		</ul>
-	</nav>
+	<main class="wrap doors" aria-label="Pages">
+		{#each doors as door (door.id)}
+			<a class="door {door.side}" href={pageHref(door.id)}>
+				<span class="ticket">Page · {door.ticket}</span>
+				<h2>{door.title}</h2>
+				<p>{door.blurb}</p>
+				<span class="go">{door.cta} &rarr;</span>
+			</a>
+		{/each}
+	</main>
 
-	<footer class="shell">
-		<div class="foot">
-			<p class="mono">{profile.location}</p>
-			<ul>
-				<li><a href="mailto:{profile.email}" target="_blank" rel="noreferrer">{profile.email}</a></li>
-				{#each profile.links as link (link.label)}
-					<li><a href={link.href} target="_blank" rel="noreferrer">{link.label}</a></li>
-				{/each}
-			</ul>
-		</div>
-	</footer>
+	<SiteFooter />
 </div>
 
 <style>
-	.page {
-		min-height: 100dvh;
+	.now {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+		margin-top: 22px;
+	}
+
+	.now a {
+		display: block;
+		padding: 10px 14px;
+		text-decoration: none;
+		background: var(--paper);
+		border: 3px solid var(--ink);
+		transform: skewX(-6deg);
+		transition:
+			background 0.15s,
+			color 0.15s;
+	}
+
+	.now b {
+		display: block;
+		font: 400 19px/1.1 var(--display);
+	}
+
+	.now small {
+		color: var(--muted);
+		font-weight: 500;
+	}
+
+	.now a:hover {
+		background: var(--ink);
+		color: var(--paper);
+	}
+
+	.now a:hover small {
+		color: #cfc8b6;
+	}
+
+	.doors {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 30px;
+		align-content: start;
+		padding-block: 20px 50px;
+	}
+
+	.door {
+		position: relative;
+		min-width: 0;
 		display: flex;
 		flex-direction: column;
+		gap: 12px;
+		padding: 26px 26px 24px;
+		text-decoration: none;
+		border: 4px solid var(--ink);
+		box-shadow: 10px 10px 0 var(--ink);
+		transition:
+			transform 0.25s cubic-bezier(0.2, 1.6, 0.4, 1),
+			box-shadow 0.2s;
 	}
 
-	.hero {
-		padding-block: clamp(3rem, 12vh, 7rem) clamp(2.5rem, 7vh, 4.5rem);
-		display: grid;
-		grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-		gap: clamp(1.5rem, 5vw, 3.5rem);
-		align-items: center;
+	.door.software {
+		background: var(--cyan);
+		transform: rotate(-1.2deg);
 	}
 
-	@media (max-width: 44rem) {
-		.hero {
+	.door.games {
+		background: var(--yellow);
+		transform: rotate(1.2deg) translateY(18px);
+	}
+
+	.door:hover {
+		transform: rotate(0) translateY(-6px);
+		box-shadow: 14px 14px 0 var(--pop);
+	}
+
+	.door h2 {
+		font: 400 clamp(34px, 4.6vw, 58px) / 0.9 var(--display);
+		letter-spacing: -0.03em;
+	}
+
+	.door p {
+		max-width: 52ch;
+	}
+
+	.go {
+		align-self: flex-start;
+		margin-top: auto;
+		padding: 10px 14px;
+		font: 400 17px/1 var(--display);
+		background: var(--ink);
+		color: var(--paper);
+		transform: skewX(-10deg);
+	}
+
+	.ticket {
+		position: absolute;
+		top: -16px;
+		right: 18px;
+		padding: 6px 10px;
+		font: 700 13px/1 var(--body);
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		background: var(--paper);
+		border: 3px solid var(--ink);
+		transform: rotate(4deg);
+	}
+
+	@media (max-width: 860px) {
+		.doors {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+
+		.door.games {
+			transform: rotate(1deg);
+		}
+	}
+
+	@media (max-width: 520px) {
+		.now {
 			grid-template-columns: 1fr;
 		}
-	}
-
-	.words {
-		display: flex;
-		flex-direction: column;
-		gap: 0.85rem;
-	}
-
-	h1 {
-		font-size: var(--step-4);
-	}
-
-	.headline {
-		font-size: var(--step-2);
-		color: var(--text);
-		max-width: 22ch;
-		line-height: 1.15;
-		letter-spacing: -0.015em;
-	}
-
-	.blurb {
-		color: var(--text-dim);
-		max-width: 44ch;
-		margin-top: 0.35rem;
-	}
-
-	.portrait {
-		aspect-ratio: 1;
-		border: 1px solid var(--line-soft);
-		border-radius: var(--radius);
-		background: var(--bg-sunken);
-		overflow: hidden;
-	}
-
-	.portrait img {
-		display: block;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: 50% 48%;
-	}
-
-	@media (max-width: 44rem) {
-		.portrait {
-			aspect-ratio: 4 / 5;
-		}
-
-		.portrait img {
-			object-position: 50% 50%;
-		}
-	}
-
-	.directory ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-		gap: 1px;
-		background: var(--line-soft);
-		border: 1px solid var(--line-soft);
-		border-radius: var(--radius);
-		overflow: hidden;
-	}
-
-	.directory li {
-		background: var(--bg);
-	}
-
-	.directory a {
-		display: flex;
-		flex-direction: column;
-		gap: 0.4rem;
-		height: 100%;
-		padding: 1.35rem 1.4rem 1.5rem;
-		text-decoration: none;
-		color: var(--text);
-	}
-
-	.title {
-		font-size: var(--step-1);
-		font-weight: 650;
-		letter-spacing: -0.015em;
-		color: var(--accent);
-	}
-
-	.blurb {
-		color: var(--text-dim);
-		font-size: 0.92rem;
-		flex: 1;
-	}
-
-	.cta {
-		margin-top: 0.75rem;
-		color: var(--text-faint);
-		transition: color 140ms;
-	}
-
-	.directory a:hover .cta {
-		color: var(--accent-bright);
-	}
-
-	footer {
-		padding-block: 3rem 3.5rem;
-		flex: 1;
-		display: flex;
-		align-items: flex-end;
-	}
-
-	.foot {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem 2rem;
-		justify-content: space-between;
-		width: 100%;
-	}
-
-	.foot ul {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1.25rem;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		font-size: 0.92rem;
 	}
 </style>

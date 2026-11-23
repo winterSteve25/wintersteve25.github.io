@@ -1,387 +1,295 @@
 <script lang="ts">
 	import PageShell from '$lib/components/PageShell.svelte';
+	import Star from '$lib/components/Star.svelte';
 	import { education, experience, page, projects, skills } from '$lib/content/swe';
 	import { staticHref } from '$lib/routes';
 
+	const band = [
+		'RUST',
+		'WEBASSEMBLY',
+		'TYPESCRIPT',
+		'TAURI',
+		'REACT',
+		'SVELTE',
+		'C++',
+		'LUA',
+		'JAVA',
+		'GITHUB ACTIONS'
+	];
+	const shotTilts = ['-1.5deg', '1deg', '-0.8deg'];
 </script>
 
 {#snippet intro()}
 	CS @ UBC. Currently working on <a href="https://trymyelin.app/" target="_blank" rel="noreferrer"
 		>Myelin Notes</a
-	>, a cross-platform note-taking and knowledge management app. Working in TypeScript, Rust,
-	and WebAssembly.
+	>, a cross-platform note-taking and knowledge management app. Working in TypeScript, Rust, and
+	WebAssembly.
 {/snippet}
 
-<PageShell {page} {intro}>
-	<section class="band">
-		<h2 class="mono band-title">Experience</h2>
-		{#each experience as job (job.company)}
-			<article class="job">
-				<header>
-					<h3>
-						{job.role} <span class="at">at</span>
-						{#if job.url}
-							<a href={job.url} target="_blank" rel="noreferrer">{job.company}</a>
-						{:else}
-							{job.company}
-						{/if}
-					</h3>
-					<p class="mono period">{job.period}</p>
-				</header>
-
-				<ul class="stack">
-					{#each job.stack as tech (tech)}
-						<li class="mono">{tech}</li>
-					{/each}
-				</ul>
-
-				<ul class="bullets">
-					{#each job.highlights as item (item)}
-						<li>{item}</li>
-					{/each}
-				</ul>
-			</article>
-		{/each}
-	</section>
-
-	<section class="band">
-		<h2 class="mono band-title">Projects</h2>
-		{#each projects as project (project.slug)}
-			<article class="project">
-				<header>
-					<div class="project-heading">
-						<h3>{project.title}</h3>
-						{#if project.siteUrl || project.repoUrl}
-							<p class="links">
-								{#if project.siteUrl}
-									<a href={project.siteUrl} target="_blank" rel="noreferrer">Visit &rarr;</a>
-								{/if}
-								{#if project.repoUrl}
-									<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub &rarr;</a>
-								{/if}
-							</p>
-						{/if}
+<PageShell {page} {intro} {band} stripLabel="SOFTWARE">
+	<section class="wrap block" aria-labelledby="experience">
+		<div class="sh"><h2 id="experience">Experience</h2></div>
+		<div class="stack">
+			{#each experience as job, i (job.company)}
+				<article class="card job {i % 2 ? 'tilt-r' : 'tilt-l'}">
+					<div class="when">
+						{job.period}
+						<small>{job.role}</small>
 					</div>
-					<p class="tagline">{project.tagline}</p>
-
-					<dl class="meta">
-						<div><dt class="mono">Role</dt><dd>{project.role}</dd></div>
-						{#if project.teamSize}
-							<div><dt class="mono">Team</dt><dd>{project.teamSize}</dd></div>
-						{/if}
-						{#if project.duration}
-							<div><dt class="mono">Duration</dt><dd>{project.duration}</dd></div>
-						{/if}
-						<div><dt class="mono">When</dt><dd>{project.year}</dd></div>
-					</dl>
-				</header>
-
-				<ul class="stack">
-					{#each project.stack as tech (tech)}
-						<li class="mono">{tech}</li>
-					{/each}
-				</ul>
-
-				<div class="project-body" class:with-screenshot={project.screenshots?.length}>
-					<div class="project-copy">
-						<p class="summary">{project.summary}</p>
-
-						{#if project.excerpt}
-							<figure class="excerpt">
-								<figcaption>{project.excerpt.caption}</figcaption>
-								<pre><code>{project.excerpt.code}</code></pre>
-							</figure>
-						{/if}
-
-						<ul class="bullets">
-							{#each project.contributions as item (item)}
+					<div>
+						<h3>
+							{#if job.url}
+								<a href={job.url} target="_blank" rel="noreferrer">{job.company}</a>
+							{:else}
+								{job.company}
+							{/if}
+						</h3>
+						<ul class="pts">
+							{#each job.highlights as item (item)}
 								<li>{item}</li>
 							{/each}
 						</ul>
-					</div>
-
-					{#if project.screenshots?.length}
-						<div class="screenshot-gallery">
-							{#each project.screenshots as screenshot (screenshot.src)}
-								<figure class="screenshot">
-									<a
-										href={staticHref(screenshot.src)}
-										target="_blank"
-										rel="noreferrer"
-										aria-label="Open {screenshot.caption ?? 'screenshot'} full size"
-									>
-										<img src={staticHref(screenshot.src)} alt={screenshot.alt} />
-									</a>
-									{#if screenshot.caption}
-										<figcaption>{screenshot.caption}</figcaption>
-									{/if}
-								</figure>
+						<ul class="chips" aria-label="Stack">
+							{#each job.stack as tech (tech)}
+								<li>{tech}</li>
 							{/each}
-						</div>
-					{/if}
-				</div>
-
-			</article>
-		{/each}
+						</ul>
+					</div>
+				</article>
+			{/each}
+		</div>
 	</section>
 
-	<section class="band closing">
+	<section class="wrap block" aria-labelledby="projects">
+		<div class="sh">
+			<h2 id="projects">Projects</h2>
+			<p>Apps, libraries and engines, newest first.</p>
+		</div>
+		<div class="stack">
+			{#each projects as project, i (project.slug)}
+				<article class="card {i % 2 ? 'tilt-r' : 'tilt-l'}">
+					<span class="meta">
+						{project.year} · {project.role}{project.teamSize ? ` · team of ${project.teamSize}` : ''}{project.duration
+							? ` · ${project.duration}`
+							: ''}
+					</span>
+					<h3>{project.title}</h3>
+					<p class="tagline">{project.tagline}</p>
+					<p class="summary">{project.summary}</p>
+
+					{#if project.screenshots?.length}
+						<div class="shots">
+							{#each project.screenshots as shot, s (shot.src)}
+								<figure style="--r: {shotTilts[s % 3]}">
+									<a
+										href={staticHref(shot.src)}
+										target="_blank"
+										rel="noreferrer"
+										aria-label="Open {shot.caption ?? 'screenshot'} full size"
+									>
+										<img src={staticHref(shot.src)} alt={shot.alt} loading="lazy" />
+									</a>
+									{#if shot.caption}<figcaption>{shot.caption}</figcaption>{/if}
+								</figure>
+							{/each}
+							{#if i === 0}
+								<Star id="swe-screens" place="right: -6px; bottom: -4px" tilt={-10} />
+							{/if}
+						</div>
+					{/if}
+
+					{#if project.excerpt}
+						<figure class="excerpt">
+							<figcaption>{project.excerpt.caption}</figcaption>
+							<pre><code>{project.excerpt.code}</code></pre>
+						</figure>
+					{/if}
+
+					<ul class="pts">
+						{#each project.contributions as item (item)}
+							<li>{item}</li>
+						{/each}
+					</ul>
+					<ul class="chips" aria-label="Stack">
+						{#each project.stack as tech (tech)}
+							<li>{tech}</li>
+						{/each}
+					</ul>
+					{#if project.siteUrl || project.repoUrl}
+						<p class="links">
+							{#if project.siteUrl}
+								<a href={project.siteUrl} target="_blank" rel="noreferrer">Visit ↗</a>
+							{/if}
+							{#if project.repoUrl}
+								<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub ↗</a>
+							{/if}
+						</p>
+					{/if}
+				</article>
+			{/each}
+		</div>
+	</section>
+
+	<section class="wrap block closing">
 		<div>
-			<h2 class="mono band-title">Skills</h2>
-			<dl class="skills">
-				{#each skills as group (group.label)}
-					<div>
-						<dt class="mono">{group.label}</dt>
-						<dd>{group.items.join(' · ')}</dd>
-					</div>
-				{/each}
-			</dl>
+			<div class="sh"><h2 id="education">Education</h2></div>
+			{#each education as entry (entry.school)}
+				<div class="card tilt-l">
+					<span class="meta">{entry.period} · {entry.location}</span>
+					<h3>{entry.school}</h3>
+					<p class="tagline">{entry.credential}</p>
+					{#if entry.detail}
+						<ul class="chips"><li>{entry.detail}</li></ul>
+					{/if}
+					<Star id="swe-education" place="right: 14px; bottom: 12px" tilt={20} />
+				</div>
+			{/each}
 		</div>
 
 		<div>
-			<h2 class="mono band-title">Education</h2>
-			{#each education as entry (entry.school)}
-				<div class="school">
-					<h3>{entry.school}</h3>
-					<p>{entry.credential}</p>
-					<p class="mono period">{entry.period} · {entry.location}</p>
-					{#if entry.detail}<p class="detail">{entry.detail}</p>{/if}
-				</div>
-			{/each}
+			<div class="sh"><h2 id="skills">Skills</h2></div>
+			<div class="skills">
+				{#each skills as group, i (group.label)}
+					<div class="card {i % 2 ? 'tilt-r' : 'tilt-l'}">
+						<h3>{group.label}</h3>
+						<ul class="chips">
+							{#each group.items as item (item)}
+								<li>{item}</li>
+							{/each}
+						</ul>
+						{#if i === skills.length - 1}
+							<Star id="swe-skills" place="right: 10px; top: 10px" tilt={24} />
+						{/if}
+					</div>
+				{/each}
+			</div>
 		</div>
 	</section>
 </PageShell>
 
 <style>
-	.band {
-		padding-block: clamp(2rem, 5vw, 3.5rem);
-		border-top: 1px solid var(--line-soft);
-	}
-
-	.band-title {
-		color: var(--accent);
-		margin-bottom: 1.5rem;
-	}
-
-	.job,
-	.project {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		padding-block: 1.5rem;
-	}
-
-	.project {
-		gap: 1.25rem;
-		padding-block: clamp(1.75rem, 4vw, 2.75rem);
-	}
-
-	.job + .job,
-	.project + .project {
-		border-top: 1px solid var(--line-soft);
-	}
-
-	header {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	h3 {
-		font-size: var(--step-1);
-	}
-
-	.project h3 {
-		font-size: var(--step-2);
-	}
-
-	.project-heading {
-		display: flex;
-		align-items: baseline;
-		flex-wrap: wrap;
-		gap: 0.25rem 0.75rem;
-	}
-
-	.at {
-		color: var(--text-faint);
-		font-weight: 400;
-	}
-
-	.period {
-		color: var(--text-faint);
-	}
-
-	.tagline {
-		color: var(--text-dim);
-		font-size: var(--step-1);
-		max-width: none;
-	}
-
-	.meta {
+	.stack {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-		gap: 0.9rem 1.5rem;
-		margin: 0.5rem 0 0;
-		padding-top: 0.9rem;
-		border-top: 1px solid var(--line-soft);
+		gap: 26px;
 	}
 
-	.meta dt {
-		margin-bottom: 0.15rem;
+	.job {
+		display: grid;
+		grid-template-columns: 200px minmax(0, 1fr);
+		gap: 8px 26px;
 	}
 
-	.meta dd {
-		margin: 0;
-		font-size: 0.95rem;
+	.when {
+		font: 400 18px/1.15 var(--display);
+	}
+
+	.when small {
+		display: block;
+		margin-top: 6px;
+		font: 700 12px/1.3 var(--body);
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--muted);
+	}
+
+	.job h3 a {
+		text-decoration-color: var(--pop);
 	}
 
 	.summary {
-		max-width: none;
+		max-width: 75ch;
 	}
 
-	.project-body {
+	.shots {
+		position: relative;
 		display: grid;
-		gap: 1.25rem;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 16px;
+		margin: 18px 0 6px;
 	}
 
-	.project-copy {
-		display: grid;
-		gap: 1.5rem;
-	}
-
-	.project-body.with-screenshot {
-		grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.9fr);
-		align-items: start;
-	}
-
-	.screenshot-gallery {
-		display: grid;
-		gap: 1rem;
-	}
-
-	.screenshot {
+	.shots figure {
 		margin: 0;
-		border: 1px solid var(--line-soft);
-		border-radius: var(--radius);
-		background: var(--bg-sunken);
-		overflow: hidden;
+		transform: rotate(var(--r));
+		transition: transform 0.2s;
 	}
 
-	.screenshot img {
+	.shots figure:hover {
+		position: relative;
+		z-index: 2;
+		transform: rotate(0) scale(1.04);
+	}
+
+	.shots img {
 		display: block;
 		width: 100%;
-		height: auto;
-		transition: opacity 140ms;
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+		object-position: top left;
+		border: 3px solid var(--ink);
+		box-shadow: 5px 5px 0 var(--ink);
 	}
 
-	.screenshot a:hover img {
-		opacity: 0.82;
-	}
-
-	.screenshot figcaption {
-		padding: 0.8rem 1.15rem;
-		border-top: 1px solid var(--line-soft);
-		color: var(--text-dim);
-		font-size: 0.9rem;
-	}
-
-	@media (max-width: 48rem) {
-		.project-body.with-screenshot {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.stack {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.4rem;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-
-	.stack li {
-		border: 1px solid var(--line-soft);
-		border-radius: var(--radius);
-		padding: 0.15rem 0.6rem;
-		color: var(--text-dim);
-	}
-
-	.bullets {
-		margin: 0;
-		padding-left: 1.2rem;
-		display: grid;
-		gap: 0.45rem;
-		color: var(--text-dim);
-		max-width: none;
-	}
-
-	.bullets li::marker {
-		color: var(--accent);
+	.shots figcaption {
+		margin-top: 8px;
+		font: 700 12px/1 var(--body);
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
 	}
 
 	.excerpt {
-		margin: 0;
-		border: 1px solid var(--line-soft);
-		border-radius: var(--radius);
-		background: var(--bg-sunken);
-		overflow: hidden;
-	}
-
-	.excerpt figcaption {
-		padding: 0.8rem 1.15rem;
-		border-bottom: 1px solid var(--line-soft);
-		color: var(--text-dim);
-		font-size: 0.9rem;
+		margin: 16px 0 0;
 	}
 
 	.excerpt pre {
-		margin: 0;
-		padding: 1.15rem;
 		overflow-x: auto;
-		font-family: var(--font-mono);
-		font-size: 0.8rem;
-		line-height: 1.6;
-		color: var(--text-dim);
-		tab-size: 4;
-	}
-
-	.links {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1.25rem;
-		font-size: 0.92rem;
+		padding: 14px;
+		background: var(--ink);
+		color: var(--paper);
+		font-size: 14px;
 	}
 
 	.closing {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-		gap: clamp(1.5rem, 5vw, 3.5rem);
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 26px;
+		align-items: start;
 	}
 
 	.skills {
 		display: grid;
-		gap: 0.85rem;
-		margin: 0;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 16px;
 	}
 
-	.skills dt {
-		margin-bottom: 0.15rem;
+	.skills .card {
+		padding: 16px 18px;
+		box-shadow: 6px 6px 0 var(--ink);
 	}
 
-	.skills dd {
-		margin: 0;
-		color: var(--text-dim);
-		font-size: 0.95rem;
+	.skills h3 {
+		font-size: 20px;
 	}
 
-	.school p {
-		color: var(--text-dim);
-		font-size: 0.95rem;
-		margin-top: 0.35rem;
+	.skills .chips {
+		margin-top: 8px;
 	}
 
-	.school .detail {
-		color: var(--text);
+	@media (max-width: 860px) {
+		.job,
+		.closing {
+			grid-template-columns: 1fr;
+		}
+
+		.shots {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.shots,
+		.skills {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

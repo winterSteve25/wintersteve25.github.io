@@ -66,6 +66,8 @@ export interface SkillGroup {
 export interface GameProject extends ProjectBase {
 	pitch: string;
 	engine: string;
+	/** Short badge on the game's frame, e.g. "STEAM" or "GMTK 2026". */
+	stamp?: string;
 	videoEmbedUrl?: string;
 	itchEmbedUrl?: string;
 	itchEmbedWidth?: number;

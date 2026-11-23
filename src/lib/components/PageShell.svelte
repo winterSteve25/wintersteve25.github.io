@@ -1,5 +1,8 @@
 <script lang="ts">
+	import Band from './Band.svelte';
+	import Hero from './Hero.svelte';
 	import Seo from './Seo.svelte';
+	import SiteFooter from './SiteFooter.svelte';
 	import SiteNav from './SiteNav.svelte';
 	import { profile } from '$lib/content/profile';
 	import { staticHref } from '$lib/routes';
@@ -8,10 +11,18 @@
 
 	interface Props {
 		page: PageMeta;
+		/** Words for the scrolling band under the hero. */
+		band: string[];
+		/** Text running up the portrait strip. */
+		stripLabel: string;
 		children: Snippet;
 		intro?: Snippet;
+		heroExtra?: Snippet;
 	}
-	let { page, children, intro }: Props = $props();
+	let { page, band, stripLabel, children, intro, heroExtra }: Props = $props();
+
+	const side = $derived(page.id === 'swe' ? 'software' : 'games');
+	const tilts = ['1.5deg', '-1.5deg', '1deg'];
 </script>
 
 <Seo
@@ -20,103 +31,32 @@
 	ogImage={page.ogImage}
 />
 
-<div class="page theme" style="--accent-hue: {page.hue}">
-	<div class="shell">
-		<SiteNav current={page.id} />
-	</div>
+<div class="site" data-side={side}>
+	<SiteNav current={page.id} />
 
-	<header class="shell masthead">
-		<p class="mono role">{page.title}</p>
-		<h1>{profile.name}</h1>
-		{#if page.headline}<p class="headline">{page.headline}</p>{/if}
-		<p class="intro">
+	<Hero eyebrow={profile.name} lines={page.title.toUpperCase().split(' ')} {stripLabel} extra={heroExtra}>
+		<p class="lede">
 			{#if intro}{@render intro()}{:else}{page.intro}{/if}
 		</p>
-
 		<div class="actions">
-			<a href="mailto:{profile.email}" target="_blank" rel="noreferrer">{profile.email}</a>
 			{#if page.resume}
-				<a href={staticHref(page.resume)} target="_blank" rel="noreferrer">Resume (PDF)</a>
+				<a class="btn dark" href={staticHref(page.resume)} target="_blank" rel="noreferrer"
+					>Resume (PDF)</a
+				>
 			{/if}
-			{#each profile.links as link (link.label)}
-				<a href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
+			{#each profile.links as link, i (link.label)}
+				<a class="btn" href={link.href} target="_blank" rel="noreferrer" style="--r: {tilts[i % 3]}"
+					>{link.label}</a
+				>
 			{/each}
 		</div>
-	</header>
+	</Hero>
 
-	<main class="shell">
+	<Band items={band} />
+
+	<main>
 		{@render children()}
 	</main>
 
-	<footer class="shell">
-		<hr class="rule" />
-		<div class="foot">
-			<p class="mono">{profile.name} · {profile.location}</p>
-			<p><a href="mailto:{profile.email}" target="_blank" rel="noreferrer">{profile.email}</a></p>
-		</div>
-	</footer>
+	<SiteFooter />
 </div>
-
-<style>
-	.page {
-		background: var(--bg);
-		color: var(--text);
-		min-height: 100dvh;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.masthead {
-		padding-block: clamp(3rem, 10vh, 6rem) clamp(2.5rem, 6vw, 4rem);
-		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
-	}
-
-	.role {
-		color: var(--accent);
-	}
-
-	h1 {
-		font-size: var(--step-4);
-	}
-
-	.headline {
-		font-size: var(--step-2);
-		color: var(--text);
-		max-width: 32ch;
-		letter-spacing: -0.015em;
-		line-height: 1.15;
-	}
-
-	.intro {
-		color: var(--text-dim);
-		max-width: 56ch;
-		margin-top: 0.5rem;
-	}
-
-	.actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.4rem 1.25rem;
-		margin-top: 1.25rem;
-		font-size: 0.92rem;
-	}
-
-	main {
-		flex: 1;
-	}
-
-	footer {
-		padding-block: 2rem 3.5rem;
-	}
-
-	.foot {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem 1.5rem;
-		justify-content: space-between;
-		align-items: baseline;
-		padding-top: 1.5rem;
-	}
-</style>

@@ -69,7 +69,7 @@
 			{#if hideItchFullscreen}
 				<span
 					class="embed-fullscreen-mask"
-					style={`right: ${embedLeft}px; bottom: ${embedTop}px; width: ${itchFullscreenMaskWidth * embedScale}px; height: ${itchFooterHeight * embedScale}px; background: ${embedColor ?? 'var(--bg-sunken)'}`}
+					style={`right: ${embedLeft}px; bottom: ${embedTop}px; width: ${itchFullscreenMaskWidth * embedScale}px; height: ${itchFooterHeight * embedScale}px; background: ${embedColor ?? 'var(--ink)'}`}
 					aria-hidden="true"
 				></span>
 			{/if}
@@ -80,12 +80,12 @@
 				{/if}
 				<span class="glyph" aria-hidden="true">&#9654;</span>
 				<span>Play {title} in browser</span>
-				{#if controls}<span class="mono">{controls}</span>{/if}
+				{#if controls}<span class="controls">{controls}</span>{/if}
 			</button>
 		{/if}
 	</div>
 {:else}
-	<p class="pending mono">
+	<p class="pending">
 		No web build yet — publish to itch.io, enable embedding, then set
 		<code>itchEmbedUrl</code>.
 	</p>
@@ -95,9 +95,7 @@
 	.stage {
 		aspect-ratio: 640 / 380;
 		position: relative;
-		border: 1px solid var(--line-soft);
-		border-radius: var(--radius);
-		background: var(--bg-sunken);
+		background: var(--ink);
 		overflow: hidden;
 	}
 
@@ -123,13 +121,14 @@
 		display: grid;
 		place-content: center;
 		justify-items: center;
-		gap: 0.5rem;
-		background: var(--bg-sunken);
+		gap: 10px;
+		padding: 16px;
+		background: var(--ink);
 		border: 0;
-		color: var(--text);
-		font: inherit;
+		color: var(--paper);
+		font: 400 clamp(18px, 2.4vw, 26px) / 1.1 var(--display);
+		text-align: center;
 		cursor: pointer;
-		text-shadow: 0 1px 4px rgb(0 0 0 / 0.9);
 	}
 
 	.play::before {
@@ -137,17 +136,33 @@
 		position: absolute;
 		inset: 0;
 		z-index: 1;
-		background: rgb(0 0 0 / 0.64);
-		transition: background 120ms;
+		background: radial-gradient(var(--ink) 1.2px, transparent 1.6px) 0 0 / 6px 6px;
+		opacity: 0.45;
+		transition: opacity 0.15s;
 	}
 
 	.play:hover::before {
-		background: rgb(0 0 0 / 0.54);
+		opacity: 0.2;
 	}
 
 	.play > span {
 		position: relative;
 		z-index: 2;
+	}
+
+	.play > span:not(.glyph):not(.controls) {
+		padding: 8px 12px;
+		background: var(--ink);
+		transform: skewX(-8deg);
+	}
+
+	.controls {
+		padding: 6px 10px;
+		font: 700 13px/1.3 var(--body);
+		letter-spacing: 0.06em;
+		color: var(--ink);
+		background: var(--paper);
+		border: 2px solid var(--ink);
 	}
 
 	.preview {
@@ -157,34 +172,40 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		filter: saturate(0.85) brightness(0.8);
+		transition:
+			filter 0.2s,
+			transform 0.4s;
 	}
 
-	.play:hover .glyph {
-		border-color: var(--accent);
-		color: var(--accent-bright);
+	.play:hover .preview {
+		filter: none;
+		transform: scale(1.04);
 	}
 
 	.glyph {
 		display: grid;
 		place-content: center;
-		width: 3.5rem;
-		height: 3.5rem;
-		border: 1px solid var(--line);
-		border-radius: 999px;
-		background: rgb(0 0 0 / 0.45);
-		color: var(--text);
-		transition:
-			color 120ms,
-			border-color 120ms;
+		width: 4rem;
+		height: 4rem;
+		font-size: 22px;
+		color: var(--ink);
+		background: var(--pop);
+		border: 3px solid var(--ink);
+		box-shadow: 5px 5px 0 var(--ink);
+		clip-path: polygon(0 0, 100% 6%, 94% 100%, 4% 92%);
+		transition: transform 0.2s cubic-bezier(0.2, 2, 0.4, 1);
+	}
+
+	.play:hover .glyph {
+		transform: scale(1.12) rotate(-6deg);
 	}
 
 	.pending {
-		border: 1px dashed var(--line);
-		border-radius: var(--radius);
+		border: 3px dashed var(--ink);
 		padding: 1rem 1.15rem;
 		margin: 0;
-		text-transform: none;
-		letter-spacing: 0;
+		background: var(--paper);
 		line-height: 1.6;
 	}
 </style>

@@ -13,6 +13,7 @@ export const page: PageMeta = {
 export const projects: GameProject[] = [
 	{
 		slug: 'astrodescent',
+		stamp: 'Steam',
 		title: 'Astrodescent',
 		tagline: 'Mine an alien planet, get out before the oxygen does',
 		year: 'Aug 2026 — present',
@@ -78,6 +79,7 @@ export const projects: GameProject[] = [
 
 	{
 		slug: 'party-lab',
+		stamp: 'Solo',
 		title: 'Party Lab',
 		tagline: 'A hub for Lua-based multiplayer party games like Jackbox',
 		year: 'Jul 2024 — Dec 2024',
@@ -117,6 +119,7 @@ export const projects: GameProject[] = [
 
 	{
 		slug: 'tau',
+		stamp: 'Open source',
 		title: 'Tau',
 		tagline: 'Flutter-like UI composition for Minecraft Forge',
 		year: 'Apr 2023 — Dec 2024',
@@ -153,6 +156,7 @@ export const projects: GameProject[] = [
 
 	{
 		slug: 'gunplay',
+		stamp: 'Team',
 		title: 'Gunplay',
 		tagline: 'A physically based, hyper-realistic first-person shooter',
 		year: 'Jul 2025 — Jan 2026',
@@ -191,6 +195,7 @@ export const projects: GameProject[] = [
 
 	{
 		slug: 'sand-of-souls',
+		stamp: 'GMTK 2026',
 		title: 'Sand of Souls',
 		tagline: 'A topdown survivor shooter where your health and your ammo are the same hourglass',
 		year: 'Jul 2026',
@@ -239,6 +244,7 @@ export const projects: GameProject[] = [
 
 	{
 		slug: 'loopbound',
+		stamp: 'GMTK 2025',
 		title: 'LoopBound',
 		tagline: 'Miss a shot and it loops around the arena to come back at you',
 		year: 'Aug 2025',
@@ -290,6 +296,7 @@ export const projects: GameProject[] = [
 
 	{
 		slug: 'bingo-spree',
+		stamp: 'Brackeys',
 		title: 'Bingo Spree',
 		tagline: 'Finish your shopping list before Black Friday floods the store',
 		year: 'Sep 2024',
