@@ -15,8 +15,10 @@
 <style>
 	.band {
 		position: relative;
-		height: 84px;
-		overflow: hidden;
+		/* A -2.5deg tilt over 110vw rises/falls ~4.8vw end to end, plus the strip's own height. */
+		height: max(84px, calc(4.8vw + 56px));
+		overflow-x: clip;
+		overflow-y: visible;
 		margin-block: 8px 18px;
 	}
 
