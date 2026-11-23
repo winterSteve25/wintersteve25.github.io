@@ -34,8 +34,9 @@ export const projects: GameProject[] = [
 		hideItchFullscreen: true,
 		previewImage: 'games/astrodescent-preview.png',
 		controls: 'WASD to move · mouse to look and interact · E for inventory',
+		playableBuildLabel: 'Original Unity jam version',
 		playableBuildNote:
-			'The original game jam prototype below was built in Unity, with art and visual direction by felixrl. The current Steam release is a substantially expanded C# and OpenGL rewrite developed with a new collaborator.',
+			'The playable build above is the original game jam prototype, made in Unity with art and visual direction by felixrl. It is not the Steam game. The Steam release is a much bigger rewrite in C# and OpenGL, made with a new collaborator.',
 		storeUrl: 'https://store.steampowered.com/app/3973750/Astrodescent',
 
 		contribution: [

@@ -7,6 +7,7 @@
 		hideItchFullscreen?: boolean;
 		previewImage?: string;
 		controls?: string;
+		buildLabel?: string;
 		title: string;
 	}
 	let {
@@ -17,6 +18,7 @@
 		hideItchFullscreen = false,
 		previewImage,
 		controls,
+		buildLabel,
 		title
 	}: Props = $props();
 
@@ -79,7 +81,12 @@
 					<img class="preview" src={previewImage} alt="" aria-hidden="true" draggable="false" />
 				{/if}
 				<span class="glyph" aria-hidden="true">&#9654;</span>
-				<span>Play {title} in browser</span>
+				{#if buildLabel}
+					<span>Play the {buildLabel.toLowerCase()}</span>
+					<span class="caveat">Not the Steam game</span>
+				{:else}
+					<span>Play {title} in browser</span>
+				{/if}
 				{#if controls}<span class="controls">{controls}</span>{/if}
 			</button>
 		{/if}
@@ -150,10 +157,20 @@
 		z-index: 2;
 	}
 
-	.play > span:not(.glyph):not(.controls) {
+	.play > span:not(.glyph):not(.controls):not(.caveat) {
 		padding: 8px 12px;
 		background: var(--ink);
 		transform: skewX(-8deg);
+	}
+
+	.caveat {
+		padding: 5px 9px;
+		font: 700 13px/1 var(--body);
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--ink);
+		background: var(--pop);
+		border: 2px solid var(--ink);
 	}
 
 	.controls {

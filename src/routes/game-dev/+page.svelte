@@ -63,6 +63,7 @@
 									hideItchFullscreen={project.hideItchFullscreen}
 									previewImage={project.previewImage ? staticHref(project.previewImage) : undefined}
 									controls={project.controls}
+									buildLabel={project.playableBuildLabel}
 									title={project.title}
 								/>
 							{:else if project.videoEmbedUrl}
@@ -101,7 +102,10 @@
 						<p class="pitch">{project.pitch}</p>
 
 						{#if project.playableBuildNote}
-							<p class="note">{project.playableBuildNote}</p>
+							<p class="note">
+								{#if project.playableBuildLabel}<b>{project.playableBuildLabel}</b>{/if}
+								{project.playableBuildNote}
+							</p>
 						{/if}
 
 						<h4 class="label">What I did</h4>
@@ -152,7 +156,7 @@
 									<a href={project.storeUrl} target="_blank" rel="noreferrer">Steam page <span class="arr" aria-hidden="true">↗</span></a>
 								{/if}
 								{#if project.itchPageUrl}
-									<a href={project.itchPageUrl} target="_blank" rel="noreferrer">Play on itch.io <span class="arr" aria-hidden="true">↗</span></a>
+									<a href={project.itchPageUrl} target="_blank" rel="noreferrer">{project.playableBuildLabel ? 'Play jam version on itch.io' : 'Play on itch.io'} <span class="arr" aria-hidden="true">↗</span></a>
 								{/if}
 								{#if project.repoUrl}
 									<a href={project.repoUrl} target="_blank" rel="noreferrer">Source on GitHub <span class="arr" aria-hidden="true">↗</span></a>
@@ -321,6 +325,15 @@
 		font-size: 15px;
 		color: var(--muted);
 		border-left: 4px solid var(--ink);
+	}
+
+	.note b {
+		display: block;
+		margin-bottom: 2px;
+		font: 700 13px/1.3 var(--body);
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--ink);
 	}
 
 	.label {

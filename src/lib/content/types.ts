@@ -77,6 +77,8 @@ export interface GameProject extends ProjectBase {
 	previewImage?: string;
 	itchPageUrl?: string;
 	playableBuildNote?: string;
+	/** Short name for the playable build when it isn't the current game, e.g. an old jam version. */
+	playableBuildLabel?: string;
 	storeUrl?: string;
 	repoUrl?: string;
 	controls?: string;
