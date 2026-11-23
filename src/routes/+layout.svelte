@@ -37,6 +37,26 @@
 	});
 
 	onMount(() => stars.load());
+	const DOT_LAG = 0.8;
+
+	onMount(() => {
+		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		const root = document.documentElement;
+		let frame = 0;
+		const update = () => {
+			frame = 0;
+			root.style.setProperty('--dot-shift', `${(scrollY * DOT_LAG).toFixed(1)}px`);
+		};
+		const onScroll = () => {
+			if (!frame) frame = requestAnimationFrame(update);
+		};
+		update();
+		addEventListener('scroll', onScroll, { passive: true });
+		return () => {
+			removeEventListener('scroll', onScroll);
+			cancelAnimationFrame(frame);
+		};
+	});
 </script>
 
 <svelte:head>

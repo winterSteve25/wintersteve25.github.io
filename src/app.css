@@ -91,6 +91,8 @@ canvas {
 	pointer-events: none;
 	background-image: radial-gradient(var(--ink) 1.1px, transparent 1.4px);
 	background-size: 15px 15px;
+	/* --dot-shift is set from scroll position in +layout.svelte (parallax). */
+	background-position: 0 var(--dot-shift, 0px);
 	opacity: 0.12;
 }
 
