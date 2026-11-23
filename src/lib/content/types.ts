@@ -80,6 +80,7 @@ export interface GameProject extends ProjectBase {
 	/** Short name for the playable build when it isn't the current game, e.g. an old jam version. */
 	playableBuildLabel?: string;
 	storeUrl?: string;
+	siteUrl?: string;
 	repoUrl?: string;
 	controls?: string;
 	contribution: ContributionArea[];

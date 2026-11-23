@@ -131,6 +131,7 @@ export const projects: GameProject[] = [
 
 		pitch:
 			'An open-source UI library for Minecraft Forge that replaces the usual GUI workflow with composable, Flutter-inspired components. Tau supports responsive layouts, screens and HUDs, theming, and custom widgets.',
+		siteUrl: 'https://mc-tau-ui.github.io/',
 		repoUrl: 'https://github.com/mc-tau-ui/Tau',
 
 		contribution: [
