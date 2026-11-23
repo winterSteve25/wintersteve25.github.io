@@ -14,7 +14,7 @@
 			title: 'Software Engineer',
 			ticket: 'Software',
 			blurb:
-				'Rust, WebAssembly and TypeScript. A DOCX renderer at Diffchecker, a Nokia internship, and Myelin Notes: a cross-platform notes app with 13 public releases.',
+				'Rust, WebAssembly and TypeScript. A DOCX renderer at Diffchecker, a Nokia internship, and Myelin Notes: a cross-platform notes app with 21 public releases.',
 			cta: 'Open Software'
 		},
 		{

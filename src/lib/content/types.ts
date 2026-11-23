@@ -33,7 +33,8 @@ export interface ProjectBase {
 export interface SystemProject extends ProjectBase {
 	summary: string;
 	stack: string[];
-	screenshots?: { src: string; alt: string; caption?: string }[];
+	/** `src` is an image, or the poster frame when `video` is set. */
+	screenshots?: { src: string; alt: string; caption?: string; video?: string }[];
 	excerpt?: { language: string; caption: string; code: string };
 	repoUrl?: string;
 	siteUrl?: string;

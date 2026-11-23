@@ -71,34 +71,58 @@ export const projects: SystemProject[] = [
 		hero: null,
 
 		summary:
-			'A cross-platform note-taking and knowledge-management app built around an infinite canvas: write by hand, type alongside ink, embed PDFs and images, and organize work into notebooks, pages, folders, and tags. It includes backlinks and a graph view, handwriting-aware search, live peer sync across devices, GitHub and Google Drive repository sync, and live audio transcription. Shipped through 13 public releases on automated GitHub Actions pipelines.',
-		stack: ['React', 'TypeScript', 'Tauri', 'Rust'],
+			'A local-first note-taking app for Mac, Windows, and Linux that puts handwriting, typed pages, and PDFs on one infinite canvas. Mark up PDFs and export them, write rich-text pages with tables, math, diagrams, and runnable code, record lectures with on-device transcription, and connect notes with links, backlinks, and a graph view. Notes are plain files that work fully offline, sync peer to peer with live collaboration and no server in the middle, and are readable by your own AI agents through a local MCP server. Shipped through 21 public releases on automated GitHub Actions pipelines.',
+		stack: ['React', 'TypeScript', 'Tauri', 'Rust', 'Yjs'],
 		screenshots: [
 			{
-				src: 'myelin-library.png',
-				alt: 'Myelin Notes library showing folders, tags, and recently opened canvases.',
-				caption: 'Library'
+				src: 'myelin/web-hero.jpg',
+				video: 'myelin/web-hero.mp4',
+				alt: 'Myelin Notes canvas with a PDF and a typed note side by side, next to the library sidebar.',
+				caption: 'Canvas'
 			},
 			{
-				src: 'myelin-graph.png',
-				alt: 'Myelin Notes graph view showing connections between notes.',
-				caption: 'Note graph'
+				src: 'myelin/web-pdf.jpg',
+				video: 'myelin/web-pdf.mp4',
+				alt: 'Writing on a PDF with the pen tool in Myelin Notes.',
+				caption: 'PDF markup'
 			},
 			{
-				src: 'myelin-pdf.png',
-				alt: 'Myelin Notes canvas with an annotated PDF.',
-				caption: 'PDF workspace'
+				src: 'myelin/web-code.jpg',
+				video: 'myelin/web-code.mp4',
+				alt: 'A Myelin Notes page with a runnable code block.',
+				caption: 'Pages'
+			},
+			{
+				src: 'myelin/web-audio.jpg',
+				video: 'myelin/web-audio.mp4',
+				alt: 'Recording a lecture in Myelin Notes with a live on-device transcript.',
+				caption: 'Audio & transcripts'
+			},
+			{
+				src: 'myelin/ft-live-collab.jpg',
+				video: 'myelin/ft-live-collab.mp4',
+				alt: 'Two computers editing the same Myelin note live over an encrypted peer-to-peer connection.',
+				caption: 'Live collaboration'
+			},
+			{
+				src: 'myelin/ft-mcp-agent.jpg',
+				video: 'myelin/ft-mcp-agent.mp4',
+				alt: 'An AI agent reading and editing a handwritten Myelin note through the local MCP server.',
+				caption: 'Local MCP server'
 			}
 		],
 		siteUrl: 'https://trymyelin.app/',
 		contributions: [
-			'Built the infinite canvas editor for handwriting, typed text, embedded PDFs and images, Markdown page frames, and LaTeX content.',
-			'Built import and export pipelines for Goodnotes, Obsidian, OneNote, Markdown, PDFs, and workspace JSON.',
-			'Implemented live peer sync across devices with iroh, plus repository sync through GitHub and Google Drive OAuth clients.',
-			'Built backlinks, a note graph view, hierarchical tags, and search across notes and recognized handwriting.',
+			'Built the infinite canvas editor: pressure-sensitive ink with palm rejection, shape snapping, a ruler, lasso selection, a tool wheel with pen presets, flags, and per-canvas styles.',
+			'Built PDF annotation with page navigation, in-PDF search, quoting from PDFs into notes, ink anchored to the page, and annotated PDF export.',
+			'Built rich-text page frames with Markdown shortcuts, a slash menu, tables, callouts, LaTeX, mermaid diagrams, embed cards, and runnable code blocks.',
+			'Implemented live peer-to-peer collaboration over encrypted QUIC with iroh and Yjs, with no server holding notes, plus repository sync through GitHub.',
+			'Built a local MCP server on 127.0.0.1 so the user\'s own AI agents can read notes, with writes off until enabled in Settings.',
+			'Built links, backlinks, hover previews, a graph view, nested tags, a command palette, and per-file version history.',
+			'Built importers for Goodnotes, OneNote, Obsidian, and Notion, and export to PDF, Markdown, Obsidian, and JSON.',
 			'Implemented on-device semantic search by running the all-MiniLM-L6-v2 embedding model locally with Candle, backed by a background indexing engine with debouncing, bounded concurrency, and staleness hashing.',
-			'Built live audio transcription of streamed microphone input with whisper.cpp, using a quantized model and optional Vulkan GPU acceleration with a CPU fallback.',
-			'Shipped 13 public releases through automated GitHub Actions build and release pipelines.'
+			'Built audio recording with on-device transcription using whisper.cpp, a quantized model, and optional Vulkan GPU acceleration with a CPU fallback.',
+			'Shipped 21 public releases in four languages through automated GitHub Actions build and release pipelines.'
 		]
 	},
 

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import PageShell from '$lib/components/PageShell.svelte';
+	import ShotCarousel from '$lib/components/ShotCarousel.svelte';
 	import Star from '$lib/components/Star.svelte';
 	import { education, experience, page, projects, skills } from '$lib/content/swe';
-	import { staticHref } from '$lib/routes';
 
 	const band = [
 		'RUST',
@@ -16,7 +16,6 @@
 		'JAVA',
 		'GITHUB ACTIONS'
 	];
-	const shotTilts = ['-1.5deg', '1deg', '-0.8deg'];
 </script>
 
 {#snippet intro()}
@@ -79,19 +78,7 @@
 
 					{#if project.screenshots?.length}
 						<div class="shots">
-							{#each project.screenshots as shot, s (shot.src)}
-								<figure style="--r: {shotTilts[s % 3]}">
-									<a
-										href={staticHref(shot.src)}
-										target="_blank"
-										rel="noreferrer"
-										aria-label="Open {shot.caption ?? 'screenshot'} full size"
-									>
-										<img src={staticHref(shot.src)} alt={shot.alt} loading="lazy" />
-									</a>
-									{#if shot.caption}<figcaption>{shot.caption}</figcaption>{/if}
-								</figure>
-							{/each}
+							<ShotCarousel id="shots-{project.slug}" shots={project.screenshots} />
 							{#if i === 0}
 								<Star id="swe-screens" place="right: -6px; bottom: -4px" tilt={-10} />
 							{/if}
@@ -196,45 +183,12 @@
 		text-decoration-color: var(--pop);
 	}
 
-	.summary {
-		max-width: 75ch;
+	.stack .pts li {
+		max-width: none;
 	}
 
 	.shots {
 		position: relative;
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 16px;
-		margin: 18px 0 6px;
-	}
-
-	.shots figure {
-		margin: 0;
-		transform: rotate(var(--r));
-		transition: transform 0.2s;
-	}
-
-	.shots figure:hover {
-		position: relative;
-		z-index: 2;
-		transform: rotate(0) scale(1.04);
-	}
-
-	.shots img {
-		display: block;
-		width: 100%;
-		aspect-ratio: 16 / 10;
-		object-fit: cover;
-		object-position: top left;
-		border: 3px solid var(--ink);
-		box-shadow: 5px 5px 0 var(--ink);
-	}
-
-	.shots figcaption {
-		margin-top: 8px;
-		font: 700 12px/1 var(--body);
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
 	}
 
 	.excerpt {
@@ -281,13 +235,9 @@
 			grid-template-columns: 1fr;
 		}
 
-		.shots {
-			grid-template-columns: 1fr 1fr;
-		}
 	}
 
 	@media (max-width: 520px) {
-		.shots,
 		.skills {
 			grid-template-columns: 1fr;
 		}
