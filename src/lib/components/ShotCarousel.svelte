@@ -104,6 +104,8 @@
 
 	.frame {
 		position: relative;
+		width: 80%;
+		margin-inline: auto;
 	}
 
 	.stage {
