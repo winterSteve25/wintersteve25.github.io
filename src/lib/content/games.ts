@@ -18,7 +18,7 @@ export const projects: GameProject[] = [
 		tagline: 'Mine an alien planet, get out before the oxygen does',
 		year: 'Aug 2026 — present',
 		role: 'Programming',
-		engine: 'None — C# on OpenGL',
+		engine: 'Custom (C# / OpenGL)',
 		tags: ['mining', 'pixel art', 'Steam'],
 		hero: null,
 
@@ -36,36 +36,36 @@ export const projects: GameProject[] = [
 		controls: 'WASD to move · mouse to look and interact · E for inventory',
 		playableBuildLabel: 'Original Unity jam version',
 		playableBuildNote:
-			'The playable build above is the original game jam prototype, made in Unity with art and visual direction by felixrl. It is not the Steam game. The Steam release is a much bigger rewrite in C# and OpenGL, made with a new collaborator.',
+			'This is the original game jam prototype, made in Unity with art and visual direction by felixrl. The Steam version is a full rewrite in C# and OpenGL with a new collaborator.',
 		storeUrl: 'https://store.steampowered.com/app/3973750/Astrodescent',
 
 		contribution: [
 			{
 				area: 'Engine',
 				points: [
-					'No game engine. It runs directly on OpenGL, and everything below was written for this game.'
+					"Doesn't use an existing engine. I wrote the renderer, physics, and content systems myself on top of OpenGL."
 				]
 			},
 			{
 				area: 'Rendering',
 				points: [
 					'Custom deferred renderer with dynamic 2D lighting.',
-					'Post-processing chain in GLSL.',
-					'Texture atlasing, and a pixel-font UI system to draw the interface in.'
+					'Post-processing effects written in GLSL.',
+					'Texture atlasing and a pixel-font UI system.'
 				]
 			},
 			{
 				area: 'Physics',
 				points: [
-					'Gameplay physics from scratch: swept AABB tile collision.',
-					'DDA grid raycasting, so mining and tool targeting hit exactly the tile you are pointing at.'
+					'Tile collision using swept AABB.',
+					'DDA grid raycasting so mining and tools hit the tile under the cursor.'
 				]
 			},
 			{
 				area: 'Content & world',
 				points: [
-					'Data-driven content registry for tiles, items, biomes, and planets, so new content is data rather than code.',
-					'Procedural planet generation with Perlin noise and Poisson-disc feature placement, so features spread out instead of clumping.'
+					"Data-driven registry for tiles, items, biomes, and planets, so adding content doesn't require code changes.",
+					'Procedural planet generation using Perlin noise, with Poisson-disc sampling to space out features evenly.'
 				]
 			}
 		],
@@ -85,34 +85,34 @@ export const projects: GameProject[] = [
 		tagline: 'A hub for Lua-based multiplayer party games like Jackbox',
 		year: 'Jul 2024 — Dec 2024',
 		role: 'Solo',
-		engine: 'None — C++ on Raylib',
+		engine: 'Custom (C++ / Raylib)',
 		duration: '6 months',
 		tags: ['multiplayer', 'modding', 'Steam'],
 		hero: null,
 
 		pitch:
-			'Get everyone into one lobby and play short games without leaving it. Each game is a Lua module the hub loads at runtime, so anyone can write a new one without touching the engine or shipping a build.',
+			'Players join one lobby and pick from a set of short party games. Each game is a Lua script loaded at runtime, so people can write new ones without rebuilding the app.',
 		repoUrl: 'https://github.com/winterSteve25/PartyLab',
 
 		contribution: [
 			{
 				area: 'Framework',
 				points: [
-					'The whole thing, solo, in C++ on Raylib.',
-					'A declarative UI API that games lay themselves out through, rather than positioning anything by hand.'
+					'Wrote the framework myself in C++ using Raylib.',
+					'Built a declarative UI API so games describe their layout instead of positioning elements by hand.'
 				]
 			},
 			{
 				area: 'Scripting',
 				points: [
-					'Lua modules run in a sol2 sandbox, so modded modes load at runtime and cannot reach the host.'
+					'Games run as Lua scripts in a sol2 sandbox, which keeps custom game modes from accessing the host system.'
 				]
 			},
 			{
 				area: 'Networking',
 				points: [
-					"Multiplayer on Valve's GameNetworkingSockets.",
-					'Steam friend invites and leaderboards, so a lobby starts from the friends list.'
+					"Multiplayer networking built on Valve's GameNetworkingSockets.",
+					'Steam integration for friend invites and leaderboards.'
 				]
 			}
 		]
@@ -138,7 +138,7 @@ export const projects: GameProject[] = [
 			{
 				area: 'UI API',
 				points: [
-					'Designed a declarative component API, so a Minecraft screen is described in code that reads like its layout.'
+					'Designed a declarative component API where the code for a screen mirrors its layout.'
 				]
 			},
 			{
@@ -168,7 +168,7 @@ export const projects: GameProject[] = [
 		hero: null,
 
 		pitch:
-			'An FPS made with a team led by Bael. The focus is on realistic character reactions and physical interactions.',
+			'An FPS built with a team led by Bael, focused on realistic character reactions and physics interactions.',
 		videoEmbedUrl:
 			'https://www.youtube.com/embed/zeGEXJWIkyQ?si=Dpkbxt67g8v-xUKA',
 
@@ -182,7 +182,7 @@ export const projects: GameProject[] = [
 			{
 				area: 'UAV system',
 				points: [
-					'Built the UAV system: aircraft movement and player input.'
+					'Built the UAV system, including aircraft movement and player controls.'
 				]
 			}
 		],
@@ -209,7 +209,7 @@ export const projects: GameProject[] = [
 		hero: null,
 
 		pitch:
-			'Spending ammo spends your health, because the same draining hourglass is both. Built in four days with a team of nineteen for GMTK Game Jam 2026, against 10,600+ other entries.',
+			'Your health and ammo come from the same hourglass, so every shot costs you sand. Made in four days by a team of 19 for GMTK Game Jam 2026, which had over 10,600 entries.',
 		itchPageUrl: 'https://patrickzhou45.itch.io/sand-of-souls',
 		itchEmbedUrl: 'https://itch.io/embed-upload/18705654?color=333333',
 		itchEmbedWidth: 1280,
@@ -220,26 +220,26 @@ export const projects: GameProject[] = [
 			{
 				area: 'VFX (GLSL)',
 				points: [
-					'Enemy disintegration on death.',
-					'Screen-space vignette and desaturation as the hourglass drains.',
+					'Disintegration effect when enemies die.',
+					'Vignette and desaturation that get stronger as the hourglass drains.',
 					'Bloom, muzzle flashes, and projectile trails.'
 				]
 			},
 			{
 				area: 'Gameplay',
 				points: [
-					'Enemy archetypes, and the wave-based difficulty scaler that introduces them.'
+					'Enemy types and the wave system that brings them in as the difficulty ramps up.'
 				]
 			},
 			{
 				area: 'UI',
-				points: ['The full menu and HUD flow, including its animations.']
+				points: ['Menus and HUD, including their animations.']
 			}
 		],
 		collaborators: [
 			{
-				who: 'The other 18 people on the team',
-				what: 'Design, art, audio, and the rest of the gameplay code. It was a jam team; the parts above are mine.'
+				who: 'The rest of the team',
+				what: 'Design, art, audio, and the remaining gameplay code.'
 			}
 		]
 	},
@@ -271,7 +271,7 @@ export const projects: GameProject[] = [
 				area: 'Core mechanic',
 				points: [
 					'Built projectiles that wrap around the edge of circular zones and can return to damage the player.',
-					'Tied enemy kills to the shrinking zones, so killing enemies pushes the zones back out.'
+					'Made enemy kills push the shrinking zones back out.'
 				]
 			},
 			{
@@ -283,7 +283,7 @@ export const projects: GameProject[] = [
 			{
 				area: 'Presentation',
 				points: [
-					'Made the art, UI, animation, and combat feedback. Music, sound effects, icons, and a modified nebula shader came from other people and are credited.'
+					'Made the art, UI, animation, and combat feedback. Music, sound effects, icons, and a nebula shader (which I modified) are by other people and credited in the game.'
 				]
 			}
 		],
@@ -310,7 +310,7 @@ export const projects: GameProject[] = [
 		hero: null,
 
 		pitch:
-			'Race through a supermarket, grab items from your bingo card, and reach the checkout before the Black Friday rush begins. Taking everything is fast, but careful shopping earns the better score.',
+			'Race through a supermarket, grab items from your bingo card, and reach the checkout before the Black Friday rush begins. Taking everything is quicker, but careful shopping gets a higher score.',
 		itchPageUrl: 'https://tgedev.itch.io/bingo-spree',
 		itchEmbedUrl: 'https://itch.io/embed-upload/11482170?color=5ac54f',
 		itchEmbedWidth: 962,
@@ -331,7 +331,7 @@ export const projects: GameProject[] = [
 			{
 				area: 'Game feel',
 				points: [
-					'Implemented the cart drift, speed effects, feedback, and UI that keep the shopping run readable at full pace.'
+					'Implemented cart drifting, speed effects, and UI feedback.'
 				]
 			}
 		],

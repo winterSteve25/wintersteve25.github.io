@@ -21,8 +21,8 @@
 {#snippet intro()}
 	CS @ UBC. Currently working on <a href="https://trymyelin.app/" target="_blank" rel="noreferrer"
 		>Myelin Notes</a
-	>, a cross-platform note-taking and knowledge management app. Working in TypeScript, Rust, and
-	WebAssembly.
+	>, a cross-platform note-taking and knowledge management app. I mostly work in TypeScript, Rust,
+	and WebAssembly.
 {/snippet}
 
 <PageShell {page} {intro} {band} stripLabel="SOFTWARE">

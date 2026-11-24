@@ -16,7 +16,7 @@
 			title: 'Software Engineer',
 			ticket: 'Software',
 			blurb:
-				'Rust, WebAssembly and TypeScript. A DOCX renderer at Diffchecker, a Nokia internship, and Myelin Notes: a cross-platform notes app with 21 public releases.',
+				'Built a DOCX renderer in Rust at Diffchecker and interned at Nokia. Now working on Myelin Notes, a cross-platform note-taking app.',
 			cta: 'Open Software'
 		},
 		{
@@ -25,7 +25,7 @@
 			title: 'Game Developer',
 			ticket: 'Game Dev',
 			blurb:
-				'Astrodescent on a custom C# and OpenGL engine, plus jam games in Godot and Unity: GLSL effects, gameplay systems and game feel.',
+				'Working on Astrodescent, a mining game on a custom C# and OpenGL engine. I also make game jam games in Godot and Unity.',
 			cta: 'Open Game Dev'
 		}
 	];
@@ -51,7 +51,7 @@
 				<small>Currently building</small><b>Myelin Notes</b>
 			</a>
 			<a href="https://store.steampowered.com/app/3973750/Astrodescent" target="_blank" rel="noreferrer">
-				<small>Currently shipping on Steam</small><b>Astrodescent</b>
+				<small>Coming to Steam</small><b>Astrodescent</b>
 			</a>
 		</div>
 		{#snippet extra()}

@@ -46,7 +46,7 @@
 	<section class="wrap block" aria-labelledby="games">
 		<div class="sh">
 			<h2 id="games">Games</h2>
-			<p>What each game is, and the parts I built.</p>
+			<p>What I worked on in each game.</p>
 		</div>
 
 		<div class="list">
@@ -125,7 +125,7 @@
 						</dl>
 
 						{#if project.collaborators?.length}
-							<h4 class="label">Also on it</h4>
+							<h4 class="label">Collaborators</h4>
 							<ul class="people">
 								{#each project.collaborators as person (person.who)}
 									<li>
@@ -178,7 +178,7 @@
 
 	{#if alsoShipped.length}
 		<section class="wrap block" aria-labelledby="also">
-			<div class="sh"><h2 id="also">Also shipped</h2></div>
+			<div class="sh"><h2 id="also">Other games</h2></div>
 			<div class="also">
 				{#each alsoShipped as entry, i (entry.url)}
 					<a class="card {i % 2 ? 'tilt-l' : 'tilt-r'}" href={entry.url} target="_blank" rel="noreferrer">
