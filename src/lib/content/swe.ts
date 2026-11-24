@@ -75,40 +75,46 @@ export const projects: SystemProject[] = [
 		stack: ['React', 'TypeScript', 'Tauri', 'Rust', 'Yjs'],
 		screenshots: [
 			{
-				src: 'myelin/web-hero.jpg',
-				video: 'myelin/web-hero.mp4',
-				alt: 'Myelin Notes canvas with a PDF and a typed note side by side, next to the library sidebar.',
-				caption: 'Canvas'
+				src: 'myelin/ft-lasso.jpg',
+				video: 'myelin/ft-lasso.mp4',
+				alt: 'Handwriting is lassoed, dragged under its heading and resized, then an arrow is rotated to point at it.',
+				caption: 'Ink & lasso'
 			},
 			{
-				src: 'myelin/web-pdf.jpg',
-				video: 'myelin/web-pdf.mp4',
-				alt: 'Writing on a PDF with the pen tool in Myelin Notes.',
-				caption: 'PDF markup'
+				src: 'myelin/wn-pdf-anchor.jpg',
+				video: 'myelin/wn-pdf-anchor.mp4',
+				alt: 'Ink on a PDF page stays anchored to that page when a new page is inserted above it.',
+				caption: 'PDF annotation'
 			},
 			{
-				src: 'myelin/web-code.jpg',
-				video: 'myelin/web-code.mp4',
-				alt: 'A Myelin Notes page with a runnable code block.',
-				caption: 'Pages'
+				src: 'myelin/ft-slash.jpg',
+				video: 'myelin/ft-slash.mp4',
+				alt: 'The slash menu inserts a mermaid code block that renders as a diagram, then a YouTube link becomes an embed card.',
+				caption: 'Rich-text pages'
 			},
 			{
-				src: 'myelin/web-audio.jpg',
-				video: 'myelin/web-audio.mp4',
-				alt: 'Recording a lecture in Myelin Notes with a live on-device transcript.',
-				caption: 'Audio & transcripts'
+				src: 'myelin/ft-jupyter.jpg',
+				video: 'myelin/ft-jupyter.mp4',
+				alt: 'A Jupyter notebook imported as a page, with pandas and matplotlib cells run into a table and chart, then annotated with the pen.',
+				caption: 'Runnable code'
 			},
 			{
 				src: 'myelin/ft-live-collab.jpg',
 				video: 'myelin/ft-live-collab.mp4',
-				alt: 'Two computers editing the same Myelin note live over an encrypted peer-to-peer connection.',
+				alt: 'Ink and typing appearing live on a second computer over an encrypted peer-to-peer connection.',
 				caption: 'Live collaboration'
 			},
 			{
 				src: 'myelin/ft-mcp-agent.jpg',
 				video: 'myelin/ft-mcp-agent.mp4',
-				alt: 'An AI agent reading and editing a handwritten Myelin note through the local MCP server.',
+				alt: 'An AI app reading handwritten Myelin notes over the local MCP server and adding a typed summary page.',
 				caption: 'Local MCP server'
+			},
+			{
+				src: 'myelin/handwriting-search.jpg',
+				video: 'myelin/handwriting-search.mp4',
+				alt: 'Searching "entropy" jumps to each handwritten note that contains it, recognized on-device.',
+				caption: 'Handwriting search'
 			}
 		],
 		siteUrl: 'https://trymyelin.app/',
