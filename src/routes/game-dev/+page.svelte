@@ -2,8 +2,8 @@
 	import PageShell from '$lib/components/PageShell.svelte';
 	import Playable from '$lib/components/Playable.svelte';
 	import Star from '$lib/components/Star.svelte';
-	import { alsoShipped, page, projects } from '$lib/content/games';
-	import type { GameProject } from '$lib/content/types';
+	import { alsoShipped, designProjects, page, projects } from '$lib/content/games';
+	import type { GameDesignProject, GameProject } from '$lib/content/types';
 	import { staticHref } from '$lib/routes';
 
 	const band = [
@@ -14,6 +14,7 @@
 		'UNITY',
 		'RAYLIB',
 		'LUA',
+		'GAME DESIGN',
 		'GMTK 2026',
 		'GMTK 2025',
 		'BRACKEYS'
@@ -26,6 +27,13 @@
 			['Engine', p.engine],
 			['Team', p.teamSize],
 			['Length', p.duration]
+		].filter((f): f is [string, string] => Boolean(f[1]));
+
+	const designFacts = (p: GameDesignProject) =>
+		[
+			['Year', p.year],
+			['Role', p.role],
+			['Team', p.teamSize]
 		].filter((f): f is [string, string] => Boolean(f[1]));
 </script>
 
@@ -175,6 +183,138 @@
 			{/each}
 		</div>
 	</section>
+
+	{#if designProjects.length}
+		<section class="wrap block" aria-labelledby="game-design">
+			<div class="sh">
+				<h2 id="game-design">Game design</h2>
+				<p>Concepts and the design decisions behind them.</p>
+			</div>
+
+			<div class="list">
+				{#each designProjects as project (project.slug)}
+					<article class="game">
+						{#if project.videoEmbedUrl}
+							<div class="frame live">
+								<div class="media">
+									<div class="video">
+										<iframe
+											src={project.videoEmbedUrl}
+											title="{project.title} concept trailer"
+											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+											referrerpolicy="strict-origin-when-cross-origin"
+											allowfullscreen
+											loading="lazy"
+										></iframe>
+									</div>
+								</div>
+								{#if project.stamp}<span class="stamp">{project.stamp}</span>{/if}
+							</div>
+						{/if}
+
+						<div class="card">
+							<h3>{project.title}</h3>
+							<p class="tagline">{project.tagline}</p>
+
+							<dl class="facts">
+								{#each designFacts(project) as [label, value] (label)}
+									<div><dt>{label}</dt><dd>{value}</dd></div>
+								{/each}
+							</dl>
+
+							<p class="pitch">{project.pitch}</p>
+
+							<dl class="areas brief">
+								<div>
+									<dt>Audience</dt>
+									<dd><p class="pts">{project.audience}</p></dd>
+								</div>
+								<div>
+									<dt>Inspired by</dt>
+									<dd>
+										<ul class="inspo">
+											{#each project.inspirations as game (game)}
+												<li>{game}</li>
+											{/each}
+										</ul>
+									</dd>
+								</div>
+							</dl>
+
+							{#if project.videoCaveat}
+								<aside class="caveat">
+									<b>{project.videoCaveat.label}</b>
+									<p>{project.videoCaveat.text}</p>
+								</aside>
+							{/if}
+
+							<div class="label-row">
+								<h4 class="label">Design pillars</h4>
+								{#if project.pillarsUrl}
+									<a class="ref-link" href={project.pillarsUrl} target="_blank" rel="noreferrer"
+										>Fourteen Forms of Fun ↗</a
+									>
+								{/if}
+							</div>
+							<div class="pillars">
+								{#each project.pillars as pillar (pillar.name)}
+									<div class="pillar">
+										<strong>{pillar.name}</strong>
+										<p>{pillar.detail}</p>
+									</div>
+								{/each}
+							</div>
+
+							<h4 class="label">Design decisions</h4>
+							<div class="case-notes">
+								{#each project.decisions as note (note.title)}
+									<div class="case-note">
+										<span class="meta">{note.kind}</span>
+										<strong>{note.title}</strong>
+										<p>{note.summary}</p>
+									</div>
+								{/each}
+							</div>
+
+							{#if project.collaborators?.length}
+								<h4 class="label">Collaborators</h4>
+								<ul class="people">
+									{#each project.collaborators as person (person.who)}
+										<li>
+											<b>
+												{#if person.url}
+													<a href={person.url} target="_blank" rel="noreferrer">{person.who}</a>
+												{:else}
+													{person.who}
+												{/if}
+											</b>
+											<span>{person.what}</span>
+										</li>
+									{/each}
+								</ul>
+							{/if}
+
+							{#if project.tags.length}
+								<ul class="chips" aria-label="Project tags">
+									{#each project.tags as tag (tag)}
+										<li>{tag}</li>
+									{/each}
+								</ul>
+							{/if}
+
+							{#if project.videoUrl}
+								<p class="links">
+									<a href={project.videoUrl} target="_blank" rel="noreferrer"
+										>Watch trailer on YouTube <span class="arr" aria-hidden="true">↗</span></a
+									>
+								</p>
+							{/if}
+						</div>
+					</article>
+				{/each}
+			</div>
+		</section>
+	{/if}
 
 	{#if alsoShipped.length}
 		<section class="wrap block" aria-labelledby="also">
@@ -385,6 +525,121 @@
 		content: ': ';
 	}
 
+	.brief {
+		margin-top: 18px;
+		padding-top: 16px;
+		border-top: 2px solid var(--ink);
+	}
+
+	.inspo {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		list-style: none;
+		margin: 8px 0 0;
+		padding: 0;
+	}
+
+	.inspo li {
+		padding: 4px 10px;
+		font: 600 15px/1.3 var(--body);
+		background: var(--paper);
+		border: 2px solid var(--ink);
+	}
+
+	.caveat {
+		display: flex;
+		gap: 12px;
+		align-items: baseline;
+		margin-top: 18px;
+		padding: 10px 14px;
+		background: var(--paper);
+		border: 2px dashed var(--muted);
+	}
+
+	.caveat b {
+		flex: none;
+		font: 700 12px/1.3 var(--body);
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
+	.caveat p {
+		font-size: 14px;
+		line-height: 1.45;
+		color: var(--muted);
+	}
+
+	.label-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 8px 16px;
+		margin-top: 20px;
+	}
+
+	.label-row .label {
+		margin-top: 0;
+	}
+
+	.ref-link {
+		font: 700 13px/1 var(--body);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		text-decoration-color: var(--pop);
+	}
+
+	.pillars {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 12px;
+		margin-top: 10px;
+	}
+
+	.pillar {
+		padding: 12px 14px;
+		background: var(--ground);
+		border: 2px solid var(--ink);
+		box-shadow: 4px 4px 0 var(--ink);
+	}
+
+	.pillar strong {
+		display: block;
+		font: 400 17px/1.1 var(--display);
+		margin-bottom: 4px;
+	}
+
+	.pillar p {
+		font-size: 14px;
+		line-height: 1.45;
+	}
+
+	.case-notes {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 14px;
+		margin-top: 10px;
+	}
+
+	.case-note {
+		padding: 14px 16px;
+		background: var(--paper);
+		border: 2px solid var(--ink);
+		border-left: 5px solid var(--pop);
+	}
+
+	.case-note strong {
+		display: block;
+		margin: 4px 0 6px;
+		font: 400 18px/1.15 var(--display);
+	}
+
+	.case-note p {
+		font-size: 15px;
+		line-height: 1.5;
+	}
+
 	.also {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
@@ -412,8 +667,15 @@
 			width: 100%;
 		}
 
-		.areas {
+		.areas,
+		.pillars,
+		.case-notes {
 			grid-template-columns: 1fr;
+		}
+
+		.caveat {
+			flex-direction: column;
+			gap: 4px;
 		}
 	}
 </style>

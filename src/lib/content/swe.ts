@@ -119,7 +119,7 @@ export const projects: SystemProject[] = [
 		],
 		siteUrl: 'https://trymyelin.app/',
 		contributions: [
-			'Built the infinite canvas editor: pressure-sensitive ink with palm rejection, shape snapping, a ruler, lasso selection, a tool wheel with pen presets, flags, and per-canvas styles.',
+			'Built the infinite canvas editor, including pressure-sensitive ink with palm rejection, shape snapping, a ruler, lasso selection, a tool wheel with pen presets, flags, and per-canvas styles.',
 			'Built PDF annotation with page navigation, in-PDF search, quoting from PDFs into notes, ink anchored to the page, and annotated PDF export.',
 			'Built rich-text page frames with Markdown shortcuts, a slash menu, tables, callouts, LaTeX, mermaid diagrams, embed cards, and runnable code blocks.',
 			'Implemented live peer-to-peer collaboration over encrypted QUIC with iroh and Yjs, with no server holding notes, plus repository sync through GitHub.',

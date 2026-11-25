@@ -1,4 +1,4 @@
-import type { GameProject, PageMeta, ShippedEntry } from './types';
+import type { GameDesignProject, GameProject, PageMeta, ShippedEntry } from './types';
 
 export const page: PageMeta = {
 	id: 'game-dev',
@@ -351,5 +351,77 @@ export const alsoShipped: ShippedEntry[] = [
 		blurb: 'A sci-fi dungeon crawler set inside a simulation that insists none of it is real.',
 		url: 'https://wintersteve25.itch.io/biometrics',
 		context: 'Brackeys Game Jam 2022.1'
+	}
+];
+
+export const designProjects: GameDesignProject[] = [
+	{
+		slug: 'tactical-grid-deckbuilder',
+		stamp: 'Rising Tide',
+		title: 'Untitled Grid-Tactics Concept',
+		tagline: 'Turn-based grid tactics with a deck you pack like Tetris',
+		year: '2025',
+		role: 'Game & Systems Design',
+		teamSize: '2',
+		inspirations: ['Chess', 'Into the Breach', 'Slay the Spire'],
+		pitch:
+			'A turn-based strategy game with chess-like combat. You predict enemy moves and position units that take up several cells. Boards come in different shapes and have terrain you can use. Each fight is part of a deckbuilding roguelike run.',
+		audience:
+			'Players who enjoy slow, deliberate decisions (Magic: The Gathering, D&D, chess) more than fast action or cozy games.',
+		videoEmbedUrl: 'https://www.youtube.com/embed/-iWP90uEuJ0',
+		videoUrl: 'https://www.youtube.com/watch?v=-iWP90uEuJ0',
+		videoCaveat: {
+			label: 'About the trailer',
+			text: 'Made on a tight deadline for the first Blue Ocean Games Rising Tide competition. It shows an early slice of the original 1v1 version, not the full gameplay or art direction I designed.'
+		},
+		pillarsUrl: 'https://www.gamedeveloper.com/design/fourteen-forms-of-fun',
+		pillars: [
+			{
+				name: 'Problem Solving',
+				detail: 'Positioning on the grid, reading enemy moves, fitting units into deck space, and ordering units for the best turn.'
+			},
+			{
+				name: 'Power',
+				detail: 'Chaining unit combos to break through tough enemy formations.'
+			},
+			{
+				name: 'Discovery',
+				detail: 'Finding unexpected interactions between units, friendly targeting, and terrain, then building strategy around them.'
+			}
+		],
+		decisions: [
+			{
+				kind: 'Core system',
+				title: 'The deck is a 4×2 grid',
+				summary:
+					'Each unit card takes up a different footprint (1×1, 1×2, 2×2) in a fixed 4×2 deck, so drafting turns into a packing problem between fights. Summon cards put units on the board and one-time cards power them up. Units that survive a fight go back into the deck. Units that die are gone.'
+			},
+			{
+				kind: 'Emergent mechanic',
+				title: 'Friendly targeting',
+				summary:
+					'I let units target their own allies on purpose. Pair a unit that pushes (a hit plus collision damage) with one that explodes on death, and you can launch your own bombs into enemy formations.'
+			},
+			{
+				kind: 'Whiteboard playtest',
+				title: 'Big Slime rework',
+				summary:
+					"In whiteboard playtests with friends, the Big Slime was close to useless, even though it already split into 4 small slimes when it died. I tried buffing it first, but ended up dropping its cost to 1 energy instead. It already eats a big chunk of the 4×2 deck, so it didn't also need to be expensive to play. Now one cheap card puts four units on the board."
+			},
+			{
+				kind: 'Scope',
+				title: 'From 1v1 to roguelike',
+				summary:
+					"The original mode was a best-of-3 1v1. Each player built a board with a terrain budget, and the maps rotated whose board was used and who moved first. After the competition we put the project on hold, since online multiplayer was more than two people could realistically build. I rewrote the design doc as a single-player roguelike that keeps the combat and deck systems. I'd still like to add 1v1 back later."
+			}
+		],
+		collaborators: [
+			{
+				who: 'TGEDev',
+				url: 'https://tgedev.itch.io',
+				what: 'Art for the competition trailer. I designed the game mode, units, systems, and prototype logic.'
+			}
+		],
+		tags: ['tactics', 'deckbuilder', 'roguelike']
 	}
 ];

@@ -105,3 +105,38 @@ export interface ShippedEntry {
 	url: string;
 	context?: string;
 }
+
+export interface DesignPillar {
+	name: string;
+	detail: string;
+}
+
+export interface DesignDecision {
+	title: string;
+	kind: string;
+	summary: string;
+}
+
+export interface GameDesignProject {
+	slug: string;
+	stamp?: string;
+	title: string;
+	tagline: string;
+	year: string;
+	role: string;
+	teamSize?: string;
+	pitch: string;
+	audience: string;
+	inspirations: string[];
+	videoEmbedUrl?: string;
+	videoUrl?: string;
+	videoCaveat?: {
+		label: string;
+		text: string;
+	};
+	pillarsUrl?: string;
+	pillars: DesignPillar[];
+	decisions: DesignDecision[];
+	collaborators?: Collaborator[];
+	tags: string[];
+}
